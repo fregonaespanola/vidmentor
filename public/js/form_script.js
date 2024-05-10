@@ -39,3 +39,52 @@ $(document).ready(function() {
         textarea.html(textarea.text());
     });
 });
+
+$(document).ready(function() {
+    var searchQuery = 'minecraft'; // Búsqueda por defecto
+
+    $.get(
+        'https://www.googleapis.com/youtube/v3/search', {
+            part: 'snippet',
+            q: searchQuery,
+            key: 'AIzaSyD8bPxnG_Rr0v5bIok4iu8xAnjtOGR_ZOM',
+            maxResults: 3, // Obtener solo 3 resultados
+            type: 'video', // Solo obtener videos
+            videoDuration: 'long', // Solo videos largos
+            regionCode: 'US', // Limitar a videos en inglés (código de región de Estados Unidos)
+            relevanceLanguage: 'en' // Configurar idioma de relevancia en inglés
+        },
+        function(data) {
+            showResults(data.items);
+        }
+    );
+
+    function showResults(items) {
+        var thumbnailsDiv = $('#thumbnails');
+        thumbnailsDiv.empty();
+
+        items.forEach(function(item) {
+            if (item.id.kind === 'youtube#video') {
+                var videoId = item.id.videoId;
+                var title = item.snippet.title;
+                var thumbnailUrl = item.snippet.thumbnails.default.url;
+
+                var thumbnailContainer = $('<div>').addClass('thumbnail-container');
+                var thumbnailImage = $('<img>').attr('src', thumbnailUrl).addClass('thumbnail-image');
+                var radioButton = $('<input>').attr({
+                    type: 'radio',
+                    name: 'video',
+                    value: videoId
+                }).addClass('radio-button');
+
+                // Agregar evento clic a la imagen para seleccionar el radio button
+                thumbnailImage.click(function() {
+                    radioButton.prop('checked', true);
+                });
+
+                thumbnailContainer.append(thumbnailImage, radioButton);
+                thumbnailsDiv.append(thumbnailContainer);
+            }
+        });
+    }
+});

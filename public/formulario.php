@@ -21,13 +21,8 @@
         <textarea class="form-control" id="descripcion" rows="3"></textarea>
       </div>
       <div class="form-group">
-        <label for="miniatura">Miniatura</label>
-        <select class="form-control" id="miniatura">
-          <!-- Aquí puedes agregar las opciones de miniatura -->
-          <option>Miniatura 1</option>
-          <option>Miniatura 2</option>
-          <option>Miniatura 3</option>
-        </select>
+          <label for="miniatura">Miniatura</label>
+          <div id="thumbnails"></div>
       </div>
       <hr>
       <div class="form-group">

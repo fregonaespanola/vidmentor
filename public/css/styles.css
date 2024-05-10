@@ -147,13 +147,13 @@ body {
   color: white;
 }
 
-.formulario-video{
+.formulario-video, .formulario-tareas{
   border-radius: 10px;
   padding: 25px;
   background-color: #181818;
 }
 
-.formulario-video label{
+.formulario-video label, .formulario-tareas label{
   color: white;
 }
 
@@ -191,4 +191,33 @@ body {
 
 .formulario-video input::placeholder, .formulario-video textarea::placeholder {
   color: #999; /* Color del texto del placeholder */
+}
+
+#thumbnails {
+  display: flex;
+  justify-content: space-evenly; /* Separación uniforme */
+  flex-wrap: wrap;
+  gap: 10px; /* Espacio entre las miniaturas */
+}
+/* Estilo para los contenedores de miniaturas */
+.thumbnail-container {
+  flex: 1; /* Los contenedores ocupan el mismo ancho */
+  max-width: 200px; /* Ancho máximo de cada miniatura */
+  text-align: center; /* Centra el contenido */
+}
+/* Estilo para los radio buttons */
+.radio-button {
+  display: block; /* Colocar los radio buttons en una línea */
+}
+
+.titulo-formulario-tareas{
+  color: #fff;
+}
+
+.formulario-tareas label{
+  margin-bottom: 5px;
+}
+
+.form-check-input:checked {
+  background-color: #F24B4B;
 }
