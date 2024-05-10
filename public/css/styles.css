@@ -134,3 +134,61 @@ body {
   left: 53.6%;
   top:67.3%;
 }
+
+#results{
+  color: white;
+}
+
+.add-button {
+  display: inline-block;
+}
+
+.titulo-formulario-video{
+  color: white;
+}
+
+.formulario-video{
+  border-radius: 10px;
+  padding: 25px;
+  background-color: #181818;
+}
+
+.formulario-video label{
+  color: white;
+}
+
+.formulario-video hr{
+  color: white;
+}
+.formulario-video input,
+.formulario-video textarea {
+	display: block;
+	width: 100%;
+	border: 0;
+	padding: 10px 5px;
+	background: #181818 no-repeat;
+	color: #fff; /* Añade color de texto */
+
+	/* 2 imgs : 1px gray line (normal state) AND 2px green line (focus state) */
+	background-image: linear-gradient(to bottom, #FF2525, #FF5858), linear-gradient(to bottom, silver, silver);
+	/* sizes for the 2 images (default state) */
+	background-size: 0 2px, 100% 1px;
+	/* positions for the 2 images. Change both "50%" to "0%" or "100%" and tri again */
+	background-position: 50% 100%, 50% 100%;
+
+	/* animation solely on background-size */
+	transition: background-size 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+	outline: none; /* Eliminar contorno azul */
+}
+
+.formulario-video input:focus,
+.formulario-video textarea:focus {
+	background: #181818 no-repeat;
+	/* sizes for the 2 images (focus state) */
+	background-size: 100% 2px, 100% 1px;
+	outline: none !important; /* Eliminar contorno azul de manera explícita */
+}
+
+.formulario-video input::placeholder, .formulario-video textarea::placeholder {
+  color: #999; /* Color del texto del placeholder */
+}
