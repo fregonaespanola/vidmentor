@@ -225,3 +225,17 @@ body {
 .color-white{
   color: #fff;
 }
+
+.menu-horizontal-forms {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+}
+.menu-horizontal-forms li {
+  margin-right: 20px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+.menu-horizontal-forms li.active {
+  border-bottom: 2px solid red;
+}
