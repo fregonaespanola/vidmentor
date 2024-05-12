@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+$_SESSION['usuario_id'] = 2;
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

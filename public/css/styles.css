@@ -221,3 +221,7 @@ body {
 .form-check-input:checked {
   background-color: #F24B4B;
 }
+
+.color-white{
+  color: #fff;
+}
