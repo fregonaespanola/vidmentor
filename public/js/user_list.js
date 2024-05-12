@@ -4,6 +4,7 @@ $(document).ready(function() {
         var id = $(this).data('id');
         var btnDelete = $(this);
         $.post('delete_title.php', { id: id }, function(data) {
+                
                 btnDelete.closest('li').remove();
         });
     });

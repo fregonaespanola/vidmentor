@@ -19,7 +19,6 @@ $(document).ready(function() {
         CKEDITOR.replace(activeEditor, {
             toolbar: 'Basic',
             height: 150,
-            skin: 'moono-dark' // Configuración para el modo oscuro
         });
     });
 
@@ -41,7 +40,8 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    var searchQuery = 'minecraft'; // Búsqueda por defecto
+    var searchQuery = $('script[src$="form_script.js"]').attr('data-title');
+    console.log(searchQuery);
 
     $.get(
         'https://www.googleapis.com/youtube/v3/search', {
