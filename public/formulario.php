@@ -51,16 +51,17 @@ if(isset($_GET['id'])) {
     <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 </head>
 <body>
+
   <div class="container mt-5">
     <h2 class="titulo-formulario-video">Formulario</h2>
-    <form class="formulario-video">
+    <form class="formulario-video" action="guardar_formulario_script.php?id=<?php echo $id; ?>" method="POST">
       <div class="form-group">
         <label for="titulo">Título</label>
         <input type="text" class="form-control title-form-inner" id="titulo" placeholder="Ingrese el título" value="<?php echo isset($titulo) ? $titulo : ''; ?>" disabled>
       </div>
       <div class="form-group">
         <label for="descripcion">Descripción</label>
-        <textarea class="form-control" id="descripcion" rows="3"><?php echo isset($descripcion) ? $descripcion : ''; ?></textarea>
+        <textarea name="descripcion" class="form-control" id="descripcion" rows="3"><?php echo isset($descripcion) ? $descripcion : ''; ?></textarea>
       </div>
       <div class="form-group">
           <label for="miniatura">Miniatura</label>
@@ -70,39 +71,39 @@ if(isset($_GET['id'])) {
       <div class="form-group">
         <label for="acto1">Acto 1</label>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="gancho" placeholder="Gancho"><?php echo isset($gancho) ? $gancho : ''; ?></textarea><br>
+          <textarea class="form-control ckeditor" name="gancho" id="gancho" placeholder="Gancho"><?php echo isset($gancho) ? $gancho : ''; ?></textarea><br>
         </div>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="intro" placeholder="Intro"><?php echo isset($intro) ? $intro : ''; ?></textarea><br>
+          <textarea class="form-control ckeditor" name="intro" id="intro" placeholder="Intro"><?php echo isset($intro) ? $intro : ''; ?></textarea><br>
         </div>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="engage1" placeholder="Engage 1"><?php echo isset($engage1) ? $engage1 : ''; ?></textarea>
+          <textarea class="form-control ckeditor" name="engage1" id="engage1" placeholder="Engage 1"><?php echo isset($engage1) ? $engage1 : ''; ?></textarea>
         </div>
       </div>
       <hr>
       <div class="form-group">
         <label for="acto2">Acto 2</label>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="setup" placeholder="Set-up"><?php echo isset($setup) ? $setup : ''; ?></textarea><br>
+          <textarea class="form-control ckeditor" name="setup" id="setup" placeholder="Set-up"><?php echo isset($setup) ? $setup : ''; ?></textarea><br>
         </div>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="engage2" placeholder="Engage 2"><?php echo isset($engage2) ? $engage2 : ''; ?></textarea><br>
+          <textarea class="form-control ckeditor" name="engage2" id="engage2" placeholder="Engage 2"><?php echo isset($engage2) ? $engage2 : ''; ?></textarea><br>
         </div>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="engage3" placeholder="Engage 3"><?php echo isset($engage3) ? $engage3 : ''; ?></textarea>
+          <textarea class="form-control ckeditor" name="engage3" id="engage3" placeholder="Engage 3"><?php echo isset($engage3) ? $engage3 : ''; ?></textarea>
         </div>
       </div>
       <hr>
       <div class="form-group">
         <label for="acto3">Acto 3</label>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="climax" placeholder="Climax"><?php echo isset($climax) ? $climax : ''; ?></textarea><br>
+          <textarea class="form-control ckeditor" name="climax" id="climax" placeholder="Climax"><?php echo isset($climax) ? $climax : ''; ?></textarea><br>
         </div>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="bajada" placeholder="Bajada"><?php echo isset($bajada) ? $bajada : ''; ?></textarea><br>
+          <textarea class="form-control ckeditor" name="bajada" id="bajada" placeholder="Bajada"><?php echo isset($bajada) ? $bajada : ''; ?></textarea><br>
         </div>
         <div class="ckeditor-container">
-          <textarea class="form-control ckeditor" id="desenlace" placeholder="Desenlace"><?php echo isset($desenlace) ? $desenlace : ''; ?></textarea>
+          <textarea class="form-control ckeditor" name="desenlace" id="desenlace" placeholder="Desenlace"><?php echo isset($desenlace) ? $desenlace : ''; ?></textarea>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Enviar</button>
