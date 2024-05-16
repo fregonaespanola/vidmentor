@@ -10,7 +10,7 @@ if (isset($_POST['title'])) {
         $usuario_id = $_SESSION['usuario_id'];
 
         // Configura los detalles de la conexión a la base de datos
-        $dsn = "mysql:host=localhost;dbname=PROYECTO;charset=utf8mb4";
+        $dsn = "mysql:host=localhost;dbname=VIDMENTOR;charset=utf8mb4";
         $username = "PROYECTO";
         $password = "11223344";
 

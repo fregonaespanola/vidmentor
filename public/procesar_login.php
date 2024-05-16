@@ -3,7 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-
 require_once('common_functions.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['formType'] === 'login') {
@@ -16,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['formType'] === 'login') {
     ]);
 
     if (empty($errors)) {
-        $query = "SELECT * FROM Users WHERE username = :username AND (oauth_provider IS NULL)";
+        $query = "SELECT * FROM USUARIO WHERE NICK = :username AND (OAUTH IS NULL)";
         $params = [':username' => $username];
         $stmt = executeQuery($query, $params);
 
@@ -34,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['formType'] === 'login') {
                 $tokenType = 'remember'; // Tipo de token
 
                 // Insertar el token en la tabla 'Token'
-                $queryToken = "INSERT INTO Token (user_id, token_value, expiration_date, token_type) VALUES (:user_id, :token_value, :expiration_date, :token_type)";
+                $queryToken = "INSERT INTO TOKEN (ID_USUARIO, token_value, expiration_date, token_type) VALUES (:user_id, :token_value, :expiration_date, :token_type)";
                 $paramsToken = [
                     ':user_id' => $user['id'],
                     ':token_value' => $generatedToken,
