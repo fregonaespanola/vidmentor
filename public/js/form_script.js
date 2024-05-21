@@ -81,10 +81,15 @@ $(document).ready(function() {
                 thumbnailImage.click(function() {
                     radioButton.prop('checked', true);
                 });
-
+                console.log(thumbnailUrl);
+                thumbnailImage.click(function() {
+                    radioButton.prop('checked', true);
+                    $('#thumbnail_url').val(thumbnailUrl);
+                });
                 thumbnailContainer.append(thumbnailImage, radioButton);
                 thumbnailsDiv.append(thumbnailContainer);
             }
         });
     }
 });
+

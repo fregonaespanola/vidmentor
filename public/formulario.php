@@ -38,6 +38,7 @@ if(isset($_GET['id'])) {
     } catch (PDOException $e) {
         echo "Error al obtener los detalles del formulario: " . $e->getMessage();
     }
+
 }
 ?>
 <!DOCTYPE html>
@@ -65,6 +66,7 @@ if(isset($_GET['id'])) {
       </div>
       <div class="form-group">
           <label for="miniatura">Miniatura</label>
+          <input type="hidden" name="miniatura" id="thumbnail_url" value="">
           <div id="thumbnails"></div>
       </div>
       <hr>
