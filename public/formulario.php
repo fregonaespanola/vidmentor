@@ -34,6 +34,13 @@ if(isset($_GET['id'])) {
           $climax = $row['CLIMAX'];
           $bajada = $row['BAJADA'];
           $desenlace = $row['DESENLACE'];
+
+          $thumbnail_path = $row['MINIATURA'];
+          if ($thumbnail_path !== 'default.jpg' && file_exists($thumbnail_path)) {
+              $_SESSION['default_thumbnail'] = $thumbnail_path;
+          } else {
+              $_SESSION['default_thumbnail'] = null;
+          }
       }
     } catch (PDOException $e) {
         echo "Error al obtener los detalles del formulario: " . $e->getMessage();
@@ -68,6 +75,9 @@ if(isset($_GET['id'])) {
           <label for="miniatura">Miniatura</label>
           <input type="hidden" name="miniatura" id="thumbnail_url" value="">
           <div id="thumbnails"></div>
+          <!-- Agrega esto en tu HTML donde sea conveniente -->
+          <div id="defaultThumbnail" data-url="<?php echo isset($_SESSION["default_thumbnail"]) ? $_SESSION["default_thumbnail"] : ""; ?>"></div>
+
       </div>
       <hr>
       <div class="form-group">
@@ -112,6 +122,9 @@ if(isset($_GET['id'])) {
     </form>
   </div>
 
+  <script>
+        var defaultThumbnailUrl = '<?php echo isset($default_thumbnail) ? $default_thumbnail : ''; ?>';
+  </script>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

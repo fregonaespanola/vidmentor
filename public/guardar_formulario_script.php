@@ -90,12 +90,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Ejecuta la consulta
                 $stmt->execute();
 
-                echo "Los datos se han actualizado correctamente.";
+                header("Location: ideas_user.php");
+                exit();
             } else {
-                echo "Error al guardar la miniatura.";
             }
         } catch (PDOException $e) {
-            // Manejo de errores
             echo "Error al actualizar los datos en la base de datos: " . $e->getMessage();
         }
     } else {
