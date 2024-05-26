@@ -87,6 +87,8 @@ if(isset($_SESSION['usuario_id'])) {
             <div class="calendar-day">Sáb</div>
             <div class="calendar-day">Dom</div>
         </div>
+        <div class="tooltip-container"></div>
+
         <!-- Aquí se generarán dinámicamente los días del mes -->
     </div>
 </div>

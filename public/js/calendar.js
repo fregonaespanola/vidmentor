@@ -31,7 +31,6 @@ $(document).ready(function() {
         renderCalendar(currentMonth, currentYear);
     });
 });
-// JavaScript
 function renderCalendar(month, year) {
     var daysInMonth = new Date(year, month + 1, 0).getDate();
     var firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -59,7 +58,14 @@ function renderCalendar(month, year) {
 
     // Añadir los días del mes
     for (var day = 1; day <= daysInMonth; day++) {
-        var $day = $('<div class="calendar-day" data-date="' + year + '-' + (month + 1) + '-' + day + '">' + day + '</div>');
+        var dateStr = year + '-' + (month + 1) + '-' + day;
+        var $day = $('<div class="calendar-day" data-date="' + dateStr + '">' + day + '</div>');
+
+        // Verificar si existe un registro en la base de datos para este día
+        if (checkDatabaseForDate(dateStr)) {
+            $day.addClass('highlighted'); // Aplicar clase CSS para resaltar el día
+        }
+
         $row.append($day);
 
         if ($row.children('.calendar-day').length === 7) {
@@ -74,4 +80,25 @@ function renderCalendar(month, year) {
     }
 
     $calendarBody.append($row);
+}
+
+
+function checkDatabaseForDate(dateStr) {
+    var exists = false;
+
+    // Realizar una solicitud AJAX para verificar si hay un registro en la base de datos para la fecha especificada
+    $.ajax({
+        type: 'POST',
+        url: 'check_date.php', // Ruta al script PHP que maneja la verificación en la base de datos
+        data: { date: dateStr },
+        async: false, // Hacer la solicitud sincrónica para esperar la respuesta antes de continuar
+        success: function(response) {
+            exists = response === 'true'; // La respuesta debe ser 'true' o 'false'
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al verificar la fecha en la base de datos:', error);
+        }
+    });
+
+    return exists;
 }
