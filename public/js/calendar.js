@@ -5,11 +5,18 @@ var monthNames = [
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
 ];
-
 $(document).ready(function() {
     var currentDate = new Date();
     var currentMonth = currentDate.getMonth();
     var currentYear = currentDate.getFullYear();
+
+    // Comprobar si hay una cookie guardada para la fecha del calendario
+    var savedDate = getCookie("savedDate");
+    if (savedDate) {
+        var parts = savedDate.split("-");
+        currentYear = parseInt(parts[0]);
+        currentMonth = parseInt(parts[1]) - 1; // Meses en JavaScript son de 0 a 11
+    }
 
     renderCalendar(currentMonth, currentYear);
 
@@ -20,6 +27,7 @@ $(document).ready(function() {
             currentYear--;
         }
         renderCalendar(currentMonth, currentYear);
+        saveDate(currentYear, currentMonth + 1);
     });
 
     $('.next-month').on('click', function() {
@@ -29,8 +37,26 @@ $(document).ready(function() {
             currentYear++;
         }
         renderCalendar(currentMonth, currentYear);
+        saveDate(currentYear, currentMonth + 1);
     });
 });
+
+function saveDate(year, month) {
+    var dateStr = year + "-" + month;
+    document.cookie = "savedDate=" + dateStr;
+}
+
+function getCookie(name) {
+    var cookieArr = document.cookie.split(";");
+    for (var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        if (name == cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
+}
+
 function renderCalendar(month, year) {
     var daysInMonth = new Date(year, month + 1, 0).getDate();
     var firstDayOfMonth = new Date(year, month, 1).getDay();
