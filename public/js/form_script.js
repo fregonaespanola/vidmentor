@@ -41,7 +41,6 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     var searchQuery = $('script[src$="form_script.js"]').attr('data-title');
-    console.log(searchQuery);
 
     $.get(
         'https://www.googleapis.com/youtube/v3/search', {
@@ -56,6 +55,7 @@ $(document).ready(function() {
         },
         function(data) {
             showResults(data.items);
+            replaceThumbnailIfExists();
         }
     );
 
@@ -81,10 +81,28 @@ $(document).ready(function() {
                 thumbnailImage.click(function() {
                     radioButton.prop('checked', true);
                 });
-
+                thumbnailImage.click(function() {
+                    radioButton.prop('checked', true);
+                    $('#thumbnail_url').val(thumbnailUrl);
+                });
                 thumbnailContainer.append(thumbnailImage, radioButton);
                 thumbnailsDiv.append(thumbnailContainer);
             }
         });
     }
+
+    function replaceThumbnailIfExists() {
+        var firstThumbnailContainer = $('#thumbnails .thumbnail-container').first();
+        var defaultThumbnailUrl = $('#defaultThumbnail').data('url');
+        var firstRadioButton = firstThumbnailContainer.find('input[type="radio"]');
+        
+
+        if (defaultThumbnailUrl!=null && defaultThumbnailUrl!=''){
+            var firstThumbnailImage = $('.thumbnail-image').first();
+
+            firstThumbnailImage.attr('src', defaultThumbnailUrl);
+            $('#thumbnail_url').val(defaultThumbnailUrl);
+            firstRadioButton.prop('checked', true);
+        }
+    }    
 });

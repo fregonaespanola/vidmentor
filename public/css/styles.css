@@ -243,3 +243,68 @@ body {
 .title-form-inner:disabled{
   color:#303030;
 }
+.calendar {
+  color: #fff;
+  border: 1px solid #ccc;
+  width: 300px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Cambios en el CSS */
+/* CSS */
+.calendar-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.calendar-row {
+  display: flex;
+  /* Eliminar esta línea para que las filas se organicen horizontalmente */
+  /* flex-direction: column; */
+}
+
+.calendar-day {
+  width: 40px; 
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  flex: 1;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.highlighted {
+  background-color: red; /* Cambia a cualquier color que desees */
+}
+.hover_mark {
+  position: absolute;
+  z-index: 9999; /* Asegura que la tarjeta esté encima de otros elementos */
+  pointer-events: none; /* Permite que los eventos pasen a través de la tarjeta */
+  top: -70px; /* Ajusta la posición hacia arriba para que la tarjeta esté encima del día */
+  left: -80px; /* Ajusta la posición en la parte izquierda del calendario */
+  width: 200px;
+  height: auto;
+  background-color: white;
+  color: #000;
+  border: 1px solid black;
+  padding: 5px;
+}

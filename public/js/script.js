@@ -1,5 +1,8 @@
-function search() {
-    var query = document.getElementById('searchQuery').value.trim();
+document.addEventListener('DOMContentLoaded', function() {
+    search(userInterest);
+});
+
+function search(query) {
     if (query !== '') {
         $.get(
             'https://www.googleapis.com/youtube/v3/search', {
@@ -30,9 +33,12 @@ async function translateTitle(titleElement, title) {
     }
 }
 
-function showResults(items) {
+async function showResults(items) {
     var resultsDiv = document.getElementById('results');
     resultsDiv.innerHTML = '';
+
+    // Array para almacenar las promesas de traducción
+    var translationPromises = [];
 
     items.forEach(function(item) {
         if (item.id.kind === "youtube#video") {
@@ -45,7 +51,9 @@ function showResults(items) {
             titleElement.textContent = title;
             titleElement.classList.add('title'); // Add class for styling
 
-            translateTitle(titleElement, title);
+            // Traduce el título y guarda la promesa
+            var translationPromise = translateTitle(titleElement, title);
+            translationPromises.push(translationPromise);
 
             var addButton = document.createElement('button');
             addButton.textContent = 'Añadir';
@@ -62,6 +70,9 @@ function showResults(items) {
             resultsDiv.appendChild(titleWrapper);
         }
     });
+
+    await Promise.all(translationPromises);
+    filterInvalidTitles();
 }
 
 async function addTitleToDatabase(title) {
@@ -88,4 +99,18 @@ async function addTitleToDatabase(title) {
         console.error('Error al traducir el título:', error);
         return null;
     }
+}
+
+async function filterInvalidTitles() {
+    var titleElements = document.querySelectorAll('.title');
+    
+    titleElements.forEach(function(titleElement) {
+        var title = titleElement.textContent;
+        console.log(title);
+        
+        // Verifica si el título comienza con "INVALID LANGUAGE"
+        if (title.startsWith("INVALID LANGUAGE")) {
+            titleElement.parentElement.style.display = 'none'; // Oculta el contenedor del título
+        }
+    });
 }
