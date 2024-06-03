@@ -6,10 +6,11 @@ session_start();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Vidmentor</title>
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <title>Ideas Guardadas - Vidmentor</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-gray-vidmentor-primary flex flex-col min-h-screen">
     <?php require_once("header-dashboard.php"); ?>

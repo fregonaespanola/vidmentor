@@ -41,7 +41,7 @@ if (isset($_SESSION['usuario_id'])) {
             echo "<div class='bg-gray-vidmentor-secondary rounded-lg shadow-md p-4 flex flex-col justify-between h-full' draggable='true' ondragstart='drag(event)' id='" . $row['ID'] . "'>";
             echo "<h3 class='text-white font-medium mb-4 flex-grow'>" . $row['NOMBRE'] . "</h3>";
             echo "<div class='flex justify-between mt-4'>";
-            echo "<button class='bg-red-vidmentor-secondary text-white px-4 py-2 rounded-lg' data-id='" . $row['ID'] . "'>Eliminar</button>";
+            echo "<button class='btn-delete bg-red-vidmentor-secondary text-white px-4 py-2 rounded-lg' data-id='" . $row['ID'] . "'>Eliminar</button>";
             echo "<a href='forms_container.php?id=" . $row['ID'] . "' class='bg-blue-vidmentor-secondary text-white px-4 py-2 rounded-lg'>Editar</a>";
             echo "</div>";
             echo "</div>";
