@@ -1,7 +1,23 @@
 <?php
+
+function getDatabaseConnection() {
+    $dsn = "mysql:host=localhost;dbname=PROYECTO;charset=utf8mb4";
+    $username = "PROYECTO";
+    $password = "11223344";
+
+    try {
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
+    } catch (PDOException $e) {
+        echo "Error al conectarse a la base de datos: " . $e->getMessage();
+        exit();
+    }
+}
+
 function executeQuery($query, $params = []) {
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=PROYECTO', 'PROYECTO', '11223344');
+        $pdo = getDatabaseConnection();
         $stmt = $pdo->prepare($query);
         $stmt->execute($params);
         return $stmt;

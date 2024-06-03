@@ -9,6 +9,33 @@ body {
   background-color: #282828;
   font-family: 'Karla', sans-serif;
 }
+.bg-gray-vidmentor-primary{
+  background-color: #282828;
+}
+
+.bg-gray-vidmentor-secondary{
+  background-color: #353535;
+}
+
+.bg-red-vidmentor-secondary{
+  background-color: #F24B4B;
+}
+
+.bg-red-vidmentor-secondary:hover{
+  background-color: #FF2525;
+}
+
+.bg-red-vidmentor-secondary-2{
+  background-color: #FF2525;
+}
+
+.ideas-add-button{
+  text-align: center;
+  width:100%;
+  color: #fff;
+  background-color:#F24B4B;
+  border-radius: 0;
+}
 
 .logo-min {
   max-width: 50px;
@@ -396,7 +423,6 @@ body {
 .main-content img {
   position: absolute;
   bottom: -10px;
-  /* Ajusta esta distancia según sea necesario */
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
