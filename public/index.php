@@ -7,10 +7,17 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
         .custom-overlay {
-            background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+            background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
+        }
+
+        section#contact {
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
         }
 
         @keyframes gradientBG {
@@ -27,11 +34,6 @@
             }
         }
 
-        section#contact {
-            background-size: 200% 200%;
-            animation: gradientBG 10s ease infinite;
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -42,40 +44,8 @@
             }
         }
 
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-50%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(50%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
         .animate-fadeIn {
             animation: fadeIn 1s ease-in-out forwards;
-        }
-
-        .animate-slideInLeft {
-            animation: slideInLeft 1s ease-in-out forwards;
-        }
-
-        .animate-slideInRight {
-            animation: slideInRight 1s ease-in-out forwards;
         }
 
         .delay-1s {
@@ -94,80 +64,18 @@
             animation-delay: 4s;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        .slick-slide {
+            transition: transform 0.5s ease;
         }
 
-        @keyframes slide {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-100%);
-            }
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 1s ease-in-out forwards;
-        }
-
-        .animate-slide {
-            animation: slide 30s linear infinite;
-        }
-
-        .logos {
-            overflow: hidden;
-            position: relative;
-            white-space: nowrap;
-        }
-
-        .logos:before,
-        .logos:after {
-            position: absolute;
-            top: 0;
-            width: 50px;
-            height: 100%;
-            content: "";
-            z-index: 2;
-        }
-
-        .logos:before {
-            left: 0;
-            background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
-        }
-
-        .logos:after {
-            right: 0;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
-        }
-
-        .logos-slide {
-            display: flex;
-            align-items: center;
-        }
-
-        .logos-slide img {
-            height: 50px;
-            margin: 0 20px;
-        }
-
-        .logos:hover .logos-slide {
-            animation-play-state: paused;
+        .slick-slide:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 
 <body class="bg-gray-100 flex flex-col min-h-screen">
     <?php require_once("header.php"); ?>
-
-    <!-- Main content section -->
 
     <!-- Main content section -->
     <main class="flex-grow">
@@ -188,53 +96,35 @@
                 </div>
             </div>
         </div>
+
+        <!-- Improved Brands section -->
         <section id="brands" class="py-20 bg-gradient-to-r from-gray-100 via-white to-gray-100 text-gray-800">
             <div class="container mx-auto text-center">
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 text-blue-600 animate-fadeIn">Marcas</h2>
                 <p class="text-lg leading-relaxed mb-12 max-w-2xl mx-auto animate-fadeIn delay-1s">
                     Descubre cómo VidMentor puede ayudar a tu marca a conectar con los creadores de contenido y a mejorar tu presencia en las redes sociales.
                 </p>
-                <div class="logos overflow-hidden py-6 bg-white relative">
-                    <div class="logos-slide flex space-x-12 animate-slide">
-                        <img src="assets/brand1.png" alt="Brand 1" class="h-16">
-                        <img src="assets/brand2.png" alt="Brand 2" class="h-16">
-                        <img src="assets/brand3.png" alt="Brand 3" class="h-16">
-                        <img src="assets/brand4.png" alt="Brand 4" class="h-16">
-                        <img src="assets/brand5.png" alt="Brand 5" class="h-16">
-                        <img src="assets/brand6.png" alt="Brand 6" class="h-16">
-                        <img src="assets/brand7.png" alt="Brand 7" class="h-16">
-                        <img src="assets/brand8.png" alt="Brand 8" class="h-16">
+                <div class="slider">
+                    <div class="p-4 bg-white rounded-lg shadow-lg">
+                        <img src="assets/logos/opera.png" alt="Brand 1" class="mx-auto h-64">
+                        <h3 class="mt-4 text-xl font-bold text-blue-600">Opera</h3>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-lg">
+                        <img src="assets/logos/Filmora.jpg" alt="Brand 2" class="mx-auto h-64">
+                        <h3 class="mt-4 text-xl font-bold text-red-600">Filmora</h3>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-lg">
+                        <img src="assets/logos/Project.jpeg" alt="Brand 3" class="mx-auto h-64">
+                        <h3 class="mt-4 text-xl font-bold text-green-600">Project</h3>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-lg">
+                        <img src="assets/logos/meet.jpeg" alt="Brand 4" class="mx-auto h-64">
+                        <h3 class="mt-4 text-xl font-bold text-purple-600">Meet</h3>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Brands section -->
-        <section id="brands" class="py-20 bg-gradient-to-r from-gray-100 via-white to-gray-100 text-gray-800">
-            <div class="container mx-auto text-center">
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 text-blue-600 animate-fadeIn">Marcas</h2>
-                <p class="text-lg leading-relaxed mb-12 max-w-2xl mx-auto animate-fadeIn delay-1s">
-                    Descubre cómo VidMentor puede ayudar a tu marca a conectar con los creadores de contenido y a mejorar tu presencia en las redes sociales.
-                </p>
-                <div class="flex flex-wrap justify-center">
-                    <div class="m-4 p-6 max-w-xs transform transition-transform duration-500 hover:scale-110 animate-slideInLeft delay-2s">
-                        <img src="assets/brand1.png" alt="Brand 1" class="w-24 h-24 mx-auto mb-4">
-                        <h3 class="text-xl font-bold mb-2">Estrategias de Marketing</h3>
-                        <p>Desarrolla campañas efectivas y alcanza una audiencia más amplia.</p>
-                    </div>
-                    <div class="m-4 p-6 max-w-xs transform transition-transform duration-500 hover:scale-110 animate-fadeIn delay-3s">
-                        <img src="assets/brand2.png" alt="Brand 2" class="w-24 h-24 mx-auto mb-4">
-                        <h3 class="text-xl font-bold mb-2">Análisis de Datos</h3>
-                        <p>Utiliza nuestros análisis para medir el impacto y optimizar tu estrategia.</p>
-                    </div>
-                    <div class="m-4 p-6 max-w-xs transform transition-transform duration-500 hover:scale-110 animate-slideInRight delay-4s">
-                        <img src="assets/brand3.png" alt="Brand 3" class="w-24 h-24 mx-auto mb-4">
-                        <h3 class="text-xl font-bold mb-2">Conexión con Influencers</h3>
-                        <p>Encuentra y colabora con los influencers más relevantes para tu marca.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Influencers section -->
+
         <!-- Influencers section -->
         <section id="influencers" class="py-20 bg-gradient-to-r from-gray-100 via-white to-gray-100 text-gray-800">
             <div class="container mx-auto text-center">
@@ -264,7 +154,7 @@
                     <div class="flex flex-wrap justify-center">
                         <div class="max-w-sm m-4 p-6 bg-white rounded-lg shadow-xl transform transition-transform duration-500 hover:scale-105">
                             <div class="flex items-center mb-4">
-                                <img src="assets/influencer1.jpg" alt="Influencer 1" class="w-16 h-16 rounded-full mr-4">
+                                <img src="assets/influencer/kikos.jpeg" alt="Influencer 1" class="w-16 h-16 rounded-full mr-4">
                                 <div class="text-left">
                                     <h4 class="text-xl font-bold">Juan Pérez</h4>
                                     <p class="text-sm text-gray-600">@juanperez</p>
@@ -274,7 +164,7 @@
                         </div>
                         <div class="max-w-sm m-4 p-6 bg-white rounded-lg shadow-xl transform transition-transform duration-500 hover:scale-105">
                             <div class="flex items-center mb-4">
-                                <img src="assets/influencer2.jpg" alt="Influencer 2" class="w-16 h-16 rounded-full mr-4">
+                                <img src="assets/influencer/kikos.jpeg" alt="Influencer 2" class="w-16 h-16 rounded-full mr-4">
                                 <div class="text-left">
                                     <h4 class="text-xl font-bold">Ana Gómez</h4>
                                     <p class="text-sm text-gray-600">@anagomez</p>
@@ -284,7 +174,7 @@
                         </div>
                         <div class="max-w-sm m-4 p-6 bg-white rounded-lg shadow-xl transform transition-transform duration-500 hover:scale-105">
                             <div class="flex items-center mb-4">
-                                <img src="assets/influencer3.jpg" alt="Influencer 3" class="w-16 h-16 rounded-full mr-4">
+                                <img src="assets/influencer/kikos.jpeg" alt="Influencer 3" class="w-16 h-16 rounded-full mr-4">
                                 <div class="text-left">
                                     <h4 class="text-xl font-bold">Carlos Ruiz</h4>
                                     <p class="text-sm text-gray-600">@carlosruiz</p>
@@ -358,15 +248,42 @@
                 </div>
             </div>
         </section>
-
     </main>
-
 
     <?php require_once("footer.php"); ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
 </body>
 
 </html>
