@@ -7,19 +7,23 @@ function nextQuestion(choice) {
     if (choice === 'Vlogs') {
         selectedInterest = 'Vlogs';
         questionsDiv.innerHTML = `
-            <div id="question2">
-                <h2>¿Serán diarios o informativos?</h2>
-                <button class="btn btn-primary" onclick="finalQuestion('daily vlog')">Diarios</button>
-                <button class="btn btn-primary" onclick="showInformativeInput()">Informativos</button>
+            <div id="question2" class="text-center">
+                <h2 class="text-xl mb-4">¿Serán diarios o informativos?</h2>
+                <div class="flex justify-center space-x-4">
+                    <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="finalQuestion('daily vlog')">Diarios</button>
+                    <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="showInformativeInput()">Informativos</button>
+                </div>
             </div>
         `;
     } else if (choice === 'Videojuegos') {
         selectedInterest = 'Videojuegos';
         questionsDiv.innerHTML = `
-            <div id="question2">
-                <h2>¿Qué estilo?</h2>
-                <button class="btn btn-primary" onclick="finalQuestion('videogames')">Genéricos</button>
-                <button class="btn btn-primary" onclick="showGameInput()">Específico</button>
+            <div id="question2" class="text-center">
+                <h2 class="text-xl mb-4">¿Qué estilo?</h2>
+                <div class="flex justify-center space-x-4">
+                    <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="finalQuestion('videogames')">Genéricos</button>
+                    <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="showGameInput()">Específico</button>
+                </div>
             </div>
         `;
     }
@@ -28,11 +32,11 @@ function nextQuestion(choice) {
 function showInformativeInput() {
     var questionsDiv = document.getElementById('questions');
     questionsDiv.innerHTML = `
-        <div id="question3">
-            <h2>¿Acerca de qué?</h2>
+        <div id="question3" class="text-center">
+            <h2 class="text-xl mb-4">¿Acerca de qué?</h2>
             <p>Ejemplos: documentales, desarrollo personal, etc.</p>
-            <input type="text" id="informativeInput" class="form-control" placeholder="Especifique el tipo">
-            <button class="btn btn-primary mt-2" onclick="finalQuestion()">Guardar</button>
+            <input type="text" id="informativeInput" class="form-control border rounded p-2 w-full mb-4" placeholder="Especifique el tipo">
+            <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="finalQuestion()">Guardar</button>
         </div>
     `;
 }
@@ -40,10 +44,10 @@ function showInformativeInput() {
 function showGameInput() {
     var questionsDiv = document.getElementById('questions');
     questionsDiv.innerHTML = `
-        <div id="question3">
-            <h2>Nombre del juego</h2>
-            <input type="text" id="gameInput" class="form-control" placeholder="Escriba el nombre del juego">
-            <button class="btn btn-primary mt-2" onclick="finalQuestion()">Guardar</button>
+        <div id="question3" class="text-center">
+            <h2 class="text-xl mb-4">Nombre del juego</h2>
+            <input type="text" id="gameInput" class="form-control border rounded p-2 w-full mb-4" placeholder="Escriba el nombre del juego">
+            <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="finalQuestion()">Guardar</button>
         </div>
     `;
 }
