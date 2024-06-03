@@ -77,7 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = executeQuery($query, $params);
 
             if ($stmt) {
-                redirect('editProfile.php', 'msg', 'success');
+                $_SESSION['successMessage'] = "Perfil actualizado con éxito.";
+                header("Location: editProfile.php");
                 exit();
             } else {
                 $errors['errors'] = "Error actualizando perfil.";
@@ -86,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $_SESSION['errors'] = $errors;
-    redirect('editProfile.php', 'msg', 'error');
+    header("Location: editProfile.php");
     exit();
 }
 ?>

@@ -13,6 +13,7 @@ body {
   background-color: #282828;
 }
 
+
 .bg-blue-vidmentor-secondary{
   background-color: #00cfff;
 }
@@ -35,6 +36,10 @@ body {
 
 .bg-red-vidmentor-secondary-2{
   background-color: #FF2525;
+}
+
+.border-forms-vidmentor-gray-primary{
+  border: 1px solid #181818;
 }
 
 .ideas-add-button{
