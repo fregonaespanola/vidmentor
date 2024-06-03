@@ -44,7 +44,7 @@ try {
 
         <main class="flex-grow p-6">
             <div class="container mx-auto">
-                <h1 class="text-4xl font-bold text-white mb-6 text-center">Generación de ideas</h1>
+                <h1 class="text-4xl font-bold text-white mb-6 text-center mt-4">Generación de ideas</h1>
                 <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             </div>
         </main>

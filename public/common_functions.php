@@ -23,9 +23,15 @@ function executeQuery($query, $params = []) {
         return $stmt;
     } catch (PDOException $e) {
         // Manejo de errores
+        echo "Error en la consulta: " . $e->getMessage(); // Agregar mensaje de error
+        echo "<br>"; // Agregar salto de línea para una mejor legibilidad
+        echo "Query: " . $query; // Mostrar la consulta que causó el error
+        echo "<br>"; // Agregar salto de línea para una mejor legibilidad
+        echo "Params: " . print_r($params, true); // Mostrar los parámetros de la consulta
         return false;
     }
 }
+
 
 function checkExistingUserEmail($nick, $mail) {
     $query = "SELECT ID FROM USUARIO WHERE NICK = :nick OR MAIL = :mail";

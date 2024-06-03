@@ -13,6 +13,14 @@ body {
   background-color: #282828;
 }
 
+.bg-blue-vidmentor-secondary{
+  background-color: #00cfff;
+}
+
+.bg-blue-vidmentor-secondary:hover{
+  background-color: #00aeff;
+}
+
 .bg-gray-vidmentor-secondary{
   background-color: #353535;
 }
@@ -295,6 +303,7 @@ body {
   border: 1px solid #ccc;
   width: 300px;
   margin: 0 auto;
+  margin-top: 20px;
   padding: 10px;
 }
 
