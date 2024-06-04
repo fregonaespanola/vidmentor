@@ -1,31 +1,22 @@
 <?php
 session_start();
+require_once('common_functions.php');
 
 $_SESSION['usuario_id'] = 2;
 
-// Conexión a la base de datos
-$dsn = "mysql:host=localhost;dbname=PROYECTO;charset=utf8mb4";
-$username = "PROYECTO";
-$password = "11223344";
+$pdo = getDatabaseConnection();
 
 try {
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     $usuario_id = $_SESSION['usuario_id'];
-
-    // Verificar si el usuario tiene un interés guardado
-    $stmt = $pdo->prepare("SELECT INTERES FROM USUARIO WHERE ID = :id");
-    $stmt->bindParam(':id', $usuario_id);
-    $stmt->execute();
+    $query = "SELECT INTERES FROM USUARIO WHERE ID = :id";
+    $params = [':id' => $usuario_id];
+    $stmt = executeQuery($query, $params);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (empty($result['INTERES'])) {
-        // Redirigir a intereses.php si no hay interés guardado
-        //header("Location: intereses.php");
-        //exit();
+        header("Location: intereses.php");
+        exit();
     } else {
-        // Guardar el interés en una variable
         $interes = $result['INTERES'];
     }
 } catch (PDOException $e) {
@@ -39,26 +30,33 @@ try {
 
 <head>
     <meta charset="UTF-8">
-    <title>Vidmentor</title>
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Generar Ideas - Vidmentor</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
+<body class="bg-gray-vidmentor-primary flex flex-col min-h-screen">
+    <?php require_once("header-dashboard.php"); ?>
 
-    <div class="container mt-5">
-        <h1 class="color-white">Bienvenido a Vidmentor</h1>
+    <div class="flex flex-grow">
+        <?php require_once("sidebar-dashboard.php"); ?>
+
+        <main class="flex-grow p-6">
+            <div class="container mx-auto">
+                <h1 class="text-4xl font-bold text-white mb-6 text-center mt-4">Generación de ideas</h1>
+                <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </main>
     </div>
-
-    <div id="results"></div>
 
     <script>
         var userInterest = "<?php echo htmlspecialchars($interes); ?>";
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/script.js"></script>
 </body>
 
