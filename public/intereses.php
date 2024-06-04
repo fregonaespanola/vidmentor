@@ -13,24 +13,43 @@ $_SESSION['usuario_id'] = 2; // Simulación de inicio de sesión de usuario
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles_dashboard.css">
+    <style>
+        .background-image {
+            /* Cambia esto por la imagen que prefieras */
+            background-size: cover;
+            background-position: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 flex flex-col min-h-screen">
+<body class="bg-gray-900 text-white flex flex-col min-h-screen relative">
+    <div class="background-image"></div>
     <?php require_once("header-dashboard.php"); ?>
 
     <div class="flex flex-grow">
         <?php require_once("sidebar-dashboard.php"); ?>
 
         <!-- Main content section -->
-        <main class="flex-grow p-6">
-            <div class="container mx-auto mt-6 bg-white shadow-md rounded-lg p-6">
-                <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Selecciona tus intereses</h1>
+        <main class="flex-grow flex justify-center items-center p-6 main-content">
+            <div class="w-full max-w-3xl bg-gray-800 bg-opacity-90 shadow-lg rounded-lg p-10">
+                <h1 class="text-5xl font-bold text-center text-white mb-10">Selecciona tus intereses</h1>
                 <div id="questions">
                     <div id="question1" class="text-center">
-                        <h2 class="text-xl mb-4">¿A qué se quiere dedicar?</h2>
-                        <div class="flex justify-center space-x-4">
-                            <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="nextQuestion('Vlogs')">Vlogs</button>
-                            <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="nextQuestion('Videojuegos')">Videojuegos</button>
+                        <h2 class="text-3xl mb-8 text-white">¿Qué tipo de contenido tienes pensado subir a tu canal?</h2>
+                        <div class="grid grid-cols-2 gap-6 mb-8">
+                            <button class="btn px-6 py-4 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none" onclick="nextQuestion('Videojuegos')">Videojuegos</button>
+                            <button class="btn px-6 py-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none" onclick="nextQuestion('Desarrollo')">Desarrollo</button>
+                            <button class="btn px-6 py-4 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none" onclick="nextQuestion('Vlogs')">Vlogs</button>
+                            <button class="btn px-6 py-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none" onclick="nextQuestion('Reacciones')">Reacciones</button>
+                        </div>
+                        <div>
+                            <button class="btn px-6 py-4 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 focus:outline-none">Siguiente pregunta</button>
                         </div>
                     </div>
                 </div>

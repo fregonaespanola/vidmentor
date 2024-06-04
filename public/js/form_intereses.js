@@ -8,10 +8,10 @@ function nextQuestion(choice) {
         selectedInterest = 'Vlogs';
         questionsDiv.innerHTML = `
             <div id="question2" class="text-center">
-                <h2 class="text-xl mb-4">¿Serán diarios o informativos?</h2>
+                <h2 class="text-2xl mb-4 text-white">¿Serán diarios o informativos?</h2>
                 <div class="flex justify-center space-x-4">
-                    <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="finalQuestion('daily vlog')">Diarios</button>
-                    <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="showInformativeInput()">Informativos</button>
+                    <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion('daily vlog')">Diarios</button>
+                    <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="showInformativeInput()">Informativos</button>
                 </div>
             </div>
         `;
@@ -19,10 +19,10 @@ function nextQuestion(choice) {
         selectedInterest = 'Videojuegos';
         questionsDiv.innerHTML = `
             <div id="question2" class="text-center">
-                <h2 class="text-xl mb-4">¿Qué estilo?</h2>
+                <h2 class="text-2xl mb-4 text-white">¿Qué estilo?</h2>
                 <div class="flex justify-center space-x-4">
-                    <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="finalQuestion('videogames')">Genéricos</button>
-                    <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="showGameInput()">Específico</button>
+                    <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion('videogames')">Genéricos</button>
+                    <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="showGameInput()">Específico</button>
                 </div>
             </div>
         `;
@@ -33,10 +33,10 @@ function showInformativeInput() {
     var questionsDiv = document.getElementById('questions');
     questionsDiv.innerHTML = `
         <div id="question3" class="text-center">
-            <h2 class="text-xl mb-4">¿Acerca de qué?</h2>
-            <p>Ejemplos: documentales, desarrollo personal, etc.</p>
-            <input type="text" id="informativeInput" class="form-control border rounded p-2 w-full mb-4" placeholder="Especifique el tipo">
-            <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="finalQuestion()">Guardar</button>
+            <h2 class="text-2xl mb-4 text-white">¿Acerca de qué?</h2>
+            <p class="text-white mb-4">Ejemplos: documentales, desarrollo personal, etc.</p>
+            <input type="text" id="informativeInput" class="form-control border rounded-lg p-3 w-full mb-4" placeholder="Especifique el tipo">
+            <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion()">Guardar</button>
         </div>
     `;
 }
@@ -45,9 +45,9 @@ function showGameInput() {
     var questionsDiv = document.getElementById('questions');
     questionsDiv.innerHTML = `
         <div id="question3" class="text-center">
-            <h2 class="text-xl mb-4">Nombre del juego</h2>
-            <input type="text" id="gameInput" class="form-control border rounded p-2 w-full mb-4" placeholder="Escriba el nombre del juego">
-            <button class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="finalQuestion()">Guardar</button>
+            <h2 class="text-2xl mb-4 text-white">Nombre del juego</h2>
+            <input type="text" id="gameInput" class="form-control border rounded-lg p-3 w-full mb-4" placeholder="Escriba el nombre del juego">
+            <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion()">Guardar</button>
         </div>
     `;
 }
@@ -59,16 +59,19 @@ async function finalQuestion(type = '') {
         type = document.getElementById('gameInput').value.trim();
     }
 
-    // Aquí puedes hacer la traducción del texto
+    if (!type) {
+        alert('Por favor, complete la información requerida.');
+        return;
+    }
+
     const translatedType = await translateToEnglish(type);
 
-    // Envía el interés a la base de datos
     saveInterestToDatabase(translatedType);
 }
 
 async function translateToEnglish(text) {
     try {
-        const response = await fetch(`https://api.mymemory.translated.net/get?q=${text}&langpair=es|en`);
+        const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=es|en`);
         const data = await response.json();
         return data.responseData.translatedText;
     } catch (error) {

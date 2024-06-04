@@ -30,6 +30,28 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
+        .bg-overlay {
+            background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-title {
+            color: #1f2937;
+        }
+
+        .card-icon {
+            color: #f97316;
+        }
+
         .animate-spin {
             animation: spin 1s linear infinite;
         }
@@ -42,23 +64,6 @@
             100% {
                 transform: rotate(360deg);
             }
-        }
-
-        .bg-overlay {
-            background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-
-        #sidebar.hidden {
-            transform: translateX(-100%);
-        }
-
-        #sidebar {
-            transition: transform 0.3s ease;
         }
     </style>
 </head>
@@ -75,10 +80,10 @@
         <!-- Main content section -->
         <main class="flex-grow p-6 relative z-10">
             <div class="container mx-auto mt-6">
-                <h2 class="text-3xl font-semibold text-center text-gray-200 mb-6 uppercase">Dashboard</h2>
+                <h2 class="text-4xl font-semibold text-center text-white mb-8 uppercase">Dashboard</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Panel de Bienvenida -->
-                    <div class="bg-white shadow-2xl rounded-lg p-6 flex flex-col justify-between h-full col-span-1 lg:col-span-2">
+                    <div class="card shadow-2xl rounded-lg p-6 flex flex-col justify-between h-full col-span-1 lg:col-span-2">
                         <div>
                             <div class="relative">
                                 <img src="assets/fondo2.webp" alt="Banner" class="w-full h-40 object-cover rounded-t-lg">
@@ -86,40 +91,40 @@
                                     <i class="fas fa-user-circle text-4xl"></i>
                                 </div>
                                 <div class="absolute top-16 left-4">
-                                    <h3 class="text-xl font-bold text-white">Nombre del Usuario</h3>
+                                    <h3 class="text-2xl font-bold text-white">Nombre del Usuario</h3>
                                     <p class="text-sm text-white">Posición del Usuario</p>
                                 </div>
                             </div>
                             <div class="mt-4 text-center">
-                                <h1 class="text-2xl font-semibold mb-2">Bienvenido a VidMentor</h1>
-                                <p class="text-sm text-gray-600"><i class="fas fa-envelope mr-2"></i>email@dominio.com</p>
-                                <p class="text-sm text-gray-600"><i class="fas fa-user-tag mr-2"></i>Rol del Usuario</p>
+                                <h1 class="text-3xl font-semibold mb-4 card-title">Bienvenido a VidMentor</h1>
+                                <p class="text-sm text-gray-700"><i class="fas fa-envelope mr-2"></i>email@dominio.com</p>
+                                <p class="text-sm text-gray-700"><i class="fas fa-user-tag mr-2"></i>Rol del Usuario</p>
                                 <p class="mt-4 text-gray-700">Gestiona tu contenido y estrategias de redes sociales con VidMentor.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Panel de Accesos Rápidos -->
-                    <div class="bg-white shadow-2xl rounded-lg p-6 grid grid-cols-2 gap-6 h-full col-span-1">
+                    <div class="card shadow-2xl rounded-lg p-6 grid grid-cols-2 gap-6 h-full col-span-1">
                         <a href="generar-ideas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-lightbulb text-4xl text-orange-500"></i>
-                            <span class="ml-4 text-lg font-semibold text-orange-700">Generar Ideas</span>
+                            <i class="fas fa-lightbulb text-4xl card-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card-title">Generar Ideas</span>
                         </a>
                         <a href="ideas-guardadas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-save text-4xl text-orange-500"></i>
-                            <span class="ml-4 text-lg font-semibold text-orange-700">Ideas Guardadas</span>
+                            <i class="fas fa-save text-4xl card-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card-title">Ideas Guardadas</span>
                         </a>
                         <a href="calendario.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-calendar-alt text-4xl text-orange-500"></i>
-                            <span class="ml-4 text-lg font-semibold text-orange-700">Calendario</span>
+                            <i class="fas fa-calendar-alt text-4xl card-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card-title">Calendario</span>
                         </a>
                         <a href="perfil.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-user text-4xl text-orange-500"></i>
-                            <span class="ml-4 text-lg font-semibold text-orange-700">Perfil</span>
+                            <i class="fas fa-user text-4xl card-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card-title">Perfil</span>
                         </a>
                         <a href="cambiar-intereses.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-exchange-alt text-4xl text-orange-500"></i>
-                            <span class="ml-4 text-lg font-semibold text-orange-700">Cambiar Intereses</span>
+                            <i class="fas fa-exchange-alt text-4xl card-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card-title">Cambiar Intereses</span>
                         </a>
                     </div>
                 </div>
@@ -128,35 +133,35 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
                     <div class="col-span-1 lg:col-span-2">
                         <!-- Panel de Próximo Video Programado -->
-                        <div class="bg-white shadow-2xl rounded-lg p-6 flex items-center justify-center mb-6">
+                        <div class="card shadow-2xl rounded-lg p-6 flex items-center justify-center mb-6">
                             <div class="text-center">
-                                <i class="fas fa-video text-5xl text-orange-500"></i>
-                                <p class="text-md text-gray-600 mt-2">Próximo Video Programado</p>
-                                <p class="text-4xl font-semibold text-orange-500 mt-2">Título del Video</p>
-                                <p class="text-md text-gray-600 mt-1">Fecha de Publicación: 12/12/2024</p>
+                                <i class="fas fa-video text-5xl card-icon"></i>
+                                <p class="text-md text-gray-700 mt-2">Próximo Video Programado</p>
+                                <p class="text-4xl font-semibold card-title mt-2">Título del Video</p>
+                                <p class="text-md text-gray-700 mt-1">Fecha de Publicación: 12/12/2024</p>
                             </div>
                         </div>
 
                         <!-- Panel de Estado de Videos -->
-                        <div class="bg-white shadow-2xl rounded-lg p-6 flex items-center justify-center">
+                        <div class="card shadow-2xl rounded-lg p-6 flex items-center justify-center">
                             <div class="text-center">
-                                <i class="fas fa-tasks text-5xl text-orange-500"></i>
-                                <p class="text-md text-gray-600 mt-2">Estado de Videos</p>
+                                <i class="fas fa-tasks text-5xl card-icon"></i>
+                                <p class="text-md text-gray-700 mt-2">Estado de Videos</p>
                                 <div class="flex justify-center space-x-4 mt-4">
                                     <div class="text-center">
-                                        <p id="loading-pending" class="text-2xl font-semibold text-orange-500">Cargando...</p>
-                                        <p id="total-pending" class="text-2xl font-semibold text-orange-500" style="display:none;"></p>
-                                        <p class="text-md text-gray-600">En Progreso</p>
+                                        <p id="loading-pending" class="text-2xl font-semibold card-title">Cargando...</p>
+                                        <p id="total-pending" class="text-2xl font-semibold card-title" style="display:none;"></p>
+                                        <p class="text-md text-gray-700">En Progreso</p>
                                     </div>
                                     <div class="text-center">
-                                        <p id="loading-providers" class="text-2xl font-semibold text-orange-500">Cargando...</p>
-                                        <p id="total-providers" class="text-2xl font-semibold text-orange-500" style="display:none;"></p>
-                                        <p class="text-md text-gray-600">Publicados</p>
+                                        <p id="loading-providers" class="text-2xl font-semibold card-title">Cargando...</p>
+                                        <p id="total-providers" class="text-2xl font-semibold card-title" style="display:none;"></p>
+                                        <p class="text-md text-gray-700">Publicados</p>
                                     </div>
                                     <div class="text-center">
-                                        <p id="loading-pending-providers" class="text-2xl font-semibold text-orange-500">Cargando...</p>
-                                        <p id="pending-providers" class="text-2xl font-semibold text-orange-500" style="display:none;"></p>
-                                        <p class="text-md text-gray-600">Pendientes</p>
+                                        <p id="loading-pending-providers" class="text-2xl font-semibold card-title">Cargando...</p>
+                                        <p id="pending-providers" class="text-2xl font-semibold card-title" style="display:none;"></p>
+                                        <p class="text-md text-gray-700">Pendientes</p>
                                     </div>
                                 </div>
                             </div>
@@ -164,10 +169,10 @@
                     </div>
 
                     <!-- Panel de Rendimiento de Videos -->
-                    <div class="col-span-1 bg-white shadow-2xl rounded-lg p-8">
-                        <h2 class="text-xl font-semibold mb-4 text-center uppercase">Rendimiento de Videos</h2>
+                    <div class="col-span-1 card shadow-2xl rounded-lg p-8">
+                        <h2 class="text-2xl font-semibold mb-4 text-center uppercase card-title">Rendimiento de Videos</h2>
                         <div id="loading-video-performance" class="flex justify-center items-center py-4">
-                            <div class="animate-spin h-8 w-8 border-t-2 border-b-2 border-orange-500 rounded-full"></div>
+                            <div class="animate-spin h-8 w-8 border-t-2 border-b-2 card-icon rounded-full"></div>
                         </div>
                         <div id="video-performance" style="display:none;">
                             <div class="grid grid-cols-1 gap-4">
@@ -198,6 +203,7 @@
 
                 document.getElementById('loading-pending-providers').style.display = 'none';
                 document.getElementById('pending-providers').style.display = 'block';
+                document.getElementById('pending-providers').innerText = '3'; // Datos de ejemplo
             }, 2000);
 
             // Simulación de carga de datos para el rendimiento de videos
