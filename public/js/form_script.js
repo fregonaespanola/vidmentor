@@ -1,5 +1,4 @@
 $(window).on('load', function() {
-    // Destruir todos los CKEditors al cargar la página
     var ckeditors = CKEDITOR.instances;
     for (var i in ckeditors) {
         ckeditors[i].destroy();
@@ -9,7 +8,6 @@ $(window).on('load', function() {
 $(document).ready(function() {
     var activeEditor = null;
 
-    // Mostrar CKEditor cuando el textarea correspondiente está clickeado
     $('.ckeditor').click(function() {
         var textarea = $(this);
         if (activeEditor && textarea.attr('id') !== activeEditor) {
@@ -22,7 +20,6 @@ $(document).ready(function() {
         });
     });
 
-    // Ocultar CKEditor cuando se hace clic fuera del textarea
     $(document).click(function(event) {
         if (!$(event.target).closest('.ckeditor-container').length) {
             if (activeEditor) {
@@ -32,14 +29,11 @@ $(document).ready(function() {
         }
     });
 
-    // Agrega un event listener para actualizar los textareas cuando cambia su contenido
     $('textarea').on('input', function() {
         var textarea = $(this);
         textarea.html(textarea.text());
     });
-});
 
-$(document).ready(function() {
     var searchQuery = $('script[src$="form_script.js"]').attr('data-title');
 
     $.get(
@@ -47,11 +41,11 @@ $(document).ready(function() {
             part: 'snippet',
             q: searchQuery,
             key: 'AIzaSyD8bPxnG_Rr0v5bIok4iu8xAnjtOGR_ZOM',
-            maxResults: 3, // Obtener solo 3 resultados
-            type: 'video', // Solo obtener videos
-            videoDuration: 'long', // Solo videos largos
-            regionCode: 'US', // Limitar a videos en inglés (código de región de Estados Unidos)
-            relevanceLanguage: 'en' // Configurar idioma de relevancia en inglés
+            maxResults: 3,
+            type: 'video',
+            videoDuration: 'long',
+            regionCode: 'US',
+            relevanceLanguage: 'en'
         },
         function(data) {
             showResults(data.items);
@@ -69,22 +63,19 @@ $(document).ready(function() {
                 var title = item.snippet.title;
                 var thumbnailUrl = item.snippet.thumbnails.default.url;
 
-                var thumbnailContainer = $('<div>').addClass('thumbnail-container');
-                var thumbnailImage = $('<img>').attr('src', thumbnailUrl).addClass('thumbnail-image');
+                var thumbnailContainer = $('<div>').addClass('thumbnail-container flex flex-col items-center');
+                var thumbnailImage = $('<img>').attr('src', thumbnailUrl).addClass('thumbnail-image mb-2');
                 var radioButton = $('<input>').attr({
                     type: 'radio',
                     name: 'video',
                     value: videoId
-                }).addClass('radio-button');
+                }).addClass('radio-button mt-2');
 
-                // Agregar evento clic a la imagen para seleccionar el radio button
-                thumbnailImage.click(function() {
-                    radioButton.prop('checked', true);
-                });
                 thumbnailImage.click(function() {
                     radioButton.prop('checked', true);
                     $('#thumbnail_url').val(thumbnailUrl);
                 });
+
                 thumbnailContainer.append(thumbnailImage, radioButton);
                 thumbnailsDiv.append(thumbnailContainer);
             }
@@ -95,14 +86,13 @@ $(document).ready(function() {
         var firstThumbnailContainer = $('#thumbnails .thumbnail-container').first();
         var defaultThumbnailUrl = $('#defaultThumbnail').data('url');
         var firstRadioButton = firstThumbnailContainer.find('input[type="radio"]');
-        
 
-        if (defaultThumbnailUrl!=null && defaultThumbnailUrl!=''){
+        if (defaultThumbnailUrl != null && defaultThumbnailUrl != '') {
             var firstThumbnailImage = $('.thumbnail-image').first();
 
             firstThumbnailImage.attr('src', defaultThumbnailUrl);
             $('#thumbnail_url').val(defaultThumbnailUrl);
             firstRadioButton.prop('checked', true);
         }
-    }    
+    }
 });

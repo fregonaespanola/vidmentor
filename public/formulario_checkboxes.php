@@ -29,12 +29,10 @@ if(isset($_GET['id'])) {
         $pdo = new PDO($dsn, $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Consulta para obtener los detalles del formulario basados en el ID
         $stmt = $pdo->prepare("SELECT * FROM DETALLE WHERE ID = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        // Si se encontraron resultados, rellenar el formulario con los datos obtenidos
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           $igstories = $row['IG_STORIES'];
           $reels_clips = $row['REEL_CLIPS'];
@@ -48,7 +46,6 @@ if(isset($_GET['id'])) {
           $change_thb_4 = $row['CHANGE_THUMBNAIL_4'];
           $change_title_4 = $row['CHANGE_TITLE_4'];
 
-          // Verifica los valores y establece los campos como checked según corresponda
           $igstories_checked = $igstories == 1 ? "checked" : "";
           $reels_clips_checked = $reels_clips == 1 ? "checked" : "";
           $share_checked = $share == 1 ? "checked" : "";
@@ -72,91 +69,82 @@ if(isset($_GET['id'])) {
     <meta charset="UTF-8">
     <title>Formulario de Tareas</title>
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="container mt-5">
-    <h2 class="titulo-formulario-tareas">Formulario de Tareas</h2>
-    <form class="formulario-tareas" method="post" action="guardar_formulario_checkboxes.php?id=<?php echo $id; ?>">
-      <div class="form-group">
-        <label for="tareas">Tareas:</label>
-        <div class="form-check">
-          <input class="form-check-input" name="igStories" type="checkbox" id="igStories" value="igStories" <?php echo $igstories_checked; ?>>
-          <label class="form-check-label" for="igStories">
-            Hacer historias de IG
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" name="reelClips" type="checkbox" id="reelClips" value="reelClips" <?php echo $reels_clips_checked; ?>>
-          <label class="form-check-label" for="reelClips">
-            Hacer Reels/Clips
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" name="shareSocialMedia" type="checkbox" id="shareSocialMedia" value="shareSocialMedia" <?php echo $share_checked; ?>>
-          <label class="form-check-label" for="shareSocialMedia">
-            Compartir en redes sociales
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" name="checkComments" type="checkbox" id="checkComments" value="checkComments" <?php echo $check_comments_checked; ?>>
-          <label class="form-check-label" for="checkComments">
-            Revisar comentarios
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" name="checkCTR" type="checkbox" id="checkCTR" value="checkCTR" <?php echo $check_ctr_checked; ?>>
-          <label class="form-check-label" for="checkCTR">
-            Después de 3h, verificar la línea de base de CTR e impresiones
-          </label>
-          <ul class="list-unstyled">
+  <div class="container mx-auto mt-5 w-full">
+    <form class="w-full mx-auto bg-gray-vidmentor-secondary text-white p-6 rounded-lg shadow-md" method="post" action="guardar_formulario_checkboxes.php?id=<?php echo $id; ?>">
+      <div class="mb-4">
+        <label for="tareas" class="block text-4xl font-bold text-white text-left text-white font-bold">Tareas:</label><br>
+        <div class="mt-2">
+          <label for="igStories" class="inline-flex items-center">
+            <input class="form-checkbox h-5 w-5 text-blue-600" name="igStories" type="checkbox" id="igStories" value="igStories" <?php echo $igstories_checked; ?>>
+            <span class="ml-2">Hacer historias de IG</span>
+          </label><br>
+          <label for="reelClips" class="inline-flex items-center">
+            <input class="form-checkbox h-5 w-5 text-blue-600" name="reelClips" type="checkbox" id="reelClips" value="reelClips" <?php echo $reels_clips_checked; ?>>
+            <span class="ml-2">Hacer Reels/Clips</span>
+          </label><br>
+          <label for="shareSocialMedia" class="inline-flex items-center">
+            <input class="form-checkbox h-5 w-5 text-blue-600" name="shareSocialMedia" type="checkbox" id="shareSocialMedia" value="shareSocialMedia" <?php echo $share_checked; ?>>
+            <span class="ml-2">Compartir en redes sociales</span>
+          </label><br>
+          <label for="checkComments" class="inline-flex items-center">
+            <input class="form-checkbox h-5 w-5 text-blue-600" name="checkComments" type="checkbox" id="checkComments" value="checkComments" <?php echo $check_comments_checked; ?>>
+            <span class="ml-2">Revisar comentarios</span>
+          </label><br>
+          <label for="checkCTR" class="inline-flex items-center">
+            <input class="form-checkbox h-5 w-5 text-blue-600" name="checkCTR" type="checkbox" id="checkCTR" value="checkCTR" <?php echo $check_ctr_checked; ?>>
+            <span class="ml-2">Después de 3h, verificar la línea de base de CTR e impresiones</span>
+          </label><br>
+          <ul class="list-none ml-10">
             <li>
               <div class="form-check">
-                <input class="form-check-input" name="changeThumbnail2" type="checkbox" id="changeThumbnail2" value="changeThumbnail2" <?php echo $change_thb_2_checked; ?>>
+                <input class="form-checkbox h-5 w-5 text-blue-600" name="changeThumbnail2" type="checkbox" id="changeThumbnail2" value="changeThumbnail2" <?php echo $change_thb_2_checked; ?>>
                 <label class="form-check-label" for="changeThumbnail2">
                   Si CTR e impresiones son más bajos que la línea de base → Cambiar miniatura a "Miniatura 2"
-                </label>
+                </label><br>
               </div>
-              <ul class="list-unstyled">
+              <ul class="list-none ml-10">
                 <li>
                   <div class="form-check">
-                    <input class="form-check-input" name="changeTitle2" type="checkbox" id="changeTitle2" value="changeTitle2" <?php echo $change_title_2_checked; ?>>
+                    <input class="form-checkbox h-5 w-5 text-blue-600" name="changeTitle2" type="checkbox" id="changeTitle2" value="changeTitle2" <?php echo $change_title_2_checked; ?>>
                     <label class="form-check-label" for="changeTitle2">
                       Si CTR e impresiones son más bajos que la línea de base → Cambiar título a "Título 2"
-                    </label>
+                    </label><br>
                   </div>
-                  <ul class="list-unstyled">
+                  <ul class="list-none ml-10">
                     <li>
                       <div class="form-check">
-                        <input class="form-check-input" name="changeThumbnail3" type="checkbox" id="changeThumbnail3" value="changeThumbnail3" <?php echo $change_thb_3_checked; ?>>
+                        <input class="form-checkbox h-5 w-5 text-blue-600" name="changeThumbnail3" type="checkbox" id="changeThumbnail3" value="changeThumbnail3" <?php echo $change_thb_3_checked; ?>>
                         <label class="form-check-label" for="changeThumbnail3">
                           Si CTR e impresiones son más bajos que la línea de base → Cambiar miniatura a "Miniatura 3"
-                        </label>
+                        </label><br>
                       </div>
-                      <ul class="list-unstyled">
+                      <ul class="list-none ml-10">
                         <li>
                           <div class="form-check">
-                            <input class="form-check-input" name="changeTitle3" type="checkbox" id="changeTitle3" value="changeTitle3" <?php echo $change_title_3_checked; ?>>
+                            <input class="form-checkbox h-5 w-5 text-blue-600" name="changeTitle3" type="checkbox" id="changeTitle3" value="changeTitle3" <?php echo $change_title_3_checked; ?>>
                             <label class="form-check-label" for="changeTitle3">
                               Si CTR e impresiones son más bajos que la línea de base → Cambiar título a "Título 3"
-                            </label>
+                            </label><br>
                           </div>
-                          <ul class="list-unstyled">
+                          <ul class="list-none ml-10">
                             <li>
                               <div class="form-check">
-                                <input class="form-check-input" name="changeThumbnail4" type="checkbox" id="changeThumbnail4" value="changeThumbnail4" <?php echo $change_thb_4_checked; ?>>
+                                <input class="form-checkbox h-5 w-5 text-blue-600" name="changeThumbnail4" type="checkbox" id="changeThumbnail4" value="changeThumbnail4" <?php echo $change_thb_4_checked; ?>>
                                 <label class="form-check-label" for="changeThumbnail4">
                                   Si CTR e impresiones son más bajos que la línea de base → Cambiar miniatura a "Miniatura 4"
-                                </label>
+                                </label><br>
                               </div>
-                              <ul class="list-unstyled">
+                              <ul class="list-none ml-10">
                                 <li>
                                   <div class="form-check">
-                                    <input class="form-check-input" name="changeTitle4" type="checkbox" id="changeTitle4" value="changeTitle4" <?php echo $change_title_4_checked; ?>>
+                                    <input class="form-checkbox h-5 w-5 text-blue-600" name="changeTitle4" type="checkbox" id="changeTitle4" value="changeTitle4" <?php echo $change_title_4_checked; ?>>
                                     <label class="form-check-label" for="changeTitle4">
                                       Si CTR e impresiones son más bajos que la línea de base → Cambiar título a "Título 4"
-                                    </label>
+                                    </label><br>
                                   </div>
                                 </li>
                               </ul>
@@ -172,12 +160,12 @@ if(isset($_GET['id'])) {
           </ul>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      <button type="submit" class="bg-red-vidmentor-secondary w-full text-white font-bold py-2 px-4 rounded">Enviar</button>
     </form>
   </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="js/form_checkbox.js"></script>
 </body>

@@ -3,7 +3,6 @@ session_start();
 
 $_SESSION['usuario_id'] = 2;
 
-// Verifica si se proporcionó un ID en la URL
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
 
