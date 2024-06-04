@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var userInterest = 'default search term'; // Definir un valor por defecto o obtenerlo de alguna parte
-
     search(userInterest);
 });
 
@@ -8,15 +6,15 @@ function search(query) {
     if (query !== '') {
         $.get(
             'https://www.googleapis.com/youtube/v3/search', {
-            part: 'snippet',
-            q: query,
-            key: 'AIzaSyD8bPxnG_Rr0v5bIok4iu8xAnjtOGR_ZOM',
-            maxResults: 10,
-            type: 'video',
-            videoDuration: 'long',
-            regionCode: 'US',
-            relevanceLanguage: 'en'
-        },
+                part: 'snippet',
+                q: query,
+                key: 'AIzaSyD8bPxnG_Rr0v5bIok4iu8xAnjtOGR_ZOM',
+                maxResults: 10,
+                type: 'video',
+                videoDuration: 'long',
+                regionCode: 'US',
+                relevanceLanguage: 'en'
+            },
             function (data) {
                 showResults(data.items);
             }
@@ -39,36 +37,41 @@ async function showResults(items) {
     var resultsDiv = document.getElementById('results');
     resultsDiv.innerHTML = '';
 
-    // Array para almacenar las promesas de traducción
     var translationPromises = [];
 
     items.forEach(function (item) {
         if (item.id.kind === "youtube#video") {
             var title = item.snippet.title;
 
+            // Filtrar títulos no deseados
+            if (title.startsWith("NO QUERY") || title.startsWith("INVALID LANGUAGE") || title.startsWith("MYMEMORY")) {
+                return; // Saltar este título y no mostrarlo
+            }
+
             var titleWrapper = document.createElement('div');
-            titleWrapper.classList.add('title-wrapper');
+            titleWrapper.classList.add('bg-gray-vidmentor-secondary', 'rounded-lg', 'shadow-md', 'p-4', 'flex', 'flex-col', 'justify-between', 'h-full');
 
             var titleElement = document.createElement('div');
             titleElement.textContent = title;
-            titleElement.classList.add('title'); // Add class for styling
+            titleElement.classList.add('text-white', 'font-medium', 'mb-4', 'flex-grow');
 
-            // Traduce el título y guarda la promesa
             var translationPromise = translateTitle(titleElement, title);
             translationPromises.push(translationPromise);
 
+            var addButtonWrapper = document.createElement('div');
+            addButtonWrapper.classList.add('flex', 'justify-end');
+
             var addButton = document.createElement('button');
             addButton.textContent = 'Añadir';
-            addButton.classList.add('add-button');
+            addButton.classList.add('bg-red-vidmentor-secondary', 'text-white', 'px-4', 'py-2', 'rounded-lg');
 
-            // Add event listener for click event
             addButton.addEventListener('click', function () {
-                addTitleToDatabase(title);
+                addTitleToDatabase(title, addButton);
             });
 
-            // Append elements
+            addButtonWrapper.appendChild(addButton);
             titleWrapper.appendChild(titleElement);
-            titleWrapper.appendChild(addButton);
+            titleWrapper.appendChild(addButtonWrapper);
             resultsDiv.appendChild(titleWrapper);
         }
     });
@@ -77,19 +80,26 @@ async function showResults(items) {
     filterInvalidTitles();
 }
 
-async function addTitleToDatabase(title) {
+async function addTitleToDatabase(title, button) {
     try {
         const response = await fetch(`https://api.mymemory.translated.net/get?q=${title}&langpair=en|es`);
         const data = await response.json();
         const translatedTitle = data.responseData.translatedText;
 
-        // Envía el título traducido a la base de datos
         $.ajax({
             type: 'POST',
             url: 'add_title.php',
             data: { title: translatedTitle },
             success: function (response) {
                 console.log('Título añadido a la base de datos:', response);
+
+                button.textContent = 'Añadido';
+                button.classList.add('bg-red-vidmentor-secondary-2');
+                
+                setTimeout(function () {
+                    button.textContent = 'Añadir';
+                    button.classList.remove('bg-red-vidmentor-secondary-2');
+                }, 1000);
             },
             error: function (xhr, status, error) {
                 console.error('Error al añadir el título a la base de datos:', error);
@@ -104,19 +114,17 @@ async function addTitleToDatabase(title) {
 }
 
 async function filterInvalidTitles() {
-    var titleElements = document.querySelectorAll('.title');
+    var titleElements = document.querySelectorAll('.text-gray-700');
 
     titleElements.forEach(function (titleElement) {
         var title = titleElement.textContent;
         console.log(title);
 
-        // Verifica si el título comienza con "INVALID LANGUAGE"
-        if (title.startsWith("INVALID LANGUAGE")) {
-            titleElement.parentElement.style.display = 'none'; // Oculta el contenedor del título
+        if (title.startsWith("INVALID LANGUAGE") || title.startsWith("NO QUERY") || title.startsWith("MYMEMORY")) {
+            titleElement.parentElement.style.display = 'none';
         }
     });
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
     var copy = document.querySelector(".logos-slide").cloneNode(true);

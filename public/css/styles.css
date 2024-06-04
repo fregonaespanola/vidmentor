@@ -9,6 +9,46 @@ body {
   background-color: #282828;
   font-family: 'Karla', sans-serif;
 }
+.bg-gray-vidmentor-primary{
+  background-color: #282828;
+}
+
+
+.bg-blue-vidmentor-secondary{
+  background-color: #00cfff;
+}
+
+.bg-blue-vidmentor-secondary:hover{
+  background-color: #00aeff;
+}
+
+.bg-gray-vidmentor-secondary{
+  background-color: #353535;
+}
+
+.bg-red-vidmentor-secondary{
+  background-color: #F24B4B;
+}
+
+.bg-red-vidmentor-secondary:hover{
+  background-color: #FF2525;
+}
+
+.bg-red-vidmentor-secondary-2{
+  background-color: #FF2525;
+}
+
+.border-forms-vidmentor-gray-primary{
+  border: 1px solid #181818;
+}
+
+.ideas-add-button{
+  text-align: center;
+  width:100%;
+  color: #fff;
+  background-color:#F24B4B;
+  border-radius: 0;
+}
 
 .logo-min {
   max-width: 50px;
@@ -268,6 +308,7 @@ body {
   border: 1px solid #ccc;
   width: 300px;
   margin: 0 auto;
+  margin-top: 20px;
   padding: 10px;
 }
 
@@ -396,7 +437,6 @@ body {
 .main-content img {
   position: absolute;
   bottom: -10px;
-  /* Ajusta esta distancia según sea necesario */
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;

@@ -1,3 +1,23 @@
+$(document).ready(function() {
+    if (localStorage.getItem('showAlert') === 'true') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'La idea se ha actualizado correctamente.',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+        localStorage.removeItem('showAlert');
+    }
+});
+
 function allowDrop(event) {
     event.preventDefault();
 }
@@ -5,6 +25,7 @@ function allowDrop(event) {
 function drag(event) {
     event.dataTransfer.setData("text", event.target.id);
 }
+
 function drop(event) {
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
@@ -12,11 +33,11 @@ function drop(event) {
 
     $.ajax({
         type: 'POST',
-        url: 'calendar.php',
+        url: 'ideas_guardadas.php',
         data: { ideaId: data, date: date },
         success: function(response) {
-            alert(response);
-            location.reload(); // Recargar la página completa después del drag and drop
+            localStorage.setItem('showAlert', 'true'); // Guardar señal en localStorage
+            location.reload();
         },
         error: function(xhr, status, error) {
             console.error(xhr.responseText);
@@ -24,50 +45,39 @@ function drop(event) {
     });
 }
 
-$(document).ready(function() {
-    // Función para mostrar los títulos de las ideas cuando se hace hover sobre un día resaltado
-    $(document).on('mouseenter', '.highlighted', function() {
-        var $highlightedDay = $(this); // Almacena una referencia al día resaltado
-        var dateStr = $highlightedDay.data('date');
-        
-        // Realizar una solicitud AJAX para obtener los nombres de las ideas para esta fecha
-        $.ajax({
-            type: 'POST',
-            url: 'get_idea_name.php', // Script PHP que obtiene los nombres de las ideas
-            data: { date: dateStr },
-            success: function(response) {
-                // Crear y mostrar el contenedor de títulos con los nombres de las ideas
-                var ideas = response.split('|'); // Separar los nombres de las ideas
-                var tooltipContent = '<div class="hover_mark">'; // Iniciar el contenedor
-                for (var i = 0; i < ideas.length; i++) {
-                    tooltipContent += '<div class="idea-title">' + ideas[i] + '</div>'; // Agregar cada título
-                    if(ideas.length > 1){
-                        if((i+1) != ideas.length){
-                            tooltipContent += '<br>';
-                        }
+$(document).on('mouseenter', '.highlighted', function() {
+    var $highlightedDay = $(this);
+    var dateStr = $highlightedDay.data('date');
+    
+    $.ajax({
+        type: 'POST',
+        url: 'get_idea_name.php',
+        data: { date: dateStr },
+        success: function(response) {
+            var ideas = response.split('|');
+            var tooltipContent = '<div class="hover_mark">';
+            for (var i = 0; i < ideas.length; i++) {
+                tooltipContent += '<div class="idea-title">' + ideas[i] + '</div>';
+                if(ideas.length > 1){
+                    if((i+1) != ideas.length){
+                        tooltipContent += '<br>';
                     }
                 }
-                tooltipContent += '</div>'; // Cerrar el contenedor
-                
-                // Agregar el contenedor al día
-                $highlightedDay.append(tooltipContent);
-                
-                // Calcular la altura total del tooltip
-                var tooltipHeight = $('.hover_mark').outerHeight();
-                
-                // Ajustar la posición vertical del tooltip
-                $('.hover_mark').css('top', -tooltipHeight + 'px');
-            },
-            error: function(xhr, status, error) {
-                console.error('Error al obtener los nombres de las ideas:', error);
             }
-        });
-    });
-
-    // Función para ocultar el contenedor de títulos cuando se retira el mouse del día resaltado
-    $(document).on('mouseleave', '.highlighted', function() {
-        $('.hover_mark').remove(); // Eliminar el contenedor
+            tooltipContent += '</div>';
+            
+            $highlightedDay.append(tooltipContent);
+            
+            var tooltipHeight = $('.hover_mark').outerHeight();
+            
+            $('.hover_mark').css('top', -tooltipHeight + 'px');
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al obtener los nombres de las ideas:', error);
+        }
     });
 });
 
-
+$(document).on('mouseleave', '.highlighted', function() {
+    $('.hover_mark').remove(); 
+});
