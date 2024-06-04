@@ -31,11 +31,11 @@ if(isset($_GET['id'])) {
                 <li class="cursor-pointer py-2 px-4 text-white" id="post-subida-tab">Post-subida</li>
             </ul>
 
-            <div id="formulario-container" class="p-4">
+            <div id="formulario-container" class="p-4 w-full">
                 <?php include 'formulario.php'; ?>
             </div>
 
-            <div id="formulario-checkboxes-container" class="hidden p-4">
+            <div id="formulario-checkboxes-container" class="hidden p-4 w-full">
                 <?php include 'formulario_checkboxes.php'; ?>
             </div>
         </div>
