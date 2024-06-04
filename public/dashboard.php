@@ -8,18 +8,146 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles_dashboard.css">
+
+    <style>
+        body {
+            background-color: #212121;
+            color: #ffffff;
+            font-family: 'Karla', sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dashboard-background {
+            background-image: url('assets/diseños.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .shadow-2xl {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .bg-overlay {
+            background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        #sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        #sidebar {
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 flex flex-col min-h-screen">
     <?php require_once("header-dashboard.php"); ?>
 
-    <div class="flex flex-grow">
-        <?php require_once("sidebar-dashboard.php"); ?>
+    <div class="flex flex-grow dashboard-background">
+        <div class="bg-overlay"></div>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-gray-800 text-white w-64 min-h-screen p-4 hidden lg:block transform lg:translate-x-0 -translate-x-full">
+            <button id="collapse-button" class="text-white p-2 focus:outline-none absolute top-4 right-4">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <ul class="space-y-4">
+                <li>
+                    <a href="dashboard.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i>Generar Ideas
+                    </a>
+                </li>
+                <li>
+                    <a href="contenido.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                        <i class="fas fa-save mr-2"></i>Contenido
+                    </a>
+                </li>
+                <li>
+                    <a href="estadisticas.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                        <i class="fas fa-chart-line mr-2"></i>Estadísticas
+                    </a>
+                </li>
+                <li>
+                    <a href="configuracion.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                        <i class="fas fa-cog mr-2"></i>Configuración
+                    </a>
+                </li>
+                <li>
+                    <a href="soporte.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                        <i class="fas fa-life-ring mr-2"></i>Soporte
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Sidebar for mobile devices -->
+        <div class="lg:hidden">
+            <button id="menu-toggle" class="text-gray-600 p-4 focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <aside id="mobile-menu" class="bg-gray-800 text-white p-4 hidden">
+                <ul class="space-y-4">
+                    <li>
+                        <a href="dashboard.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                            <i class="fas fa-lightbulb mr-2"></i>Generar Ideas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contenido.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                            <i class="fas fa-save mr-2"></i>Contenido
+                        </a>
+                    </li>
+                    <li>
+                        <a href="estadisticas.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                            <i class="fas fa-chart-line mr-2"></i>Estadísticas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="configuracion.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                            <i class="fas fa-cog mr-2"></i>Configuración
+                        </a>
+                    </li>
+                    <li>
+                        <a href="soporte.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
+                            <i class="fas fa-life-ring mr-2"></i>Soporte
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+        </div>
 
         <!-- Main content section -->
-        <main class="flex-grow p-6">
+        <main class="flex-grow p-6 relative z-10">
             <div class="container mx-auto mt-6">
-                <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6 uppercase">Dashboard</h2>
+                <button id="collapse-sidebar" class="text-white bg-gray-700 p-2 rounded mb-4 lg:hidden">Toggle Sidebar</button>
+                <h2 class="text-3xl font-semibold text-center text-gray-200 mb-6 uppercase">Dashboard</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <!-- Panel de Bienvenida -->
                     <div class="bg-white shadow-2xl rounded-lg p-6 flex flex-col justify-between h-full">
@@ -45,23 +173,23 @@
 
                     <!-- Panel de Accesos Rápidos -->
                     <div class="bg-white shadow-2xl rounded-lg p-6 grid grid-cols-2 gap-6 h-full">
-                        <a href="generar-ideas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer">
+                        <a href="generar-ideas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
                             <i class="fas fa-lightbulb text-4xl text-orange-500"></i>
                             <span class="ml-4 text-lg font-semibold text-orange-700">Generar Ideas</span>
                         </a>
-                        <a href="ideas-guardadas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer">
+                        <a href="ideas-guardadas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
                             <i class="fas fa-save text-4xl text-orange-500"></i>
                             <span class="ml-4 text-lg font-semibold text-orange-700">Ideas Guardadas</span>
                         </a>
-                        <a href="calendario.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer">
+                        <a href="calendario.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
                             <i class="fas fa-calendar-alt text-4xl text-orange-500"></i>
                             <span class="ml-4 text-lg font-semibold text-orange-700">Calendario</span>
                         </a>
-                        <a href="perfil.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer">
+                        <a href="perfil.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
                             <i class="fas fa-user text-4xl text-orange-500"></i>
                             <span class="ml-4 text-lg font-semibold text-orange-700">Perfil</span>
                         </a>
-                        <a href="cambiar-intereses.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer">
+                        <a href="cambiar-intereses.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
                             <i class="fas fa-exchange-alt text-4xl text-orange-500"></i>
                             <span class="ml-4 text-lg font-semibold text-orange-700">Cambiar Intereses</span>
                         </a>
@@ -88,15 +216,18 @@
                                 <p class="text-md text-gray-600 mt-2">Estado de Videos</p>
                                 <div class="flex justify-center space-x-4 mt-4">
                                     <div class="text-center">
-                                        <p class="text-2xl font-semibold text-orange-500">5</p>
+                                        <p id="loading-pending" class="text-2xl font-semibold text-orange-500">Cargando...</p>
+                                        <p id="total-pending" class="text-2xl font-semibold text-orange-500" style="display:none;"></p>
                                         <p class="text-md text-gray-600">En Progreso</p>
                                     </div>
                                     <div class="text-center">
-                                        <p class="text-2xl font-semibold text-orange-500">10</p>
+                                        <p id="loading-providers" class="text-2xl font-semibold text-orange-500">Cargando...</p>
+                                        <p id="total-providers" class="text-2xl font-semibold text-orange-500" style="display:none;"></p>
                                         <p class="text-md text-gray-600">Publicados</p>
                                     </div>
                                     <div class="text-center">
-                                        <p class="text-2xl font-semibold text-orange-500">2</p>
+                                        <p id="loading-pending-providers" class="text-2xl font-semibold text-orange-500">Cargando...</p>
+                                        <p id="pending-providers" class="text-2xl font-semibold text-orange-500" style="display:none;"></p>
                                         <p class="text-md text-gray-600">Pendientes</p>
                                     </div>
                                 </div>
@@ -125,10 +256,23 @@
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/dashboard.js"></script>
     <script>
-        // Simulación de carga de datos para el rendimiento de videos
         document.addEventListener('DOMContentLoaded', function() {
+            // Simulación de carga de datos
+            setTimeout(function() {
+                document.getElementById('loading-pending').style.display = 'none';
+                document.getElementById('total-pending').style.display = 'block';
+                document.getElementById('total-pending').innerText = '5'; // Datos de ejemplo
+
+                document.getElementById('loading-providers').style.display = 'none';
+                document.getElementById('total-providers').style.display = 'block';
+                document.getElementById('total-providers').innerText = '20'; // Datos de ejemplo
+
+                document.getElementById('loading-pending-providers').style.display = 'none';
+                document.getElementById('pending-providers').style.display = 'block';
+            }, 2000);
+
+            // Simulación de carga de datos para el rendimiento de videos
             setTimeout(function() {
                 document.getElementById('loading-video-performance').style.display = 'none';
                 document.getElementById('video-performance').style.display = 'block';
@@ -156,6 +300,26 @@
                 });
             }, 2000);
         });
+
+        document.getElementById('menu-toggle').onclick = function() {
+            var mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+                mobileMenu.style.display = 'block';
+            } else {
+                mobileMenu.style.display = 'none';
+            }
+        }
+
+        document.getElementById('collapse-button').onclick = function() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+
+        document.getElementById('collapse-sidebar').onclick = function() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('translate-x-0');
+            sidebar.classList.toggle('-translate-x-full');
+        }
     </script>
 </body>
 

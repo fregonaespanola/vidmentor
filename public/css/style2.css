@@ -1,0 +1,14 @@
+/* Importando la fuente Karla */
+@font-face {
+    font-family: 'Karla';
+    src: url('../assets/Karla/Karla-VariableFont_wght.ttf') format('truetype');
+}
+
+/* Estilos básicos para el cuerpo */
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #282828;
+    font-family: 'Karla', sans-serif;
+    color: #ffffff;
+}

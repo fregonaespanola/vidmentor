@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="css/style2.css">
     <style>
         .custom-overlay {
             background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
@@ -255,9 +256,10 @@
 <body class="bg-gray-100 flex flex-col min-h-screen">
     <?php require_once("header.php"); ?>
 
-    <main class="flex-grow main-background  parallax">
+    <!-- Main content section -->
+    <main class="flex-grow main-background bg-cover bg-center min-h-screen">
         <div class="text-left md:text-center relative mt-8 md:mt-20 lg:mt-32">
-            <h1 class="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-lg relative animate-fadeIn">
+            <h1 class="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-lg relative">
                 <span class="block">A un click</span>
                 <span class="block">de cambiar tu</span>
                 <span class="block relative">
@@ -267,7 +269,6 @@
             <a href="#about" class="mt-8 inline-block bg-red-500 text-white text-lg px-6 py-3 rounded-full shadow-lg transition-transform transform hover:-translate-y-1 duration-300">Aprende más</a>
         </div>
     </main>
-
 
     <!-- About section -->
     <section id="about" class="py-20 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 text-white">
