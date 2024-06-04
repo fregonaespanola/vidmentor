@@ -11,7 +11,7 @@
 
     <style>
         body {
-            background-color: #212121;
+            background-color: #1f2937;
             color: #ffffff;
             font-family: 'Karla', sans-serif;
             padding: 0;
@@ -19,7 +19,7 @@
         }
 
         .dashboard-background {
-            background-image: url('assets/diseños.png');
+            background-image: url('assets/background.jpeg');
             background-size: cover;
             background-position: center;
             min-height: 100vh;
@@ -70,87 +70,15 @@
         <div class="bg-overlay"></div>
 
         <!-- Sidebar -->
-        <aside id="sidebar" class="bg-gray-800 text-white w-64 min-h-screen p-4 hidden lg:block transform lg:translate-x-0 -translate-x-full">
-            <button id="collapse-button" class="text-white p-2 focus:outline-none absolute top-4 right-4">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <ul class="space-y-4">
-                <li>
-                    <a href="dashboard.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                        <i class="fas fa-lightbulb mr-2"></i>Generar Ideas
-                    </a>
-                </li>
-                <li>
-                    <a href="contenido.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                        <i class="fas fa-save mr-2"></i>Contenido
-                    </a>
-                </li>
-                <li>
-                    <a href="estadisticas.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                        <i class="fas fa-chart-line mr-2"></i>Estadísticas
-                    </a>
-                </li>
-                <li>
-                    <a href="configuracion.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                        <i class="fas fa-cog mr-2"></i>Configuración
-                    </a>
-                </li>
-                <li>
-                    <a href="soporte.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                        <i class="fas fa-life-ring mr-2"></i>Soporte
-                    </a>
-                </li>
-            </ul>
-        </aside>
-
-        <!-- Sidebar for mobile devices -->
-        <div class="lg:hidden">
-            <button id="menu-toggle" class="text-gray-600 p-4 focus:outline-none">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-            <aside id="mobile-menu" class="bg-gray-800 text-white p-4 hidden">
-                <ul class="space-y-4">
-                    <li>
-                        <a href="dashboard.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                            <i class="fas fa-lightbulb mr-2"></i>Generar Ideas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="contenido.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                            <i class="fas fa-save mr-2"></i>Contenido
-                        </a>
-                    </li>
-                    <li>
-                        <a href="estadisticas.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                            <i class="fas fa-chart-line mr-2"></i>Estadísticas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="configuracion.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                            <i class="fas fa-cog mr-2"></i>Configuración
-                        </a>
-                    </li>
-                    <li>
-                        <a href="soporte.php" class="block py-2 px-4 hover:bg-gray-700 rounded flex items-center">
-                            <i class="fas fa-life-ring mr-2"></i>Soporte
-                        </a>
-                    </li>
-                </ul>
-            </aside>
-        </div>
+        <?php require_once("sidebar-dashboard.php"); ?>
 
         <!-- Main content section -->
         <main class="flex-grow p-6 relative z-10">
             <div class="container mx-auto mt-6">
-                <button id="collapse-sidebar" class="text-white bg-gray-700 p-2 rounded mb-4 lg:hidden">Toggle Sidebar</button>
                 <h2 class="text-3xl font-semibold text-center text-gray-200 mb-6 uppercase">Dashboard</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Panel de Bienvenida -->
-                    <div class="bg-white shadow-2xl rounded-lg p-6 flex flex-col justify-between h-full">
+                    <div class="bg-white shadow-2xl rounded-lg p-6 flex flex-col justify-between h-full col-span-1 lg:col-span-2">
                         <div>
                             <div class="relative">
                                 <img src="assets/fondo2.webp" alt="Banner" class="w-full h-40 object-cover rounded-t-lg">
@@ -172,7 +100,7 @@
                     </div>
 
                     <!-- Panel de Accesos Rápidos -->
-                    <div class="bg-white shadow-2xl rounded-lg p-6 grid grid-cols-2 gap-6 h-full">
+                    <div class="bg-white shadow-2xl rounded-lg p-6 grid grid-cols-2 gap-6 h-full col-span-1">
                         <a href="generar-ideas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
                             <i class="fas fa-lightbulb text-4xl text-orange-500"></i>
                             <span class="ml-4 text-lg font-semibold text-orange-700">Generar Ideas</span>
@@ -197,10 +125,10 @@
                 </div>
 
                 <!-- Paneles de Información Adicional -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-1">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+                    <div class="col-span-1 lg:col-span-2">
                         <!-- Panel de Próximo Video Programado -->
-                        <div class="bg-white shadow-2xl rounded-lg p-6 flex items-center justify-center">
+                        <div class="bg-white shadow-2xl rounded-lg p-6 flex items-center justify-center mb-6">
                             <div class="text-center">
                                 <i class="fas fa-video text-5xl text-orange-500"></i>
                                 <p class="text-md text-gray-600 mt-2">Próximo Video Programado</p>
@@ -300,26 +228,6 @@
                 });
             }, 2000);
         });
-
-        document.getElementById('menu-toggle').onclick = function() {
-            var mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
-                mobileMenu.style.display = 'block';
-            } else {
-                mobileMenu.style.display = 'none';
-            }
-        }
-
-        document.getElementById('collapse-button').onclick = function() {
-            var sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('hidden');
-        }
-
-        document.getElementById('collapse-sidebar').onclick = function() {
-            var sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('translate-x-0');
-            sidebar.classList.toggle('-translate-x-full');
-        }
     </script>
 </body>
 

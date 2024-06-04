@@ -3,11 +3,7 @@
         <a href="index.php" class="flex items-center">
             <img class="h-10" src="assets/logo.png" alt="VidMentor Logo">
         </a>
-        <button class="lg:hidden block text-gray-400 focus:outline-none" id="menu-toggle">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-        </button>
+
         <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">
             <ul class="text-base lg:flex lg:justify-between lg:space-x-6 space-y-2 lg:space-y-0 text-gray-300">
                 <li><a href="#brands" class="block py-2 lg:px-4 hover:text-white transition duration-300 hover:bg-gray-700 rounded-md">Marcas</a></li>
@@ -32,14 +28,3 @@
         </ul>
     </div>
 </nav>
-
-<script>
-    document.getElementById('menu-toggle').onclick = function() {
-        var mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
-            mobileMenu.style.display = 'block';
-        } else {
-            mobileMenu.style.display = 'none';
-        }
-    }
-</script>
