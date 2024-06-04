@@ -1,9 +1,9 @@
 <?php
 session_start();
+require_once 'common_functions.php';
 
 $_SESSION['usuario_id'] = 2;
 
-// Valores predeterminados para los campos
 $igstories_checked = "";
 $reels_clips_checked = "";
 $share_checked = "";
@@ -16,18 +16,11 @@ $change_title_3_checked = "";
 $change_thb_4_checked = "";
 $change_title_4_checked = "";
 
-// Verifica si se proporcionó un ID en la URL
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Conexión a la base de datos (ajusta los detalles de conexión según tu configuración)
-    $dsn = "mysql:host=localhost;dbname=PROYECTO;charset=utf8mb4";
-    $username = "PROYECTO";
-    $password = "11223344";
-
     try {
-        $pdo = new PDO($dsn, $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo = getDatabaseConnection();
 
         $stmt = $pdo->prepare("SELECT * FROM DETALLE WHERE ID = :id");
         $stmt->bindParam(':id', $id);

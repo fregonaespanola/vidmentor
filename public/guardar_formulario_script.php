@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         if (executeQuery($query, $params)) {
-            redirect("ideas_user.php", "success", "Los datos se han actualizado correctamente.");
+            redirect("calendar.php", "success", "Los datos se han actualizado correctamente.");
         } else {
             echo "Error al actualizar los datos.";
         }

@@ -1,27 +1,18 @@
 <?php
 session_start();
+require_once 'common_functions.php';
 
 $_SESSION['usuario_id'] = 2;
 
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Conexión a la base de datos (ajusta los detalles de conexión según tu configuración)
-    $dsn = "mysql:host=localhost;dbname=PROYECTO;charset=utf8mb4";
-    $username = "PROYECTO";
-    $password = "11223344";
-
     try {
-        $pdo = new PDO($dsn, $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT * FROM DETALLE WHERE ID = :id";
+        $params = [':id' => $id];
+        $stmt = executeQuery($query, $params);
 
-        // Consulta para obtener los detalles del formulario basados en el ID
-        $stmt = $pdo->prepare("SELECT * FROM DETALLE WHERE ID = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-
-        // Si se encontraron resultados, rellenar el formulario con los datos obtenidos
-        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        if ($stmt && $row = $stmt->fetch(PDO::FETCH_ASSOC)) {
           $titulo = $row['NOMBRE'];
           $descripcion = $row['DESCRIPCION'];
           $gancho = $row['GANCHO'];
