@@ -1,3 +1,49 @@
+<?php
+session_start();
+require_once("common_functions.php");
+
+$_SESSION['usuario_id'] = 2;
+$userId = $_SESSION['usuario_id'];
+$queryUser = "SELECT NICK, MAIL FROM USUARIO WHERE ID = :userId";
+$paramsUser = [':userId' => $userId];
+$stmtUser = executeQuery($queryUser, $paramsUser);
+
+$userName = '';
+$userEmail = '';
+if ($stmtUser && $stmtUser->rowCount() > 0) {
+    $userData = $stmtUser->fetch(PDO::FETCH_ASSOC);
+    $userName = $userData['NICK'];
+    $userEmail = $userData['MAIL'];
+}
+
+$queryNextVideo = "SELECT NOMBRE, FECHA FROM DETALLE WHERE FECHA > CURDATE() ORDER BY FECHA ASC LIMIT 1";
+$stmtNextVideo = executeQuery($queryNextVideo);
+$nextVideoTitle = '';
+if ($stmtNextVideo && $stmtNextVideo->rowCount() > 0) {
+    $nextVideoData = $stmtNextVideo->fetch(PDO::FETCH_ASSOC);
+    $nextVideoTitle = $nextVideoData['NOMBRE'];
+    $nextVideoDate = $nextVideoData['FECHA'];
+}
+
+$queryVideoCount = "SELECT COUNT(*) AS total,
+                    SUM(CASE WHEN FECHA < CURDATE() THEN 1 ELSE 0 END) AS subidos,
+                    SUM(CASE WHEN FECHA > CURDATE() THEN 1 ELSE 0 END) AS porSubir,
+                    SUM(CASE WHEN FECHA IS NULL THEN 1 ELSE 0 END) AS pendientes
+                    FROM DETALLE";
+$stmtVideoCount = executeQuery($queryVideoCount);
+$totalVideos = 0;
+$videosSubidos = 0;
+$videosPorSubir = 0;
+$videosPendientes = 0;
+if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
+    $videoCountData = $stmtVideoCount->fetch(PDO::FETCH_ASSOC);
+    $totalVideos = $videoCountData['total'];
+    $videosSubidos = $videoCountData['subidos'];
+    $videosPorSubir = $videoCountData['porSubir'];
+    $videosPendientes = $videoCountData['pendientes'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,38 +64,12 @@
             margin: 0;
         }
 
-        .dashboard-background {
-            background-image: url('assets/background.jpeg');
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
-            position: relative;
-        }
-
         .shadow-2xl {
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
-        .bg-overlay {
-            background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.9);
+        .card{
             backdrop-filter: blur(10px);
-        }
-
-        .card-title {
-            color: #1f2937;
-        }
-
-        .card-icon {
-            color: #f97316;
         }
 
         .animate-spin {
@@ -68,11 +88,10 @@
     </style>
 </head>
 
-<body class="bg-gray-100 flex flex-col min-h-screen">
+<body class="bg-gray-vidmentor-5  flex flex-col min-h-screen">
     <?php require_once("header-dashboard.php"); ?>
 
-    <div class="flex flex-grow dashboard-background">
-        <div class="bg-overlay"></div>
+    <div class="flex flex-grow bg-gray-vidmentor-primary">
 
         <!-- Sidebar -->
         <?php require_once("sidebar-dashboard.php"); ?>
@@ -80,10 +99,10 @@
         <!-- Main content section -->
         <main class="flex-grow p-6 relative z-10">
             <div class="container mx-auto mt-6">
-                <h2 class="text-4xl font-semibold text-center text-white mb-8 uppercase">Dashboard</h2>
+                <h2 class="text-4xl font-bold text-white mb-6 text-center mt-4">Dashboard</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Panel de Bienvenida -->
-                    <div class="card shadow-2xl rounded-lg p-6 flex flex-col justify-between h-full col-span-1 lg:col-span-2">
+                    <div class="card bg-gray-vidmentor-secondary shadow-2xl rounded-lg p-6 flex flex-col justify-between h-full col-span-1 lg:col-span-2">
                         <div>
                             <div class="relative">
                                 <img src="assets/fondo2.webp" alt="Banner" class="w-full h-40 object-cover rounded-t-lg">
@@ -91,40 +110,38 @@
                                     <i class="fas fa-user-circle text-4xl"></i>
                                 </div>
                                 <div class="absolute top-16 left-4">
-                                    <h3 class="text-2xl font-bold text-white">Nombre del Usuario</h3>
-                                    <p class="text-sm text-white">Posición del Usuario</p>
+                                    <h3 class="text-2xl font-bold text-white"><?php echo $userName ?></h3>
                                 </div>
                             </div>
                             <div class="mt-4 text-center">
-                                <h1 class="text-3xl font-semibold mb-4 card-title">Bienvenido a VidMentor</h1>
-                                <p class="text-sm text-gray-700"><i class="fas fa-envelope mr-2"></i>email@dominio.com</p>
-                                <p class="text-sm text-gray-700"><i class="fas fa-user-tag mr-2"></i>Rol del Usuario</p>
-                                <p class="mt-4 text-gray-700">Gestiona tu contenido y estrategias de redes sociales con VidMentor.</p>
+                                <h1 class="text-3xl font-semibold mb-4 card bg-gray-vidmentor-secondary-title">Bienvenido a VidMentor</h1>
+                                <p class="text-sm text-white"><i class="fas fa-envelope mr-2"></i><?php echo $userEmail ?></p>
+                                <p class="mt-4 text-white">Gestiona tu contenido y estrategias de redes sociales con VidMentor.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Panel de Accesos Rápidos -->
-                    <div class="card shadow-2xl rounded-lg p-6 grid grid-cols-2 gap-6 h-full col-span-1">
-                        <a href="generar-ideas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-lightbulb text-4xl card-icon"></i>
-                            <span class="ml-4 text-lg font-semibold card-title">Generar Ideas</span>
+                    <div class="card bg-gray-vidmentor-secondary shadow-2xl rounded-lg p-6 grid grid-cols-2 gap-6 h-full col-span-1">
+                        <a href="generar-ideas.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                            <i class="fas fa-lightbulb text-4xl card bg-gray-vidmentor-secondary-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Generar Ideas</span>
                         </a>
-                        <a href="ideas-guardadas.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-save text-4xl card-icon"></i>
-                            <span class="ml-4 text-lg font-semibold card-title">Ideas Guardadas</span>
+                        <a href="ideas-guardadas.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                            <i class="fas fa-save text-4xl card bg-gray-vidmentor-secondary-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Ideas Guardadas</span>
                         </a>
-                        <a href="calendario.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-calendar-alt text-4xl card-icon"></i>
-                            <span class="ml-4 text-lg font-semibold card-title">Calendario</span>
+                        <a href="calendario.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                            <i class="fas fa-calendar-alt text-4xl card bg-gray-vidmentor-secondary-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Calendario</span>
                         </a>
-                        <a href="perfil.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-user text-4xl card-icon"></i>
-                            <span class="ml-4 text-lg font-semibold card-title">Perfil</span>
+                        <a href="perfil.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                            <i class="fas fa-user text-4xl card bg-gray-vidmentor-secondary-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Perfil</span>
                         </a>
-                        <a href="cambiar-intereses.php" class="access-panel flex items-center p-4 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 transition">
-                            <i class="fas fa-exchange-alt text-4xl card-icon"></i>
-                            <span class="ml-4 text-lg font-semibold card-title">Cambiar Intereses</span>
+                        <a href="cambiar-intereses.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                            <i class="fas fa-exchange-alt text-4xl card bg-gray-vidmentor-secondary-icon"></i>
+                            <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Cambiar Intereses</span>
                         </a>
                     </div>
                 </div>
@@ -133,35 +150,35 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
                     <div class="col-span-1 lg:col-span-2">
                         <!-- Panel de Próximo Video Programado -->
-                        <div class="card shadow-2xl rounded-lg p-6 flex items-center justify-center mb-6">
+                        <div class="card bg-gray-vidmentor-secondary shadow-2xl rounded-lg p-6 flex items-center justify-center mb-6">
                             <div class="text-center">
-                                <i class="fas fa-video text-5xl card-icon"></i>
-                                <p class="text-md text-gray-700 mt-2">Próximo Video Programado</p>
-                                <p class="text-4xl font-semibold card-title mt-2">Título del Video</p>
-                                <p class="text-md text-gray-700 mt-1">Fecha de Publicación: 12/12/2024</p>
+                                <i class="fas fa-video color-red-vidmentor-secondary text-5xl card bg-gray-vidmentor-secondary-icon"></i>
+                                <p class="text-md text-white mt-2">Próximo Video Programado</p>
+                                <p class="text-4xl font-semibold card bg-gray-vidmentor-secondary-title mt-2"><?php echo $nextVideoTitle ?></p>
+                                <p class="text-md text-white mt-1">Fecha de Publicación: <?php echo $nextVideoDate ?></p>
                             </div>
                         </div>
 
                         <!-- Panel de Estado de Videos -->
-                        <div class="card shadow-2xl rounded-lg p-6 flex items-center justify-center">
+                        <div class="card bg-gray-vidmentor-secondary shadow-2xl rounded-lg p-6 flex items-center justify-center">
                             <div class="text-center">
-                                <i class="fas fa-tasks text-5xl card-icon"></i>
-                                <p class="text-md text-gray-700 mt-2">Estado de Videos</p>
+                                <i class="fas fa-tasks color-red-vidmentor-secondary text-5xl card bg-gray-vidmentor-secondary-icon"></i>
+                                <p class="text-md text-white mt-2">Estado de Videos</p>
                                 <div class="flex justify-center space-x-4 mt-4">
                                     <div class="text-center">
-                                        <p id="loading-pending" class="text-2xl font-semibold card-title">Cargando...</p>
-                                        <p id="total-pending" class="text-2xl font-semibold card-title" style="display:none;"></p>
-                                        <p class="text-md text-gray-700">En Progreso</p>
+                                        <p id="loading-pending" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title">Cargando...</p>
+                                        <p id="total-pending" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title" style="display:none;"></p>
+                                        <p class="text-md text-white">En Progreso</p>
                                     </div>
                                     <div class="text-center">
-                                        <p id="loading-providers" class="text-2xl font-semibold card-title">Cargando...</p>
-                                        <p id="total-providers" class="text-2xl font-semibold card-title" style="display:none;"></p>
-                                        <p class="text-md text-gray-700">Publicados</p>
+                                        <p id="loading-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title">Cargando...</p>
+                                        <p id="total-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title" style="display:none;"></p>
+                                        <p class="text-md text-white">Publicados</p>
                                     </div>
                                     <div class="text-center">
-                                        <p id="loading-pending-providers" class="text-2xl font-semibold card-title">Cargando...</p>
-                                        <p id="pending-providers" class="text-2xl font-semibold card-title" style="display:none;"></p>
-                                        <p class="text-md text-gray-700">Pendientes</p>
+                                        <p id="loading-pending-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title">Cargando...</p>
+                                        <p id="pending-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title" style="display:none;"></p>
+                                        <p class="text-md text-white">Pendientes</p>
                                     </div>
                                 </div>
                             </div>
@@ -169,10 +186,10 @@
                     </div>
 
                     <!-- Panel de Rendimiento de Videos -->
-                    <div class="col-span-1 card shadow-2xl rounded-lg p-8">
-                        <h2 class="text-2xl font-semibold mb-4 text-center uppercase card-title">Rendimiento de Videos</h2>
+                    <div class="col-span-1 card bg-gray-vidmentor-secondary shadow-2xl rounded-lg p-8">
+                        <h2 class="text-2xl font-semibold mb-4 text-center uppercase card bg-gray-vidmentor-secondary-title">Rendimiento de Videos</h2>
                         <div id="loading-video-performance" class="flex justify-center items-center py-4">
-                            <div class="animate-spin h-8 w-8 border-t-2 border-b-2 card-icon rounded-full"></div>
+                            <div class="animate-spin h-8 w-8 border-t-2 border-b-2 card bg-gray-vidmentor-secondary-icon rounded-full"></div>
                         </div>
                         <div id="video-performance" style="display:none;">
                             <div class="grid grid-cols-1 gap-4">
@@ -191,22 +208,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Simulación de carga de datos
             setTimeout(function() {
                 document.getElementById('loading-pending').style.display = 'none';
                 document.getElementById('total-pending').style.display = 'block';
-                document.getElementById('total-pending').innerText = '5'; // Datos de ejemplo
-
+                document.getElementById('total-pending').innerText = <?php echo $videosPorSubir?>;
                 document.getElementById('loading-providers').style.display = 'none';
                 document.getElementById('total-providers').style.display = 'block';
-                document.getElementById('total-providers').innerText = '20'; // Datos de ejemplo
+                document.getElementById('total-providers').innerText = <?php echo $videosSubidos?> ;
 
                 document.getElementById('loading-pending-providers').style.display = 'none';
                 document.getElementById('pending-providers').style.display = 'block';
-                document.getElementById('pending-providers').innerText = '3'; // Datos de ejemplo
-            }, 2000);
+                document.getElementById('pending-providers').innerText = <?php echo $videosPendientes?>;
+            }, 1000);
 
-            // Simulación de carga de datos para el rendimiento de videos
             setTimeout(function() {
                 document.getElementById('loading-video-performance').style.display = 'none';
                 document.getElementById('video-performance').style.display = 'block';

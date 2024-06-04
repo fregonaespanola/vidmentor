@@ -19,6 +19,9 @@
     background-color: #F24B4B;
   }
   
+  .color-red-vidmentor-secondary{
+    color: #F24B4B;
+  }
   .bg-red-vidmentor-secondary:hover{
     background-color: #FF2525;
   }
@@ -45,4 +48,8 @@
 
   .hover-sidebar-item:hover{
     background-color: #2e2e2e;
+  }
+
+  .bg-gray-vidmentor-primary{
+    background-color: #282828;
   }
