@@ -42,6 +42,10 @@ body {
   border: 1px solid #181818;
 }
 
+.border-bottom-red-vidmentor-secondary{
+  border-bottom: 1px solid #FF2525;
+}
+
 .ideas-add-button{
   text-align: center;
   width:100%;
