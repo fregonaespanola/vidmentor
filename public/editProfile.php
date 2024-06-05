@@ -63,13 +63,6 @@ require_once("load_user.php");
                             <?php } ?>
                         </div>
                         <div>
-                            <label for="interes" class="block font-semibold">Intereses</label>
-                            <textarea id="interes" name="interes" maxlength="255" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary"><?= htmlspecialchars($userData['INTERES'] ?? '') ?></textarea>
-                            <?php if (isset($errors['interes'])) { ?>
-                                <span class="text-red-500 text-sm"><?= $errors['interes'] ?></span>
-                            <?php } ?>
-                        </div>
-                        <div>
                             <label for="password" class="block font-semibold">Contraseña</label>
                             <input type="password" id="password" name="password" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary">
                             <?php if (isset($errors['password'])) { ?>
