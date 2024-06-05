@@ -20,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nick = $_POST['nick'];
         $mail = $_POST['mail'];
         $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? '';
-        $interes = $_POST['interes'] ?? '';
 
         if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             $errors['mail'] = 'El correo electrónico no tiene un formato válido.';
@@ -52,12 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (empty($errors)) {
-            $query = "UPDATE USUARIO SET NICK = :nick, MAIL = :mail, FECHA_NACIMIENTO = :fecha_nacimiento, INTERES = :interes";
+            $query = "UPDATE USUARIO SET NICK = :nick, MAIL = :mail, FECHA_NACIMIENTO = :fecha_nacimiento";
             $params = [
                 ':nick' => $nick,
                 ':mail' => $mail,
                 ':fecha_nacimiento' => $fecha_nacimiento,
-                ':interes' => $interes,
             ];
 
             if (!empty($password)) {
