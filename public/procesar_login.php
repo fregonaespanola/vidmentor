@@ -3,7 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-
 require_once('common_functions.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['formType'] === 'login') {

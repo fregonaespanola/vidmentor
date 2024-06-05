@@ -1,10 +1,10 @@
 <?php
 require 'common_functions.php';
 require '../vendor/autoload.php';
-require '../config/config.php';
+require '../config.php';
 use League\OAuth2\Client\Provider\Google;
 
-session_start(); // Remove if session.auto_start=1 in php.ini
+session_start();
 
 $provider = new Google([
     'clientId' => GOOGLE_ID,
@@ -45,7 +45,7 @@ if (!empty($_GET['error'])) {
         $profileImage = $ownerDetails->getAvatar();
 
         // Check if the user already exists in the database
-        $query = "SELECT * FROM Users WHERE email = :email";
+        $query = "SELECT * FROM USUARIO WHERE MAIL = :email";
         $params = [':email' => $email];
         $stmt = executeQuery($query, $params);
 
@@ -53,16 +53,14 @@ if (!empty($_GET['error'])) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($user) {
                 if ($user['oauth_provider'] != null && $user['oauth_provider'] != 'google') {
-                    echo "<script>alert('Please login with your registered provider.')</script>";
+                    echo "<script>alert('Por favor, logueate con tu proveedor de OAuth.')</script>";
                     $previousPage = $_SESSION['previous_page'] ?? 'index.php';
                     header("Location: $previousPage?msg=fail");
                     exit();
-
                 } else {
                     $_SESSION['user_id'] = $user['id'];
                     if ($user['oauth_provider'] !='google') {
-
-                        $query_update_user = "UPDATE Users SET name = :name, oauth_provider = 'google', profile_image = :profile_image, pw = NULL WHERE id = :id";
+                        $query_update_user = "UPDATE USUARIO SET NICK = :name, OAUTH = 'google', AVATAR = :profile_image, PWD = NULL WHERE ID = :id";
                         $params_update_user = [':name' => $firstName,  ':profile_image' => $profileImage, ':id' => $user['id']];
                         $stmt_update_user = executeQuery($query_update_user, $params_update_user);
 
@@ -71,20 +69,21 @@ if (!empty($_GET['error'])) {
                             $previousPage = $_SESSION['previous_page'] ?? 'index.php';
                             header("Location: $previousPage");
                             exit();
-
-                        }else{print_r($stmt_update_user);}
-
+                        }else{
+                            print_r($stmt_update_user);
+                        }
                     }else{
-                    $previousPage = $_SESSION['previous_page'] ?? 'index.php';
-                    header("Location: $previousPage?msg=success");
-                    exit();
-                }}
+                        $previousPage = $_SESSION['previous_page'] ?? 'index.php';
+                        header("Location: $previousPage?msg=success");
+                        exit();
+                    }
+                }
             } else {
-                $query_insert_user = "INSERT INTO Users (username,name, email, oauth_provider, profile_image) VALUES (:username,:name, :email, 'google', :profile_image)";
+                $query_insert_user = "INSERT INTO USUARIO (NICK, MAIL, OAUTH, AVATAR) VALUES (:username, :email, 'google', :profile_image)";
                 $params_insert_user = [':username' => $username, ':name' => $firstName, ':email' => $email, ':profile_image' => $profileImage];
                 $stmt_insert_user = executeQuery($query_insert_user, $params_insert_user);
                 if ($stmt_insert_user) {
-                    $query = "SELECT * FROM Users WHERE username = :username";
+                    $query = "SELECT * FROM USUARIO WHERE NICK = :username";
                     $params = [':username' => $firstName];
                     $stmt = executeQuery($query, $params);
 
@@ -98,12 +97,9 @@ if (!empty($_GET['error'])) {
                 }
             }
         } else {
-            exit('Error fetching user details');
+            exit('Error al traer los detalles del usuario');
         }
-
     } catch (Exception $e) {
-        exit('Something went wrong: ' . $e->getMessage());
+        exit(':( Algo ha ido mal: ' . $e->getMessage());
     }
-
 }
-?>
