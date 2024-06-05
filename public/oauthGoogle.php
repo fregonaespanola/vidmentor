@@ -80,7 +80,7 @@ if (!empty($_GET['error'])) {
                 }
             } else {
                 $query_insert_user = "INSERT INTO USUARIO (NICK, MAIL, OAUTH, AVATAR) VALUES (:username, :email, 'google', :profile_image)";
-                $params_insert_user = [':username' => $username, ':name' => $firstName, ':email' => $email, ':profile_image' => $profileImage];
+                $params_insert_user = [':username' => $username, ':email' => $email, ':profile_image' => $profileImage];
                 $stmt_insert_user = executeQuery($query_insert_user, $params_insert_user);
                 if ($stmt_insert_user) {
                     $query = "SELECT * FROM USUARIO WHERE NICK = :username";

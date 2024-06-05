@@ -1,7 +1,4 @@
 <?php
-
-    use JetBrains\PhpStorm\NoReturn;
-
     require '../config.php';
 
     function getDatabaseConnection() {
