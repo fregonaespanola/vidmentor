@@ -2,7 +2,7 @@ var selectedInterest = '';
 
 function nextQuestion(choice) {
     var questionsDiv = document.getElementById('questions');
-    questionsDiv.innerHTML = ''; // Clear previous questions
+    questionsDiv.innerHTML = '';
 
     if (choice === 'Vlogs') {
         selectedInterest = 'Vlogs';
@@ -10,7 +10,7 @@ function nextQuestion(choice) {
             <div id="question2" class="text-center">
                 <h2 class="text-2xl mb-4 text-white">¿Serán diarios o informativos?</h2>
                 <div class="flex justify-center space-x-4">
-                    <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion('daily vlog')">Diarios</button>
+                    <button class="btn px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none" onclick="finalQuestion('daily vlog')">Diarios</button>
                     <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="showInformativeInput()">Informativos</button>
                 </div>
             </div>
@@ -21,8 +21,30 @@ function nextQuestion(choice) {
             <div id="question2" class="text-center">
                 <h2 class="text-2xl mb-4 text-white">¿Qué estilo?</h2>
                 <div class="flex justify-center space-x-4">
-                    <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion('videogames')">Genéricos</button>
+                    <button class="btn px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none" onclick="finalQuestion('#videogames')">Genéricos</button>
                     <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="showGameInput()">Específico</button>
+                </div>
+            </div>
+        `;
+    } else if (choice === 'Desarrollo') {
+        selectedInterest = 'Desarrollo';
+        questionsDiv.innerHTML = `
+            <div id="question2" class="text-center">
+                <h2 class="text-2xl mb-4 text-white">¿Qué tipo de desarrollo?</h2>
+                <div class="flex justify-center space-x-4">
+                    <button class="btn px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none" onclick="finalQuestion('programming')">Programación</button>
+                    <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion('personal development')">Personal</button>
+                </div>
+            </div>
+        `;
+    } else if (choice === 'Reacciones') {
+        selectedInterest = 'Reacciones';
+        questionsDiv.innerHTML = `
+            <div id="question2" class="text-center">
+                <h2 class="text-2xl mb-4 text-white">¿Qué tipo de reacciones?</h2>
+                <div class="flex justify-center space-x-4">
+                    <button class="btn px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none" onclick="finalQuestion('music')">Música</button>
+                    <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion('viral videos')">Contenido Horizontal</button>
                 </div>
             </div>
         `;
@@ -36,7 +58,7 @@ function showInformativeInput() {
             <h2 class="text-2xl mb-4 text-white">¿Acerca de qué?</h2>
             <p class="text-white mb-4">Ejemplos: documentales, desarrollo personal, etc.</p>
             <input type="text" id="informativeInput" class="form-control border rounded-lg p-3 w-full mb-4" placeholder="Especifique el tipo">
-            <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion()">Guardar</button>
+            <button class="btn px-6 py-3 w-full bg-red-vidmentor-secondary text-white rounded-lg focus:outline-none" onclick="finalQuestion()">Guardar</button>
         </div>
     `;
 }
@@ -46,8 +68,8 @@ function showGameInput() {
     questionsDiv.innerHTML = `
         <div id="question3" class="text-center">
             <h2 class="text-2xl mb-4 text-white">Nombre del juego</h2>
-            <input type="text" id="gameInput" class="form-control border rounded-lg p-3 w-full mb-4" placeholder="Escriba el nombre del juego">
-            <button class="btn px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none" onclick="finalQuestion()">Guardar</button>
+            <input type="text" id="gameInput" class="form-control border text-black rounded-lg p-3 w-full mb-4" placeholder="Escriba el nombre del juego">
+            <button class="btn px-6 py-3 w-full bg-red-vidmentor-secondary text-white rounded-lg focus:outline-none" onclick="finalQuestion()">Guardar</button>
         </div>
     `;
 }
@@ -80,6 +102,7 @@ async function translateToEnglish(text) {
     }
 }
 
+
 function saveInterestToDatabase(interest) {
     const usuario_id = document.getElementById('usuario_id').value;
 
@@ -88,7 +111,12 @@ function saveInterestToDatabase(interest) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            alert(xhr.responseText);
+            if (xhr.responseText.includes("éxito")) {
+                localStorage.setItem('interests_changed', true);
+                window.location.href = "dashboard.php";
+            } else {
+                alert(xhr.responseText);
+            }
         }
     };
     xhr.send('interest=' + encodeURIComponent(interest) + '&usuario_id=' + encodeURIComponent(usuario_id));

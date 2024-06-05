@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once("common_functions.php");
+
 $usuario_id = $_SESSION['usuario_id'] ?? null;
 
 if (!$usuario_id) {
@@ -11,37 +13,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario_id = $_POST['usuario_id'] ?? null;
 
     if ($interest && $usuario_id) {
-        $dsn = "mysql:host=localhost;dbname=PROYECTO;charset=utf8mb4";
-        $username = "PROYECTO";
-        $password = "11223344";
-
         try {
-            $pdo = new PDO($dsn, $username, $password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            // Verificar si el usuario ya tiene un interés asociado
-            $stmt = $pdo->prepare("SELECT INTERES FROM USUARIO WHERE ID = :id");
-            $stmt->bindParam(':id', $usuario_id);
-            $stmt->execute();
-            $existingInterest = $stmt->fetch(PDO::FETCH_ASSOC);
+            $existingInterest = executeQuery("SELECT INTERES FROM USUARIO WHERE ID = :id", [':id' => $usuario_id])->fetch(PDO::FETCH_ASSOC);
 
             if ($existingInterest && !empty($existingInterest['INTERES'])) {
-                // Actualizar el interés existente
-                $stmt = $pdo->prepare("UPDATE USUARIO SET INTERES = :interes WHERE ID = :id");
-                $stmt->bindParam(':interes', $interest);
-                $stmt->bindParam(':id', $usuario_id);
-                $stmt->execute();
-
+                executeQuery("UPDATE USUARIO SET INTERES = :interes WHERE ID = :id", [':interes' => $interest, ':id' => $usuario_id]);
                 echo "Interés actualizado con éxito";
             } else {
-                // Insertar el nuevo interés
-                $stmt = $pdo->prepare("UPDATE USUARIO SET INTERES = :interes WHERE ID = :id");
-                $stmt->bindParam(':interes', $interest);
-                $stmt->bindParam(':id', $usuario_id);
-                $stmt->execute();
-
+                executeQuery("UPDATE USUARIO SET INTERES = :interes WHERE ID = :id", [':interes' => $interest, ':id' => $usuario_id]);
                 echo "Interés guardado con éxito";
             }
+            exit();
         } catch (PDOException $e) {
             echo "Error al conectarse a la base de datos: " . $e->getMessage();
         }

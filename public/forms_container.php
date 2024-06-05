@@ -5,6 +5,9 @@ $_SESSION['usuario_id'] = 2;
 
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
+}else{
+    header("Location: calendar.php");
+    exit();
 }
 ?>
 
@@ -12,27 +15,36 @@ if(isset($_GET['id'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Vidmentor</title>
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Formularios - Vidmentor</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <ul class="menu-horizontal-forms color-white">
-        <li class="active" id="guion-tab">Guion</li>
-        <li id="post-subida-tab">Post-subida</li>
-    </ul>
+<body class="bg-gray-vidmentor-primary flex flex-col min-h-screen">
+    <?php require_once("header-dashboard.php"); ?>
 
-    <div id="formulario-container">
-        <?php include 'formulario.php'; ?>
+    <div class="flex flex-grow">
+        <?php require_once("sidebar-dashboard.php"); ?>
+        <div class="flex flex-col w-full">
+            <ul class="flex space-x-4 bg-gray-vidmentor-primary text-white p-4">
+                <li class="cursor-pointer py-2 px-4 text-white" id="guion-tab">Guion</li>
+                <li class="cursor-pointer py-2 px-4 text-white" id="post-subida-tab">Post-subida</li>
+            </ul>
+
+            <div id="formulario-container" class="p-4 w-full">
+                <?php include 'formulario.php'; ?>
+            </div>
+
+            <div id="formulario-checkboxes-container" class="hidden p-4 w-full">
+                <?php include 'formulario_checkboxes.php'; ?>
+            </div>
+        </div>
     </div>
 
-    <div id="formulario-checkboxes-container" style="display: none;">
-        <?php include 'formulario_checkboxes.php'; ?>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/form_container.js"></script>
 </body>
 </html>

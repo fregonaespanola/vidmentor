@@ -36,7 +36,7 @@ function drop(event) {
         url: 'ideas_guardadas.php',
         data: { ideaId: data, date: date },
         success: function(response) {
-            localStorage.setItem('showAlert', 'true'); // Guardar señal en localStorage
+            localStorage.setItem('showAlert', 'true');
             location.reload();
         },
         error: function(xhr, status, error) {

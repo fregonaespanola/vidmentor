@@ -1,7 +1,7 @@
 <?php
-// Verifica si se recibieron los datos del formulario
+require_once('common_functions.php');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtén el valor de los campos del formulario
     $igStories = isset($_POST['igStories']) ? 1 : 0;
     $reelClips = isset($_POST['reelClips']) ? 1 : 0;
     $shareSocialMedia = isset($_POST['shareSocialMedia']) ? 1 : 0;
@@ -14,23 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $changeThumbnail4 = isset($_POST['changeThumbnail4']) ? 1 : 0;
     $changeTitle4 = isset($_POST['changeTitle4']) ? 1 : 0;
 
-    // Verifica si se proporcionó un ID válido en la URL
     if(isset($_GET['id'])) {
         $id = $_GET['id'];
 
-        // Conexión a la base de datos
-        $dsn = "mysql:host=localhost;dbname=PROYECTO;charset=utf8mb4";
-        $username = "PROYECTO";
-        $password = "11223344";
-
         try {
-            $pdo = new PDO($dsn, $username, $password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = getDatabaseConnection()->prepare("UPDATE DETALLE SET IG_STORIES = :igStories, REEL_CLIPS = :reelClips, SHARE_SOCIAL_MEDIA = :shareSocialMedia, CHECK_COMMENTS = :checkComments, CHECK_CTR = :checkCTR, CHANGE_THUMBNAIL_2 = :changeThumbnail2, CHANGE_TITLE_2 = :changeTitle2, CHANGE_THUMBNAIL_3 = :changeThumbnail3, CHANGE_TITLE_3 = :changeTitle3, CHANGE_THUMBNAIL_4 = :changeThumbnail4, CHANGE_TITLE_4 = :changeTitle4 WHERE ID = :id");
 
-            // Prepara la consulta SQL para actualizar los datos en la tabla DETALLE
-            $stmt = $pdo->prepare("UPDATE DETALLE SET IG_STORIES = :igStories, REEL_CLIPS = :reelClips, SHARE_SOCIAL_MEDIA = :shareSocialMedia, CHECK_COMMENTS = :checkComments, CHECK_CTR = :checkCTR, CHANGE_THUMBNAIL_2 = :changeThumbnail2, CHANGE_TITLE_2 = :changeTitle2, CHANGE_THUMBNAIL_3 = :changeThumbnail3, CHANGE_TITLE_3 = :changeTitle3, CHANGE_THUMBNAIL_4 = :changeThumbnail4, CHANGE_TITLE_4 = :changeTitle4 WHERE ID = :id");
-
-            // Vincula los parámetros
             $stmt->bindParam(':igStories', $igStories);
             $stmt->bindParam(':reelClips', $reelClips);
             $stmt->bindParam(':shareSocialMedia', $shareSocialMedia);
@@ -44,14 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':changeTitle4', $changeTitle4);
             $stmt->bindParam(':id', $id);
 
-            // Ejecuta la consulta
             $stmt->execute();
 
-            // Redirecciona a una página de éxito
-            header("Location: ideas_user.php");
-            exit();
+            redirect("calendar.php", "success", "Datos actualizados correctamente");
         } catch (PDOException $e) {
-            // Manejo de errores
             echo "Error al actualizar los datos en la base de datos: " . $e->getMessage();
         }
     } else {

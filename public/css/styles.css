@@ -13,6 +13,18 @@ body {
   background-color: #282828;
 }
 
+.bg-gray-vidmentor-5{
+  background-color: #1d1d1d;
+}
+
+.hover-sidebar-item:hover{
+  background-color: #2e2e2e;
+}
+
+.bg-gray-vidmentor-terciary{
+  background-color: #555555;
+}
+
 
 .bg-blue-vidmentor-secondary{
   background-color: #00cfff;
@@ -26,8 +38,16 @@ body {
   background-color: #353535;
 }
 
+.header-navigat:hover {
+  background-color: #353535;
+}
+
 .bg-red-vidmentor-secondary{
   background-color: #F24B4B;
+}
+
+.color-red-vidmentor-secondary{
+  color: #F24B4B;
 }
 
 .bg-red-vidmentor-secondary:hover{
@@ -40,6 +60,14 @@ body {
 
 .border-forms-vidmentor-gray-primary{
   border: 1px solid #181818;
+}
+
+.border-bottom-red-vidmentor-secondary{
+  border-bottom: 1px solid #FF2525;
+}
+
+.bg-gray-vidmentor-cuat{
+  background-color: #181818;
 }
 
 .ideas-add-button{

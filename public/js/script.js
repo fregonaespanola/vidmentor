@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    
     search(userInterest);
 });
 
@@ -130,3 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var copy = document.querySelector(".logos-slide").cloneNode(true);
     document.querySelector(".logos").appendChild(copy);
 });
+
+
+
