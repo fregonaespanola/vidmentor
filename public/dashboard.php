@@ -53,6 +53,7 @@ if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/styles_dashboard.css">
     <link rel="stylesheet" href="css/styles_header.css">
     <style>
@@ -247,6 +248,27 @@ if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
                     }
                 });
             }, 2000);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const interestsChanged = localStorage.getItem('interests_changed');
+            if (interestsChanged === 'true') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'Los intereses se han actualizado correctamente.',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+                localStorage.removeItem('interests_changed');
+            }
         });
     </script>
 </body>
