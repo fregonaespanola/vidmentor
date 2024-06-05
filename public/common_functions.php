@@ -5,7 +5,7 @@
     require '../config.php';
 
     function getDatabaseConnection() {
-        $dsn = "mysql:host=localhost;dbname=PROYECTO;charset=utf8mb4";
+        $dsn = "mysql:host=localhost;dbname=VIDMENTOR;charset=utf8mb4";
         $username = "PROYECTO";
         $password = DB_PASS;
 
