@@ -84,7 +84,7 @@ if (!empty($_GET['error'])) {
                 $stmt_insert_user = executeQuery($query_insert_user, $params_insert_user);
                 if ($stmt_insert_user) {
                     $query = "SELECT * FROM USUARIO WHERE NICK = :username";
-                    $params = [':username' => $firstName];
+                    $params = [':username' => $username];
                     $stmt = executeQuery($query, $params);
 
                     if ($stmt) {
