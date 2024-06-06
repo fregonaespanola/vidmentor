@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>VidMentor - Iniciar Sesión</title>
+    <title>VidMentor - Registro</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -33,7 +33,7 @@
             }
         }
 
-        .login-container {
+        .register-container {
             animation: fadeIn 1s ease-in-out;
             margin: 2rem auto;
         }
@@ -50,7 +50,7 @@
             }
         }
 
-        .bg-row-login {
+        .bg-row-register {
             background-image: url('assets/diseño 3.png');
             background-color: #303030;
             display: flex;
@@ -65,12 +65,12 @@
             height: 140px;
         }
 
-        .row-login {
+        .row-register {
             font-weight: 100;
             margin-left: 20px;
         }
 
-        .row-login b {
+        .row-register b {
             font-weight: 700;
         }
 
@@ -84,13 +84,13 @@
             text-decoration: underline;
         }
 
-        .btn-login {
+        .btn-register {
             background-color: #FF2525;
             color: white;
             transition: background-color 0.3s, transform 0.3s;
         }
 
-        .btn-login:hover {
+        .btn-register:hover {
             background-color: #d32f2f;
             transform: scale(1.05);
         }
@@ -100,7 +100,7 @@
         }
 
         @media (max-width: 768px) {
-            .bg-row-login {
+            .bg-row-register {
                 padding: 2rem;
             }
 
@@ -109,7 +109,7 @@
                 height: 100px;
             }
 
-            .row-login {
+            .row-register {
                 margin-left: 0;
             }
         }
@@ -129,7 +129,7 @@
                 max-width: 60%;
             }
 
-            .row-login {
+            .row-register {
                 font-size: 1.25rem;
                 margin-left: 0;
             }
@@ -141,38 +141,34 @@
     <?php require_once("header.php"); ?>
     <div class="container-fluid flex flex-col lg:flex-row">
         <div class="col-lg-9 order-1 lg:order-2 flex items-center justify-center">
-            <div class="login-container max-w-md w-full bg-gray-800 rounded-lg p-8 shadow-lg">
+            <div class="register-container max-w-md w-full bg-gray-800 rounded-lg p-8 shadow-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-semibold text-center mb-4">Iniciar sesión</h2>
-                    <a class="link-log hover:text-red-500" href="register.php">Registrarse</a>
+                    <h2 class="text-2xl font-semibold text-center mb-4">¡Únete a VidMentor!</h2>
+                    <a class="link-log hover:text-red-500" href="login.php">Iniciar sesión</a>
                 </div>
                 <div class="line border-b border-gray-600 mb-4"></div>
-                <form action="procesar_login.php" method="post" class="mb-3 mt-3">
+                <form action="procesar_registro.php" method="post" class="mb-3 mt-3">
+                    <div class="mb-4">
+                        <label for="nombre" class="block text-sm font-semibold mb-2">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su nombre">
+                    </div>
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-semibold mb-2">Nombre de Usuario:</label>
+                        <input type="text" id="username" name="username" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su nombre de usuario">
+                    </div>
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-semibold mb-2">Correo Electrónico:</label>
-                        <input type="email" id="email" name="usernameLogin" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
-                        <?php if (isset($errors['usernameLogin'])) { ?>
-                            <span class="text-red-500"><?= $errors['usernameLogin'] ?></span>
-                        <?php } ?>
+                        <input type="email" id="email" name="email" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
                     </div>
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-semibold mb-2">Contraseña:</label>
-                        <input type="password" id="password" name="passwordLogin" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su contraseña">
-                        <?php if (isset($errors['passwordLogin'])) { ?>
-                            <span class="text-red-500"><?= $errors['passwordLogin'] ?></span>
-                        <?php } ?>
+                        <input type="password" id="password" name="password" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su contraseña">
                     </div>
-                    <div class="flex items-center justify-between mb-4">
-                        <div>
-                            <input type="checkbox" id="remember-me" name="remember-me" class="mr-2">
-                            <label for="remember-me" class="text-sm">Recuérdame</label>
-                        </div>
-                        <a href="#" class="forgot-password link-log hover:text-red-500">¿Has olvidado tu contraseña?</a>
+                    <div class="mb-6">
+                        <label for="confirm_password" class="block text-sm font-semibold mb-2">Confirmar Contraseña:</label>
+                        <input type="password" id="confirm_password" name="confirm_password" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Confirme su contraseña">
                     </div>
-                    <button type="submit" class="btn-login w-full py-3 rounded">Iniciar sesión</button>
-                    <?php if (isset($errors['login'])) { ?>
-                        <span class="text-red-500"><?= $errors['login'] ?></span>
-                    <?php } ?>
+                    <button type="submit" class="btn-register w-full py-3 rounded">Registrarse</button>
                 </form>
                 <div class="line border-b border-gray-600 mb-4"></div>
                 <a href="oauthGoogle.php">
@@ -182,10 +178,10 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 order-2 lg:order-1 flex flex-col items-center text-center bg-row-login text-white">
+        <div class="col-lg-3 order-2 lg:order-1 flex flex-col items-center text-center bg-row-register text-white">
             <img src="assets/logo 3.png" alt="Logo" class="img-logo-big responsive-img">
-            <h2 class="mb-3 row-login">Lidera la <b>creación<br> de contenido</b></h2>
-            <h3 class="mb-3 row-login">Conéctate directamente<br>con tu audiencia</h3>
+            <h2 class="mb-3 row-register">Lidera la <b>creación<br> de contenido</b></h2>
+            <h3 class="mb-3 row-register">Conéctate directamente<br>con tu audiencia</h3>
             <img src="assets/diseño 2.png" alt="Imagen" class="mt-auto responsive-img">
         </div>
     </div>
