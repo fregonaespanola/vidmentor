@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style2.css">
+    <link rel="stylesheet" href="css/styles_header.css">
     <style>
         .google-button {
             @apply bg-blue-600 text-white flex items-center justify-center py-3 px-4 rounded cursor-pointer transition-transform duration-300;
@@ -62,7 +63,7 @@
 
         .img-logo-big {
             width: 200px;
-            height: 140px;
+            height: 100%;
         }
 
         .row-register {
@@ -137,43 +138,43 @@
     </style>
 </head>
 
-<body class="background bg-gray-900 text-white">
+<body class="background bg-gray-vidmentor-secondary text-white">
     <?php require_once("header.php"); ?>
     <div class="container-fluid flex flex-col lg:flex-row">
         <div class="col-lg-9 order-1 lg:order-2 flex items-center justify-center">
-            <div class="register-container max-w-md w-full bg-gray-800 rounded-lg p-8 shadow-lg">
+            <div class="register-container max-w-md w-full bg-gray-vidmentor-terciary rounded-lg p-8 shadow-lg">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-semibold text-center mb-4">¡Únete a VidMentor!</h2>
-                    <a class="link-log hover:text-red-500" href="login.php">Iniciar sesión</a>
+                    <a class="link-log color-red-vidmentor-secondary" href="login.php">Iniciar sesión</a>
                 </div>
-                <div class="line border-b border-gray-600 mb-4"></div>
+                <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
                 <form action="procesar_registro.php" method="post" class="mb-3 mt-3">
                     <div class="mb-4">
                         <label for="nombre" class="block text-sm font-semibold mb-2">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su nombre">
+                        <input type="text" id="nombre" name="nombre" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su nombre">
                     </div>
                     <div class="mb-4">
                         <label for="username" class="block text-sm font-semibold mb-2">Nombre de Usuario:</label>
-                        <input type="text" id="username" name="username" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su nombre de usuario">
+                        <input type="text" id="username" name="username" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su nombre de usuario">
                     </div>
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-semibold mb-2">Correo Electrónico:</label>
-                        <input type="email" id="email" name="email" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
+                        <input type="email" id="email" name="email" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
                     </div>
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-semibold mb-2">Contraseña:</label>
-                        <input type="password" id="password" name="password" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su contraseña">
+                        <input type="password" id="password" name="password" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su contraseña">
                     </div>
                     <div class="mb-6">
                         <label for="confirm_password" class="block text-sm font-semibold mb-2">Confirmar Contraseña:</label>
-                        <input type="password" id="confirm_password" name="confirm_password" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Confirme su contraseña">
+                        <input type="password" id="confirm_password" name="confirm_password" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Confirme su contraseña">
                     </div>
                     <button type="submit" class="btn-register w-full py-3 rounded">Registrarse</button>
                 </form>
-                <div class="line border-b border-gray-600 mb-4"></div>
+                <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
                 <a href="oauthGoogle.php">
-                    <button class="w-full py-3 mt-3 rounded google-button transition-transform transform hover:scale-105 duration-300">
-                        <img src="assets/google logo.png" alt="Google Logo" class="google-logo"> Registrarse con Google
+                    <button class="w-full py-3 mt-3 rounded google-button transition-transform transform hover:scale-105 duration-300 bg-blue-vidmentor-secondary flex">
+                        <img src="assets/google logo.png" alt="Google Logo" class="google-logo ml-4"> Registrarse con Google
                     </button>
                 </a>
             </div>
