@@ -301,7 +301,7 @@
     <!-- Improved Brands section -->
     <section id="brands" class="py-20 bg-gray-vidmentor-terciary from-gray-800 via-gray-900 to-gray-800 text-white">
         <div class="container mx-auto text-center">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 brand-title animate-fadeIn">Marcas</h2>
+            <h2 class="text-3xl sm:text-4xl color-red-vidmentor-secondary lg:text-5xl font-bold mb-12 brand-title animate-fadeIn">Marcas</h2>
             <p class="text-lg leading-relaxed mb-12 max-w-2xl mx-auto animate-fadeIn delay-1s">
                 Descubre cómo VidMentor puede ayudar a tu marca a conectar con los creadores de contenido y a mejorar tu presencia en las redes sociales.
             </p>
@@ -329,7 +329,7 @@
     <!-- Influencers section -->
     <section id="influencers" class="py-20 bg-gray-vidmentor-secondary text-white">
         <div class="container mx-auto text-center ">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 influencer-title animate-fadeIn">Influencers</h2>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl color-red-vidmentor-secondary font-bold mb-12 influencer-title animate-fadeIn">Influencers</h2>
             <p class="text-lg leading-relaxed mb-12 max-w-2xl mx-auto animate-fadeIn delay-1s">
                 Conoce las herramientas que VidMentor ofrece a los influencers para gestionar y optimizar su contenido y aumentar su audiencia.
             </p>
@@ -351,7 +351,7 @@
                 </div>
             </div>
             <div class="mt-12 animate-fadeIn delay-5s">
-                <h3 class="text-2xl font-bold mb-4 color-red-vidmentor-secondary">Testimonios de Influencers</h3>
+                <h3 class="text-2xl font-bold mb-4 text-white">Testimonios de Influencers</h3>
                 <div class="flex flex-wrap justify-center">
                     <div class="max-w-sm m-4 p-6 influencer-item shadow-xl transform transition-transform duration-500 hover:scale-105 text-center bg-gray-vidmentor-5 ">
                         <div class="flex items-center mb-4">
@@ -391,7 +391,7 @@
     <!-- Contact section -->
     <section id="contact" class="py-20 bg-gray-vidmentor-terciary text-white">
         <div class="container mx-auto text-center">
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-12">Contacto</h2>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl color-red-vidmentor-secondary font-bold mb-12">Contacto</h2>
             <p class="text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
                 ¿Tienes preguntas? Ponte en contacto con nosotros y descubre cómo VidMentor puede ayudarte.
             </p>
