@@ -115,7 +115,7 @@ async function addTitleToDatabase(title, button) {
 }
 
 async function filterInvalidTitles() {
-    var titleElements = document.querySelectorAll('.text-gray-700');
+    var titleElements = document.querySelectorAll('.text-white');
 
     titleElements.forEach(function (titleElement) {
         var title = titleElement.textContent;
