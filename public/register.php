@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,6 +14,10 @@
     <link rel="stylesheet" href="css/style2.css">
     <link rel="stylesheet" href="css/styles_header.css">
     <style>
+        .swal-display-contents-center {
+            justify-content: center!important;
+        }
+
         .google-button {
             background-color: #ffffff;
             color: #4285F4;
@@ -198,7 +205,10 @@
             <img src="assets/diseño 2.png" alt="Imagen" class="mt-auto responsive-img">
         </div>
     </div>
-    <?php require_once("footer.php"); ?>
+    <?php
+        require_once("footer.php");
+        require 'insertSwal.php';
+    ?>
 </body>
 
 </html>

@@ -1,4 +1,8 @@
 <?php
+
+    use JetBrains\PhpStorm\NoReturn;
+
+    session_start();
     require '../config.php';
 
     function getDatabaseConnection() {
@@ -25,15 +29,14 @@
             return $stmt;
         } catch (PDOException $e) {
             // Manejo de errores
-            echo "Error en la consulta: " . $e->getMessage(); // Agregar mensaje de error
-            echo "<br>"; // Agregar salto de línea para una mejor legibilidad
-            echo "Query: " . $query; // Mostrar la consulta que causó el error
-            echo "<br>"; // Agregar salto de línea para una mejor legibilidad
-            echo "Params: " . print_r($params, true); // Mostrar los parámetros de la consulta
+            echo "Error en la consulta: " . $e->getMessage();
+            echo "<br>";
+            echo "Query: " . $query;
+            echo "<br>";
+            echo "Params: " . print_r($params, true);
             return false;
         }
     }
-
 
     function checkExistingUserEmail($nick, $mail): array
     {
@@ -60,14 +63,61 @@
         return $errors;
     }
 
-   function redirect($url, $msgType, $msg): void
-    {
-        $_SESSION[$msgType] = $msg;
-        header("Location: $url");
-        exit();
-    }
+   #[NoReturn] function redirect($url, array $options = []): void
+   {
+       $defaults = [
+           'title' => '',
+           'text' => '',
+           'toast' => false,
+           'position' => 'top-end',
+           'showConfirmButton' => false,
+           'confirmButtonText' => '',
+           'timer' => 0,
+           'timerProgressBar' => false,
+       ];
+
+       $params = array_merge($defaults, $options);
+
+       $_SESSION['swal']['status'] = $params['title'];
+       $_SESSION['swal']['message'] = $params['text'];
+       $_SESSION['swal']['position'] = $params['position'];
+       $_SESSION['swal']['toast'] = $params['toast'];
+       $_SESSION['swal']['showConfirmButton'] = $params['showConfirmButton'];
+       $_SESSION['swal']['confirmButtonText'] = $params['confirmButtonText'];
+       $_SESSION['swal']['timer'] = $params['timer'];
+       $_SESSION['swal']['timerProgressBar'] = $params['timerProgressBar'];
+
+       header("Location: $url");
+       die();
+   }
 
     function password_verify_custom($password, $hashedPassword): bool
     {
         return password_verify($password, $hashedPassword);
+    }
+
+    function sendActivationEmail($email, $token): void
+    {
+        $mail = new PHPMailer\PHPMailer\PHPMailer();
+
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = EMAIL_ADDR;
+            $mail->Password = MAIL_PASSWORD;
+            $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+
+            $mail->setFrom(EMAIL_ADDR, 'VidMentor');
+            $mail->addAddress($email);
+
+            $mail->isHTML();
+            $mail->Subject = 'Activa tu cuenta en VidMentor';
+            $mail->Body = "Haz clic en el siguiente enlace para activar tu cuenta: <a href='https://vidmentor.dalonsolaz.dev/activate.php?token=$token'>Activar cuenta</a><br>Si no te has registrado en VidMentor, ignora este mensaje.<br>Este enlace expirará en <b>15 minutos</b>.";
+
+            $mail->send();
+        } catch (Exception $e) {
+            redirect('register.php', 'error', 'Hubo un problema al enviar el correo de activación. Por favor, inténtalo de nuevo.');
+        }
     }

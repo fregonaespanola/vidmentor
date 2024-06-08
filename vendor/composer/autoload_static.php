@@ -13,14 +13,11 @@ class ComposerStaticInitf78ebea37cd390ede7dc3493eb221879
     );
 
     public static $prefixLengthsPsr4 = array (
-        'V' => 
-        array (
-            'Vidmentor\\Vidmentor\\' => 20,
-        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'L' => 
         array (
@@ -35,10 +32,6 @@ class ComposerStaticInitf78ebea37cd390ede7dc3493eb221879
     );
 
     public static $prefixDirsPsr4 = array (
-        'Vidmentor\\Vidmentor\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/public',
-        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
@@ -48,11 +41,15 @@ class ComposerStaticInitf78ebea37cd390ede7dc3493eb221879
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'League\\OAuth2\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/oauth2-client/src',
-            1 => __DIR__ . '/..' . '/league/oauth2-google/src',
-            2 => __DIR__ . '/..' . '/league/oauth2-github/src',
+            1 => __DIR__ . '/..' . '/league/oauth2-github/src',
+            2 => __DIR__ . '/..' . '/league/oauth2-google/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
