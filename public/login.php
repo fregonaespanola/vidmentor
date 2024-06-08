@@ -11,8 +11,20 @@
     <link rel="stylesheet" href="css/style2.css">
     <style>
         .google-button {
-            @apply bg-blue-600 text-white flex items-center justify-center py-3 px-4 rounded cursor-pointer transition-transform duration-300;
+            background-color: #ffffff;
+            color: #4285F4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #4285F4;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
 
         .google-button:hover {
             @apply bg-blue-700 transform scale-105;

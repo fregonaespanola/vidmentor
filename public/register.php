@@ -11,11 +11,23 @@
     <link rel="stylesheet" href="css/style2.css">
     <style>
         .google-button {
-            @apply bg-blue-600 text-white flex items-center justify-center py-3 px-4 rounded cursor-pointer transition-transform duration-300;
+            background-color: #ffffff;
+            color: #4285F4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #4285F4;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .google-button:hover {
-            @apply bg-blue-700 transform scale-105;
+            background-color: #f1f1f1;
+            transform: scale(1.05);
         }
 
         .google-logo {
@@ -171,8 +183,8 @@
                     <button type="submit" class="btn-register w-full py-3 rounded">Registrarse</button>
                 </form>
                 <div class="line border-b border-gray-600 mb-4"></div>
-                <a href="oauthGoogle.php">
-                    <button class="w-full py-3 mt-3 rounded google-button transition-transform transform hover:scale-105 duration-300">
+                <a href="oauthGoogle.php" class="w-full">
+                    <button class="google-button w-full flex items-center justify-center py-3 mt-3 rounded-lg transition-transform transform hover:scale-105 duration-300">
                         <img src="assets/google logo.png" alt="Google Logo" class="google-logo"> Registrarse con Google
                     </button>
                 </a>
