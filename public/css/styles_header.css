@@ -53,3 +53,20 @@
   .bg-gray-vidmentor-primary{
     background-color: #282828;
   }
+
+  .hover-gray-vidmentor:hover{
+    background-color: #353535;
+  }
+
+
+.bg-gray-vidmentor-terciary{
+  background-color: #555555;
+}
+
+.bg-blue-vidmentor-secondary{
+  background-color: #00cfff;
+}
+
+.bg-blue-vidmentor-secondary:hover{
+  background-color: #00aeff;
+}
