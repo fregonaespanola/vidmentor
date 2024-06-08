@@ -2,7 +2,9 @@
 require 'common_functions.php';
 require '../vendor/autoload.php';
 require '../config.php';
-use League\OAuth2\Client\Provider\Google;
+
+    use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+    use League\OAuth2\Client\Provider\Google;
 
 session_start();
 
@@ -28,9 +30,13 @@ if (!empty($_GET['error'])) {
     exit('Invalid state');
 } else {
     // Try to get an access token (using the authorization code grant)
-    $token = $provider->getAccessToken('authorization_code', [
-        'code' => $_GET['code']
-    ]);
+    try{
+        $token = $provider->getAccessToken('authorization_code', [
+            'code' => $_GET['code']
+        ]);
+    }catch(IdentityProviderException $e){
+        exit('Error al obtener el token de acceso: ' . $e->getMessage());
+    }
 
     // Optional: Now you have a token you can look up a user's profile data
     try {

@@ -15,25 +15,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['formType'] === 'login') {
     ]);
 
     if (empty($errors)) {
-        $query = "SELECT * FROM Users WHERE username = :username AND (oauth_provider IS NULL)";
+        $query = "SELECT * FROM USUARIO WHERE NICK = :username AND (OAUTH IS NULL)";
         $params = [':username' => $username];
         $stmt = executeQuery($query, $params);
 
         if ($stmt) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($user && password_verify($password, $user['pw'])) {
-                $_SESSION['user_id'] = $user['id'];
+            if ($user && password_verify($password, $user['PWD'])) {
+                $_SESSION['user_id'] = $user['ID'];
 
                 // Generar un token único utilizando OpenSSL
                 $generatedToken = bin2hex(openssl_random_pseudo_bytes(32));
 
                 // Guardar el token en la base de datos
                 $expiration = date('Y-m-d H:i:s', strtotime('+1 week')); // Una semana de expiración
-                $tokenType = 'remember'; // Tipo de token
+                $tokenType = 'RECUPERAR'; // Tipo de token
 
                 // Insertar el token en la tabla 'Token'
-                $queryToken = "INSERT INTO Token (user_id, token_value, expiration_date, token_type) VALUES (:user_id, :token_value, :expiration_date, :token_type)";
+                $queryToken = "INSERT INTO TOKEN (ID_USUARIO, TOKEN, F_EXP, ID_TIPO) VALUES (:user_id, :token_value, :expiration_date, (SELECT ID FROM TIPO WHERE NOMBRE = :token_type))";
                 $paramsToken = [
                     ':user_id' => $user['id'],
                     ':token_value' => $generatedToken,
@@ -60,4 +60,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['formType'] === 'login') {
     $_SESSION['errors'] = $errors;
     redirect("login.php", 'errorLogin', 'true');
 }
-?>
