@@ -162,33 +162,29 @@
                     <h2 class="text-2xl font-semibold text-center mb-4">Iniciar sesión</h2>
                     <a class="link-log hover:text-red-500" href="register.php">Registrarse</a>
                 </div>
+                <span class='text-red-500 text-lg font-bold text-center'><?= $_SESSION['errors']['login'] ?? '' ?></span>
                 <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
                 <form action="procesar_login.php" method="post" class="mb-3 mt-3">
+                    <input type='hidden' name='formType' value='login'>
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-semibold mb-2">Correo Electrónico:</label>
-                        <input type="email" id="email" name="usernameLogin" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
-                        <?php if (isset($errors['usernameLogin'])) { ?>
-                            <span class="text-red-500"><?= $errors['usernameLogin'] ?></span>
-                        <?php } ?>
+                        <span class="text-red-500 text-xs"><?= $_SESSION['errors']['usernameLogin'] ?? '' ?></span>
+                        <input type="email" id="email" name="usernameLogin" value="<?= htmlspecialchars($_SESSION['formData']['usernameLogin'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
                     </div>
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-semibold mb-2">Contraseña:</label>
+                        <span class="text-red-500 text-xs"><?= $_SESSION['errors']['passwordLogin'] ?? '' ?></span>
                         <input type="password" id="password" name="passwordLogin" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su contraseña">
-                        <?php if (isset($errors['passwordLogin'])) { ?>
-                            <span class="text-red-500"><?= $errors['passwordLogin'] ?></span>
-                        <?php } ?>
                     </div>
                     <div class="flex items-center justify-between mb-4">
                         <div>
-                            <input type="checkbox" id="remember-me" name="remember-me" class="mr-2">
+                            <input type="checkbox" id="remember-me" name="remember-me" class="mr-2" <?= $_SESSION['formData']['remember-me'] ?? '' ? 'checked' : '' ?>
+                            >
                             <label for="remember-me" class="text-sm">Recuérdame</label>
                         </div>
                         <a href="#" class="forgot-password link-log hover:text-red-500">¿Has olvidado tu contraseña?</a>
                     </div>
                     <button type="submit" class="btn-login w-full py-3 rounded">Iniciar sesión</button>
-                    <?php if (isset($errors['login'])) { ?>
-                        <span class="text-red-500"><?= $errors['login'] ?></span>
-                    <?php } ?>
                 </form>
                 <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
                 <a href="oauthGoogle.php">
@@ -208,7 +204,9 @@
     <?php
         require_once("footer.php");
         require("insertSwal.php");
+        unset($_SESSION['errors']);
+        unset($_SESSION['previous_page']);
+        unset($_POST)
     ?>
 </body>
-
 </html>

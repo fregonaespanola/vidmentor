@@ -1,30 +1,29 @@
 <?php
-session_start();
-if (isset($_POST['title'])) {
-    $translatedTitle = $_POST['title'];
+    session_start();
+    if (isset($_POST['title'])) {
+        $translatedTitle = $_POST['title'];
 
-    if(isset($_SESSION['usuario_id'])) {
-        $usuario_id = $_SESSION['usuario_id'];
+        if(isset($_SESSION['usuario_id'])) {
+            $usuario_id = $_SESSION['ID'];
 
-        require_once('common_functions.php');
+            require_once('common_functions.php');
 
-        try {
-            $query = "INSERT INTO DETALLE (NOMBRE, ID_USUARIO) VALUES (:translatedTitle, :usuario_id)";
-            $params = [':translatedTitle' => $translatedTitle, ':usuario_id' => $usuario_id];
-            $stmt = executeQuery($query, $params);
+            try {
+                $query = "INSERT INTO DETALLE (NOMBRE, ID_USUARIO) VALUES (:translatedTitle, :usuario_id)";
+                $params = [':translatedTitle' => $translatedTitle, ':usuario_id' => $usuario_id];
+                $stmt = executeQuery($query, $params);
 
-            if ($stmt) {
-                echo "Título '$translatedTitle' añadido correctamente a la base de datos.";
-            } else {
-                echo "Error al agregar el título.";
+                if ($stmt) {
+                    echo "Título '$translatedTitle' añadido correctamente a la base de datos.";
+                } else {
+                    echo "Error al agregar el título.";
+                }
+            } catch (PDOException $e) {
+                echo "Error al agregar el título: " . $e->getMessage();
             }
-        } catch (PDOException $e) {
-            echo "Error al agregar el título: " . $e->getMessage();
+        } else {
+            echo "No se pudo obtener el ID de usuario.";
         }
     } else {
-        echo "No se pudo obtener el ID de usuario.";
+        echo "No se proporcionó un título para agregar.";
     }
-} else {
-    echo "No se proporcionó un título para agregar.";
-}
-?>
