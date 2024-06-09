@@ -86,7 +86,6 @@
                         'toast' => true,
                         'showConfirmButton' => false,
                         'timer' => 1500
-
                     ]);
                 } else {
                     $errors['errors'] = "Error actualizando perfil.";

@@ -63,7 +63,7 @@
                         $_SESSION['user'] = $user;
                         setLoginCookies($user);
                         if ($user['OAUTH'] !='google') {
-                            $query_update_user = "UPDATE USUARIO SET NICK = :name, OAUTH = 'google', AVATAR = :profile_image, PWD = NULL WHERE ID = :id";
+                            $query_update_user = "UPDATE USUARIO SET NICK = :name, OAUTH = 'google', AVATAR = :profile_image, PWD = NULL, ACTIVADA = 1 WHERE ID = :id";
                             $params_update_user = [':name' => $firstName,  ':profile_image' => $profileImage, ':id' => $user['ID']];
                             $stmt_update_user = executeQuery($query_update_user, $params_update_user);
 
@@ -101,7 +101,7 @@
                         }
                     }
                 } else {
-                    $query_insert_user = "INSERT INTO USUARIO (NOMBRE, NICK, MAIL, OAUTH, AVATAR) VALUES (:name, :username, :email, 'google', :profile_image)";
+                    $query_insert_user = "INSERT INTO USUARIO (NOMBRE, NICK, MAIL, OAUTH, AVATAR, ACTIVADA) VALUES (:name, :username, :email, 'google', :profile_image, 1)";
                     $params_insert_user = [':name' => $firstName, ':username' => $username, ':email' => $email, ':profile_image' => $profileImage];
                     $stmt_insert_user = executeQuery($query_insert_user, $params_insert_user);
                     if ($stmt_insert_user) {

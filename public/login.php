@@ -172,8 +172,8 @@
                     <input type='hidden' name='formType' value='login'>
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-semibold mb-2">Correo Electrónico:</label>
-                        <span class="text-red-500 text-xs"><?= $_SESSION['errors']['usernameLogin'] ?? '' ?></span>
-                        <input type="email" id="email" name="usernameLogin" value="<?= htmlspecialchars($_SESSION['formData']['usernameLogin'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
+                        <span class="text-red-500 text-xs"><?= $_SESSION['errors']['mailLogin'] ?? '' ?></span>
+                        <input type="email" id="email" name="mailLogin" value="<?= htmlspecialchars($_SESSION['formData']['mailLogin'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
                     </div>
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-semibold mb-2">Contraseña:</label>
