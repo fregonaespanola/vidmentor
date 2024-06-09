@@ -17,18 +17,16 @@
 </head>
 <body class="background bg-gray-vidmentor-secondary text-white">
     <?php require_once('header.php'); ?>
-    <div class="container-fluid flex flex-col lg:flex-row">
-        <div class="col-lg-9 order-1 lg:order-2 flex items-center justify-center">
-            <div class="login-container max-w-md w-full bg-gray-vidmentor-terciary rounded-lg p-8 shadow-lg">
-                <h2 class="text-2xl font-semibold text-center mb-4">Recuperar Contraseña</h2>
-                <form action="process_recovery.php" method="post" class="mb-3 mt-3">
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-semibold mb-2">Correo Electrónico:</label>
-                        <input type="email" id="email" name="email" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
-                    </div>
-                    <button type="submit" class="btn-login w-full py-3 rounded">Enviar Enlace de Recuperación</button>
-                </form>
-            </div>
+    <div class="flex items-center justify-center mt-3 ">
+        <div class="max-w-md w-full bg-gray-vidmentor-terciary rounded-lg p-8 shadow-lg">
+            <h2 class="text-2xl font-semibold text-center mb-4 text-white">Recuperar Contraseña</h2>
+            <form action="process_recovery.php" method="post" class="mb-3 mt-3">
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-semibold mb-2 text-white">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-gray-600 text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
+                </div>
+                <button type="submit" class=" btn-rec-login w-full py-3 rounded bg-red-500 text-white font-bold hover:bg-red-600 transition-colors duration-300">Enviar Enlace de Recuperación</button>
+            </form>
         </div>
     </div>
     <?php

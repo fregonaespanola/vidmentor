@@ -46,6 +46,7 @@
     background-color: #1d1d1d;
   }
 
+
   .hover-sidebar-item:hover{
     background-color: #2e2e2e;
   }
@@ -69,4 +70,19 @@
 
 .bg-blue-vidmentor-secondary:hover{
   background-color: #00aeff;
+}
+
+.focus\:scale-105:focus {
+  transform: scale(1.05);
+}
+
+.btn-rec-login {
+  background-color: #FF2525;
+  color: white;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-rec-login:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
 }
