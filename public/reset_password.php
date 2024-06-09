@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!isset($_GET['token'])){
+    /*if(!isset($_GET['token'])){
         redirect('index.php', [
             'title' => 'error',
             'text' => 'No se ha proporcionado un token de restablecimiento de contraseña.',
@@ -10,7 +10,7 @@
             'confirmButtonText' => 'OK'
         ]);
     }
-    $token = $_GET['token'];
+    $token = $_GET['token'];*/
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
 </head>
 <body class="background bg-gray-vidmentor-secondary text-white">
 <?php require_once('header.php'); ?>
-<div class="container-fluid flex flex-col lg:flex-row">
+<div class="flex items-center justify-center mt-3">
     <div class="col-lg-9 order-1 lg:order-2 flex items-center justify-center">
         <div class="login-container max-w-md w-full bg-gray-vidmentor-terciary rounded-lg p-8 shadow-lg">
             <h2 class="text-2xl font-semibold text-center mb-4">Restablecer Contraseña</h2>
@@ -46,7 +46,7 @@
                            class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105"
                            placeholder="Confirme su nueva contraseña">
                 </div>
-                <button type="submit" class="btn-login w-full py-3 rounded">Restablecer Contraseña</button>
+                <button type="submit" class="btn-rec-login w-full py-3 rounded">Restablecer Contraseña</button>
             </form>
         </div>
     </div>
