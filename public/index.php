@@ -504,21 +504,18 @@ session_start();
 
         @media (max-width: 1024px) {
             .main-background {
-                background-image: url('assets/diseños-1280x720.png');
                 min-height: 80vh;
             }
         }
 
         @media (max-width: 768px) {
             .main-background {
-                background-image: url('assets/diseños-1024x768.png');
                 min-height: 70vh;
             }
         }
 
         @media (max-width: 640px) {
             .main-background {
-                background-image: url('assets/diseños-640x360.png');
                 min-height: 60vh;
             }
         }
