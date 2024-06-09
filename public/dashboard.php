@@ -128,23 +128,23 @@ $videosPendientes = $totalVideos - $videosSubidos - $videosPorSubir;
 
                     <!-- Panel de Accesos Rápidos -->
                     <div class="card bg-gray-vidmentor-secondary shadow-2xl rounded-lg p-6 grid sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2 gap-6 h-full col-span-1">
-                        <a href="generar-ideas.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                        <a href="ideas.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
                             <i class="fas fa-lightbulb text-4xl card bg-gray-vidmentor-secondary-icon"></i>
                             <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Generar Ideas</span>
                         </a>
-                        <a href="ideas-guardadas.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                        <a href="calendar.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
                             <i class="fas fa-save text-4xl card bg-gray-vidmentor-secondary-icon"></i>
                             <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Ideas Guardadas</span>
                         </a>
-                        <a href="calendario.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                        <a href="calendar.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
                             <i class="fas fa-calendar-alt text-4xl card bg-gray-vidmentor-secondary-icon"></i>
                             <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Calendario</span>
                         </a>
-                        <a href="perfil.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                        <a href="editProfile.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
                             <i class="fas fa-user text-4xl card bg-gray-vidmentor-secondary-icon"></i>
                             <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Perfil</span>
                         </a>
-                        <a href="cambiar-intereses.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
+                        <a href="intereses.php" class="access-panel flex items-center p-4 bg-gray-vidmentor-5  rounded-lg cursor-pointer hover-sidebar-item transition">
                             <i class="fas fa-exchange-alt text-4xl card bg-gray-vidmentor-secondary-icon"></i>
                             <span class="ml-4 text-lg font-semibold card bg-gray-vidmentor-secondary-title">Cambiar Intereses</span>
                         </a>
