@@ -186,7 +186,7 @@
                             >
                             <label for="remember-me" class="text-sm">Recuérdame</label>
                         </div>
-                        <a href="#" class="forgot-password link-log hover:text-red-500">¿Has olvidado tu contraseña?</a>
+                        <a href="recover_password.php" class="forgot-password link-log hover:text-red-500">¿Has olvidado tu contraseña?</a>
                     </div>
                     <button type="submit" class="btn-login w-full py-3 rounded">Iniciar sesión</button>
                 </form>
