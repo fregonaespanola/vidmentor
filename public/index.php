@@ -1,5 +1,5 @@
 <?php
-    session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,27 +19,11 @@
             background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
         }
 
-        .main-background {
-            background-image: url('assets/diseños.png');
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
-            position: relative;
-            z-index: 1;
-        }
 
-        @media (max-width: 768px) {
-            .main-background {
-                background-image: none;
-                background-color: blue;
-            }
-        }
+
 
         @media (max-width: 640px) {
-            .main-background {
-                background-image: none;
-                background: linear-gradient(to right, #333333, #212121);
-            }
+
 
             .text-left {
                 text-align: center !important;
@@ -254,6 +238,290 @@
             font-size: 1rem;
             color: #ddd;
         }
+
+
+        .custom-overlay {
+            background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
+        }
+
+        @media (max-width: 640px) {
+            .text-left {
+                text-align: center !important;
+                margin-top: 0 !important;
+            }
+        }
+
+        section#contact {
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .delay-1s {
+            animation-delay: 1s;
+        }
+
+        .delay-2s {
+            animation-delay: 2s;
+        }
+
+        .delay-3s {
+            animation-delay: 3s;
+        }
+
+        .delay-4s {
+            animation-delay: 4s;
+        }
+
+        .slick-slide {
+            transition: transform 0.5s ease;
+        }
+
+        .slick-slide:hover {
+            transform: scale(1.1);
+        }
+
+        body {
+            background-color: #212121;
+        }
+
+        h1,
+        h2,
+        h3,
+        p,
+        a {
+            color: #ffffff;
+        }
+
+        .bg-dark {
+            background-color: #333333;
+        }
+
+        .text-red {
+            color: #E53935;
+        }
+
+        .text-blue {
+            color: #1E88E5;
+        }
+
+        .text-black {
+            color: #212121;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            background-color: #444444;
+            border-radius: 0.25rem;
+        }
+
+        nav a {
+            transition: color 0.3s, background-color 0.3s;
+        }
+
+        .btn-hover {
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .btn-hover:hover {
+            transform: translateY(-0.25rem);
+            background-color: #d32f2f;
+        }
+
+        .mobile-menu-toggle {
+            transition: transform 0.3s;
+        }
+
+        .mobile-menu-toggle:hover {
+            transform: rotate(90deg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .text-center h1 {
+                font-size: 2.5rem;
+            }
+
+            .text-center .btn-hover {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .text-center h1 {
+                font-size: 2rem;
+                line-height: 2.5rem;
+            }
+
+            .text-center .btn-hover {
+                margin-top: 2rem;
+                font-size: 1rem;
+                padding: 0.5rem 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+
+            .text-center h1 {
+                font-size: 4rem;
+            }
+
+            .text-center .btn-hover {
+                margin-top: 3rem;
+            }
+        }
+
+        /* Estilos para las secciones Brands e Influencers */
+        .section-common {
+            padding: 5rem 0;
+            background: linear-gradient(to right, #333333, #212121);
+            text-align: center;
+            color: #fff;
+        }
+
+        .section-common h2 {
+            color: #E53935;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .section-common p {
+            font-size: 1.125rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+            animation: fadeIn 1s ease-in-out forwards 1s;
+        }
+
+        .card {
+            background-color: #444444;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background-color 0.3s;
+            margin: 1rem;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            background-color: #555555;
+        }
+
+        .card img {
+            max-height: 150px;
+            margin: 0 auto 1rem auto;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: #E53935;
+            margin-top: 1rem;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #ddd;
+        }
+
+        .main-background {
+            background-image: url('assets/home_background/ultimo.webp');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-background::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(2px);
+            /* Desenfoque aplicado al pseudo-elemento */
+            z-index: -1;
+            /* Colocar detrás del contenido */
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.5);
+            /* Fondo semi-transparente más oscuro */
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 0 auto;
+            max-width: 80%;
+            /* Para no ocupar todo el ancho en pantallas grandes */
+        }
+
+        .content-wrapper h1 {
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .content-wrapper a {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 1024px) {
+            .main-background {
+                background-image: url('assets/diseños-1280x720.png');
+                min-height: 80vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-background {
+                background-image: url('assets/diseños-1024x768.png');
+                min-height: 70vh;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .main-background {
+                background-image: url('assets/diseños-640x360.png');
+                min-height: 60vh;
+            }
+        }
     </style>
 </head>
 
@@ -261,8 +529,9 @@
     <?php require_once("header.php"); ?>
 
     <!-- Main content section -->
+    <!-- Main content section -->
     <main class="flex-grow main-background bg-cover bg-center min-h-screen">
-        <div class="text-left md:text-center relative mt-8 md:mt-20 lg:mt-32">
+        <div class="content-wrapper text-left md:text-center relative mt-8 md:mt-20 lg:mt-32">
             <h1 class="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-lg relative">
                 <span class="block">A un click</span>
                 <span class="block">de cambiar tu</span>
@@ -273,6 +542,7 @@
             <a href="#about" class="mt-8 inline-block bg-red-500 text-white text-lg px-6 py-3 rounded-full shadow-lg transition-transform transform hover:-translate-y-1 duration-300">Aprende más</a>
         </div>
     </main>
+
 
     <!-- About section -->
     <section id="about" class="py-20 bg-gray-vidmentor-secondary from-gray-800 via-gray-900 to-gray-800 text-white">
@@ -431,7 +701,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <?php
-        require 'insertSwal.php';
+    require 'insertSwal.php';
     ?>
     <script>
         $(document).ready(function() {

@@ -151,6 +151,7 @@
             }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body class="background bg-gray-vidmentor-secondary text-white">
