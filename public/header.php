@@ -29,12 +29,20 @@
                 <li><a href='index.php#contact' class='block py-2 lg:px-4 hover:text-white transition duration-300 hover-sidebar-item rounded-md'>Contacto</a></li>
             </ul>
             <div class='flex items-center relative'>
+<<<<<<< HEAD
                 <?php if (isset($_SESSION['user'])) : ?>
                     <div class="relative avatar-container" id="avatar-container">
                         <a href='dashboard.php' class='w-full flex justify-center' id="avatar">
                             <img src="<?= htmlspecialchars($_SESSION['user']['AVATAR'], ENT_QUOTES, 'UTF-8') ?>" alt='User Avatar' class='h-10 w-10 rounded-full'>
+=======
+                <?php if(isset($_SESSION['user'])): ?>
+                    <div class="relative avatar-container" id="avatar-container-desktop">
+                        <a href='dashboard.php' class='w-full flex justify-center'>
+                            <img src="<?= htmlspecialchars($_SESSION['user']['AVATAR'] === 'default.png' ? './images/default.png' : $_SESSION['user']['AVATAR'], ENT_QUOTES, 'UTF-8') ?>"
+                                 alt='User Avatar' class='h-10 w-10 rounded-full' id="avatar-desktop">
+>>>>>>> a68afd444a2f2afe7e12249f826298d9b3274972
                         </a>
-                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden avatar-modal" id="avatar-modal">
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden avatar-modal" id="avatar-modal-desktop">
                             <a href="dashboard.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 hover:text-black-200">Perfil</a>
                             <a href="logout.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 hover:text-black-200">Logout</a>
                         </div>
@@ -54,12 +62,21 @@
             <li><a href="index.php#influencers" class="block py-2 hover:text-white transition duration-300 hover-sidebar-item rounded-md">Influencers</a></li>
             <li><a href="index.php#contact" class="block py-2 hover:text-white transition duration-300 hover-sidebar-item rounded-md">Contacto</a></li>
             <li>
+<<<<<<< HEAD
                 <?php if (isset($_SESSION['user'])) : ?>
                     <div class="relative avatar-container" id="avatar-container-mobile">
                         <a href="dashboard.php" class="w-full flex justify-center" id="avatar-mobile">
                             <img src="<?= htmlspecialchars($_SESSION['user']['AVATAR'], ENT_QUOTES, 'UTF-8') ?>" alt="User Avatar" class="h-10 w-10 rounded-full">
                         </a>
                         <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 avatar-modal" id="avatar-modal-mobile">
+=======
+                <?php if(isset($_SESSION['user'])): ?>
+                    <div class="relative avatar-container" id="avatar-container-mobile">
+                        <a href="dashboard.php" class="w-full flex justify-center">
+                            <img src="<?= htmlspecialchars($_SESSION['user']['AVATAR'] === 'default.png' ? './images/default.png' : $_SESSION['user']['AVATAR'], ENT_QUOTES, 'UTF-8') ?>" alt="User Avatar" class="h-10 w-10 rounded-full" id="avatar-mobile">
+                        </a>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-20 avatar-modal hidden" id="avatar-modal-mobile">
+>>>>>>> a68afd444a2f2afe7e12249f826298d9b3274972
                             <a href="dashboard.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 hover:text-black-200">Perfil</a>
                             <a href="logout.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 hover:text-black-200">Logout</a>
                         </div>
@@ -76,14 +93,21 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
         const avatar = document.getElementById('avatar');
         const avatarModal = document.getElementById('avatar-modal');
         const avatarContainer = document.getElementById('avatar-container');
+=======
+        const avatarDesktop = document.getElementById('avatar-desktop');
+        const avatarModalDesktop = document.getElementById('avatar-modal-desktop');
+        const avatarContainerDesktop = document.getElementById('avatar-container-desktop');
+>>>>>>> a68afd444a2f2afe7e12249f826298d9b3274972
         const avatarMobile = document.getElementById('avatar-mobile');
         const avatarModalMobile = document.getElementById('avatar-modal-mobile');
         const avatarContainerMobile = document.getElementById('avatar-container-mobile');
         let timer;
 
+<<<<<<< HEAD
         if (avatar && avatarModal && avatarContainer) {
             avatar.addEventListener('mouseover', function() {
                 clearTimeout(timer);
@@ -131,6 +155,51 @@
                 }, 300);
             });
         }
+=======
+        avatarDesktop.addEventListener('mouseenter', function() {
+            clearTimeout(timer);
+            avatarContainerDesktop.classList.add('show-modal');
+        });
+
+        avatarModalDesktop.addEventListener('mouseenter', function() {
+            clearTimeout(timer);
+            avatarContainerDesktop.classList.add('show-modal');
+        });
+
+        avatarDesktop.addEventListener('mouseleave', function() {
+            timer = setTimeout(() => {
+                avatarContainerDesktop.classList.remove('show-modal');
+            }, 300);
+        });
+
+        avatarModalDesktop.addEventListener('mouseleave', function() {
+            timer = setTimeout(() => {
+                avatarContainerDesktop.classList.remove('show-modal');
+            }, 300);
+        });
+
+        avatarMobile.addEventListener('mouseenter', function() {
+            clearTimeout(timer);
+            avatarContainerMobile.classList.add('show-modal');
+        });
+
+        avatarModalMobile.addEventListener('mouseenter', function() {
+            clearTimeout(timer);
+            avatarContainerMobile.classList.add('show-modal');
+        });
+
+        avatarMobile.addEventListener('mouseleave', function() {
+            timer = setTimeout(() => {
+                avatarContainerMobile.classList.remove('show-modal');
+            }, 300);
+        });
+
+        avatarModalMobile.addEventListener('mouseleave', function() {
+            timer = setTimeout(() => {
+                avatarContainerMobile.classList.remove('show-modal');
+            }, 300);
+        });
+>>>>>>> a68afd444a2f2afe7e12249f826298d9b3274972
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');

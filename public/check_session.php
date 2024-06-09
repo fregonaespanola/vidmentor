@@ -6,7 +6,7 @@
         validateRememberMeToken();
     }
 
-    if (!isset($_SESSION['user'])) {
+    if (!isset($_SESSION['user']) && $_SERVER['REQUEST_URI'] !== '/login.php' && $_SERVER['REQUEST_URI'] !== '/register.php') {
         redirect('login.php', [
             'title' => 'error',
             'text' => 'Por favor, inicia sesión para acceder a esta página.',
