@@ -1,6 +1,6 @@
 <?php
     session_start();
-    /*if(!isset($_GET['token'])){
+    if(!isset($_GET['token'])){
         redirect('index.php', [
             'title' => 'error',
             'text' => 'No se ha proporcionado un token de restablecimiento de contraseña.',
@@ -10,7 +10,7 @@
             'confirmButtonText' => 'OK'
         ]);
     }
-    $token = $_GET['token'];*/
+    $token = $_GET['token'];
 ?>
 
 <!DOCTYPE html>
