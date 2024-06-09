@@ -460,7 +460,7 @@ session_start();
         }
 
         .main-background {
-            background-image: url('assets/home_background/ultimo.webp');
+            background-image: url('assets/home_background/jjjj.webp');
             background-size: cover;
             background-position: center;
             min-height: 100vh;
@@ -476,22 +476,23 @@ session_start();
             width: 100%;
             height: 100%;
             background: inherit;
-            filter: blur(2px);
-            /* Desenfoque aplicado al pseudo-elemento */
+            filter: blur(5px);
             z-index: -1;
-            /* Colocar detrás del contenido */
         }
 
         .content-wrapper {
             position: relative;
             z-index: 2;
             background: rgba(0, 0, 0, 0.5);
-            /* Fondo semi-transparente más oscuro */
             padding: 2rem;
             border-radius: 10px;
             margin: 0 auto;
             max-width: 80%;
-            /* Para no ocupar todo el ancho en pantallas grandes */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
         }
 
         .content-wrapper h1 {
@@ -527,8 +528,8 @@ session_start();
 
     <!-- Main content section -->
     <!-- Main content section -->
-    <main class="flex-grow main-background bg-cover bg-center min-h-screen">
-        <div class="content-wrapper text-left md:text-center relative mt-8 md:mt-20 lg:mt-32">
+    <main class="flex-grow main-background bg-cover bg-center min-h-screen flex items-center justify-center">
+        <div class="content-wrapper text-left md:text-center">
             <h1 class="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-lg relative">
                 <span class="block">A un click</span>
                 <span class="block">de cambiar tu</span>
@@ -577,19 +578,19 @@ session_start();
             </p>
             <div class="slider">
                 <div class="p-4 brand-item">
-                    <img src="assets/logos/opera.png" alt="Brand 1" class="mx-auto h-64">
+                    <img src="assets/logos/opera.png" alt="Opera GX" class="mx-auto h-48 object-contain">
                     <h3 class="mt-4 text-xl font-bold text-blue-500">Opera GX</h3>
                 </div>
                 <div class="p-4 brand-item">
-                    <img src="assets/logos/FilmoraGo.png" alt="Brand 2" class="mx-auto h-64">
+                    <img src="assets/logos/FilmoraGo.png" alt="Filmora GO" class="mx-auto h-48 object-contain">
                     <h3 class="mt-4 text-xl font-bold color-red-vidmentor-secondary">Filmora GO</h3>
                 </div>
                 <div class="p-4 brand-item">
-                    <img src="assets/logos/Project.jpeg" alt="Brand 3" class="mx-auto h-64">
+                    <img src="assets/logos/Project.jpeg" alt="Project Z" class="mx-auto h-48 object-contain">
                     <h3 class="mt-4 text-xl font-bold text-green-500">Project Z</h3>
                 </div>
                 <div class="p-4 brand-item">
-                    <img src="assets/logos/meetmap.webp" alt="Brand 4" class="mx-auto h-64">
+                    <img src="assets/logos/meetmap.webp" alt="Meetmap" class="mx-auto h-48 object-contain">
                     <h3 class="mt-4 text-xl font-bold text-purple-500">Meetmap</h3>
                 </div>
             </div>
@@ -714,10 +715,7 @@ session_start();
                         breakpoint: 1024,
                         settings: {
                             slidesToShow: 2,
-                            slidesToScroll: 1,
-                            infinite: true,
-                            dots: true
-                        }
+                            slidesToScroll:
                     },
                     {
                         breakpoint: 600,
