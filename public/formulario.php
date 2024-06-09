@@ -2,8 +2,6 @@
 session_start();
 require_once 'common_functions.php';
 
-$_SESSION['usuario_id'] = 2;
-
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
 

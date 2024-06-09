@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bajada = $_POST['bajada'];
     $desenlace = $_POST['desenlace'];
     $thumbnail_url = $_POST['miniatura'];
-    $fecha = date("Y-m-d H:i:s");
+    $fecha = $_POST['fecha'];
 
     if(isset($_GET['id'])) {
         $id = $_GET['id'];
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         if (executeQuery($query, $params)) {
-            redirect("calendar.php", "success", "Los datos se han actualizado correctamente.");
+            redirect("calendar.php", ["success", "Los datos se han actualizado correctamente."]);
         } else {
             echo "Error al actualizar los datos.";
         }

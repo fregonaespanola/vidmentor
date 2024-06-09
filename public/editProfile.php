@@ -2,8 +2,6 @@
     require_once('check_session.php');
     $urlCompleta = $_SERVER['REQUEST_URI'];
     $errors = $_SESSION['errors'] ?? [];
-    $successMessage = $_SESSION['successMessage'] ?? '';
-    unset($_SESSION['successMessage']);
     require_once("load_user.php");
 ?>
 
@@ -31,7 +29,7 @@
                     <input type="hidden" name="formType" value="updateProfile">
                     <div class="text-center mb-4">
                         <label for="fileUpload" class="cursor-pointer">
-                            <?php if (!empty($_SESSION['user']['AVATAR']) && $_SESSION['user']['AVATAR'] != "default.jpg") { ?>
+                            <?php if (!empty($_SESSION['user']['AVATAR']) && $_SESSION['user']['AVATAR'] != "default.png") { ?>
                                 <img src="<?= htmlspecialchars($_SESSION['user']['AVATAR']) ?>" alt="Imagen de perfil" class="w-32 h-32 rounded-full mx-auto" id="imagePreview">
                             <?php } else { ?>
                                 <img src="./images/default.png" alt="Imagen de perfil" class="w-32 h-32 rounded-full mx-auto" id="imagePreview">
@@ -83,20 +81,6 @@
             </div>
         </div>
     </div>
-    <?php if ($successMessage) { ?>
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: '¡Éxito!',
-                text: '<?= $successMessage ?>',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-            });
-        </script>
-    <?php } ?>
 </body>
 <script src="js/editProfile.js"></script>
 
