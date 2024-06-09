@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    require('check_session.php');
 ?>
 
 <!DOCTYPE html>
@@ -169,7 +169,6 @@
                 </div>
                 <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
                 <form action='procesar_registro.php' method='post' class='mb-3 mt-3'>
-                    <!-- <pre><?php //var_dump($_SESSION['errors'] ?? '')?></pre> -->
                     <div class='mb-4'>
                         <label for='nombre' class='block text-sm font-semibold mb-2'>Nombre:</label>
                         <span class='text-red-500 text-xs'><?= $_SESSION['errors']['nombre']??'' ?></span>
