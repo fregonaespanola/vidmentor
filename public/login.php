@@ -26,7 +26,6 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-
         .google-button:hover {
             @apply bg-blue-700 transform scale-105;
         }
@@ -148,6 +147,7 @@
             }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body class="background bg-gray-vidmentor-secondary text-white">
@@ -160,7 +160,7 @@
                     <a class="link-log hover:text-red-500" href="register.php">Registrarse</a>
                 </div>
                 <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
-                <form action="procesar_login.php" method="post" class="mb-3 mt-3">
+                <form id="login-form" action="procesar_login.php" method="post" class="mb-3 mt-3">
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-semibold mb-2">Correo Electrónico:</label>
                         <input type="email" id="email" name="usernameLogin" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
@@ -203,6 +203,45 @@
         </div>
     </div>
     <?php require_once("footer.php"); ?>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Aquí iría la lógica para validar los campos de email y password
+            if (email === "" || password === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Por favor, complete todos los campos.',
+                });
+                return;
+            }
+
+            // Simulación de un inicio de sesión exitoso o fallido (reemplazar con lógica real)
+            const loginSuccessful = true; // Cambiar según la lógica real de autenticación
+
+            if (loginSuccessful) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenido!',
+                    text: 'Inicio de sesión exitoso.',
+                }).then(() => {
+                    // Redirigir a otra página después de iniciar sesión correctamente
+                    window.location.href = 'dashboard.php';
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Correo electrónico o contraseña incorrectos.',
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
