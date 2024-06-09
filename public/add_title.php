@@ -3,8 +3,8 @@
     if (isset($_POST['title'])) {
         $translatedTitle = $_POST['title'];
 
-        if(isset($_SESSION['usuario_id'])) {
-            $usuario_id = $_SESSION['ID'];
+        if(isset($_SESSION['user'])) {
+            $usuario_id = $_SESSION['user']['ID'];
 
             require_once('common_functions.php');
 

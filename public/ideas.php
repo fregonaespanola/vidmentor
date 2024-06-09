@@ -2,12 +2,10 @@
 session_start();
 require_once('common_functions.php');
 
-$_SESSION['usuario_id'] = 2;
-
 $pdo = getDatabaseConnection();
 
 try {
-    $usuario_id = $_SESSION['usuario_id'];
+    $usuario_id = $_SESSION['user']['ID'];
     $query = "SELECT INTERES FROM USUARIO WHERE ID = :id";
     $params = [':id' => $usuario_id];
     $stmt = executeQuery($query, $params);
