@@ -27,7 +27,7 @@
             $avatarData = null;
             if (!empty($_FILES['avatar']['tmp_name']) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
                 $uploadDirectory = 'images/';
-                $userId = $_SESSION['ID'];
+                $userId = $_SESSION['user']['ID'];
                 $fileInfo = pathinfo($_FILES['avatar']['name']);
                 $extension = strtolower($fileInfo['extension']);
                 $fileName = $userId . '.' . $extension;
@@ -45,20 +45,21 @@
             }
 
             $existingUser = checkExistingUserEmail($nick, $mail);
-            if ($existingUser['exists'] && $existingUser['data']['ID'] !== $_SESSION['ID']) {
+            if ($existingUser['exists'] && $existingUser['data']['ID'] !== $_SESSION['user']['ID']) {
                 $errors['errors'] = "El nombre de usuario o email ya están en uso.";
             }
 
             if (empty($errors)) {
+                
                 $query = "UPDATE USUARIO SET NICK = :nick, MAIL = :mail, F_NAC = :fecha_nacimiento";
                 $params = [
                     ':nick' => $nick,
                     ':mail' => $mail,
-                    ':fecha_nacimiento' => $fecha_nacimiento
+                    ':fecha_nacimiento' => $fecha_nacimiento==''?NULL:$fecha_nacimiento
                 ];
 
                 if (!empty($password)) {
-                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
                     $query .= ", PWD = :pwd";
                     $params[':pwd'] = $hashedPassword;
                 }
@@ -69,12 +70,15 @@
                 }
 
                 $query .= " WHERE ID = :user_id";
-                $params[':user_id'] = $_SESSION['ID'];
-
+                $params[':user_id'] = $_SESSION['user']['ID'];
                 $stmt = executeQuery($query, $params);
 
                 if ($stmt) {
-                    $_SESSION['successMessage'] = "Perfil actualizado con éxito.";
+                    $query = "SELECT * FROM USUARIO WHERE ID = :user_id";
+                    $params = [':user_id' => $_SESSION['user']['ID']];
+                    $stmt = executeQuery($query, $params);
+                    $_SESSION['user'] = $stmt->fetch(PDO::FETCH_ASSOC);
+                    
                     redirect("editProfile.php", [
                         'title' => 'success',
                         'text' => 'Perfil actualizado con éxito.',
@@ -99,6 +103,12 @@
         }
 
         $_SESSION['errors'] = $errors;
-        header("Location: editProfile.php");
-        exit();
+        redirect("editProfile.php", [
+            'title' => 'error',
+            'text' => 'Error actualizando perfil.',
+            'position' => 'center',
+            'toast' => true,
+            'showConfirmButton' => false,
+            'timer' => 1500
+        ],$_POST);
     }
