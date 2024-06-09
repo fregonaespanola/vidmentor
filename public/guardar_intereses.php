@@ -2,7 +2,7 @@
 session_start();
 require_once("common_functions.php");
 
-$usuario_id = $_SESSION['usuario_id'] ?? null;
+$usuario_id = $_SESSION['user']['ID'] ?? null;
 
 if (!$usuario_id) {
     die("Usuario no autenticado");
@@ -10,7 +10,6 @@ if (!$usuario_id) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $interest = $_POST['interest'] ?? null;
-    $usuario_id = $_POST['usuario_id'] ?? null;
 
     if ($interest && $usuario_id) {
         try {

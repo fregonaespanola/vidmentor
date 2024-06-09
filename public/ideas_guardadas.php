@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if (isset($_SESSION['usuario_id'])) {
-    $usuario_id = $_SESSION['usuario_id'];
+if (isset($_SESSION['user'])) {
+    $usuario_id = $_SESSION['user']['ID'];
     require_once('common_functions.php');
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ideaId']) && isset($_POST['date'])) {

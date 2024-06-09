@@ -2,8 +2,6 @@
 session_start();
 require_once 'common_functions.php';
 
-$_SESSION['usuario_id'] = 2;
-
 $igstories_checked = "";
 $reels_clips_checked = "";
 $share_checked = "";

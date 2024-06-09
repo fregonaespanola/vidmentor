@@ -15,33 +15,39 @@
         $userEmail = $userData['MAIL'];
     }
 
-    $queryNextVideo = "SELECT NOMBRE, FECHA FROM DETALLE WHERE FECHA > CURDATE() ORDER BY FECHA LIMIT 1";
-    $stmtNextVideo = executeQuery($queryNextVideo);
-    $nextVideoTitle = '';
-    if ($stmtNextVideo && $stmtNextVideo->rowCount() > 0) {
-        $nextVideoData = $stmtNextVideo->fetch(PDO::FETCH_ASSOC);
-        $nextVideoTitle = $nextVideoData['NOMBRE'];
-        $nextVideoDate = $nextVideoData['FECHA'];
-    }
+// Obtener el siguiente video por subir
+$queryNextVideo = "SELECT NOMBRE, FECHA FROM DETALLE WHERE FECHA > CURDATE() AND ID_USUARIO = :userId ORDER BY FECHA LIMIT 1";
+$paramsNextVideo = [':userId' => $userId];
+$stmtNextVideo = executeQuery($queryNextVideo, $paramsNextVideo);
 
-    $queryVideoCount = "SELECT COUNT(*) AS total,
-                        SUM(IF(FECHA < CURDATE(), 1, 0)) AS subidos,
-                        SUM(IF(FECHA > CURDATE(), 1, 0)) AS porSubir,
-                        SUM(IF(FECHA IS NULL, 1, 0)) AS pendientes
-                        FROM DETALLE";
-    $stmtVideoCount = executeQuery($queryVideoCount);
-    $totalVideos = 0;
-    $videosSubidos = 0;
-    $videosPorSubir = 0;
-    $videosPendientes = 0;
-    if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
-        $videoCountData = $stmtVideoCount->fetch(PDO::FETCH_ASSOC);
-        $totalVideos = $videoCountData['total'];
-        $videosSubidos = $videoCountData['subidos'];
-        $videosPorSubir = $videoCountData['porSubir'];
-        $videosPendientes = $videoCountData['pendientes'];
-    }
+$nextVideoTitle = 'NO HAY VIDEOS PENDIENTES DE SUBIDA';
+$nextVideoDate = 'No existe vídeo aún';
+if ($stmtNextVideo && $stmtNextVideo->rowCount() > 0) {
+    $nextVideoData = $stmtNextVideo->fetch(PDO::FETCH_ASSOC);
+    $nextVideoTitle = $nextVideoData['NOMBRE'];
+    $nextVideoDate = $nextVideoData['FECHA'];
+}
+
+// Contar videos subidos y por subir
+$queryVideoCount = "SELECT COUNT(*) AS total,
+                    SUM(IF(FECHA < CURDATE(), 1, 0)) AS subidos,
+                    SUM(IF(FECHA > CURDATE(), 1, 0)) AS porSubir
+                    FROM DETALLE WHERE ID_USUARIO = :userId";
+$paramsVideoCount = [':userId' => $userId];
+$stmtVideoCount = executeQuery($queryVideoCount, $paramsVideoCount);
+
+$totalVideos = 0;
+$videosSubidos = 0;
+$videosPorSubir = 0;
+if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
+    $videoCountData = $stmtVideoCount->fetch(PDO::FETCH_ASSOC);
+    $totalVideos = $videoCountData['total'] ?? 0;
+    $videosSubidos = $videoCountData['subidos'] ?? 0;
+    $videosPorSubir = $videoCountData['porSubir'] ?? 0;
+}
+$videosPendientes = $totalVideos - $videosSubidos - $videosPorSubir;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -165,17 +171,17 @@
                                 <p class="text-md text-white mt-2">Estado de Videos</p>
                                 <div class="flex justify-center space-x-4 mt-4">
                                     <div class="text-center">
-                                        <p id="loading-pending" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title">Cargando...</p>
+                                        <p id="loading-pending" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title"><?php echo $videosPorSubir?></p>
                                         <p id="total-pending" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title" style="display:none;"></p>
                                         <p class="text-md text-white">En Progreso</p>
                                     </div>
                                     <div class="text-center">
-                                        <p id="loading-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title">Cargando...</p>
+                                        <p id="loading-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title"><?php echo $videosSubidos?></p>
                                         <p id="total-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title" style="display:none;"></p>
                                         <p class="text-md text-white">Publicados</p>
                                     </div>
                                     <div class="text-center">
-                                        <p id="loading-pending-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title">Cargando...</p>
+                                        <p id="loading-pending-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title"><?php echo $videosPendientes?></p>
                                         <p id="pending-providers" class="text-2xl font-semibold card bg-gray-vidmentor-secondary-title" style="display:none;"></p>
                                         <p class="text-md text-white">Pendientes</p>
                                     </div>

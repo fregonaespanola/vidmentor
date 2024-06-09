@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['formType'] === 'login') {
     ]);
 
     if (empty($errors)) {
-        $query = "SELECT * FROM USUARIO WHERE NICK = :username AND (OAUTH IS NULL)";
+        $query = "SELECT * FROM USUARIO WHERE MAIL = :username AND (OAUTH IS NULL)";
         $params = [':username' => $username];
         $stmt = executeQuery($query, $params);
 

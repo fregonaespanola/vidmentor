@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt->execute();
 
-            redirect("calendar.php", "success", "Datos actualizados correctamente");
+            redirect("calendar.php", ["success", "Datos actualizados correctamente"]);
         } catch (PDOException $e) {
             echo "Error al actualizar los datos en la base de datos: " . $e->getMessage();
         }
