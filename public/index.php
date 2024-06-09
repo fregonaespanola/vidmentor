@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -396,24 +399,24 @@
                 ¿Tienes preguntas? Ponte en contacto con nosotros y descubre cómo VidMentor puede ayudarte.
             </p>
             <div class="max-w-2xl mx-auto bg-gray-vidmentor-5 p-10 rounded-xl shadow-2xl transform transition-transform duration-300 hover:scale-105">
-                <form>
+                <form action='send_mail.php' method='post'>
                     <div class="mb-6">
                         <label for="name" class="block text-white text-lg font-semibold mb-2 flex items-center">
                             <i class="fas fa-user mr-2 color-red-vidmentor-secondary"></i> Nombre:
                         </label>
-                        <input type="text" id="name" name="name" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="Tu nombre">
+                        <input type="text" id="name" name="name" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu nombre">
                     </div>
                     <div class="mb-6">
                         <label for="email" class="block text-white text-lg font-semibold mb-2 flex items-center">
                             <i class="fas fa-envelope mr-2 color-red-vidmentor-secondary"></i> Correo electrónico:
                         </label>
-                        <input type="email" id="email" name="email" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="Tu correo electrónico">
+                        <input type="email" id="email" name="email" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu correo electrónico">
                     </div>
                     <div class="mb-6">
                         <label for="message" class="block text-white text-lg font-semibold mb-2 flex items-center">
                             <i class="fas fa-comment-dots mr-2 color-red-vidmentor-secondary"></i> Mensaje:
                         </label>
-                        <textarea id="message" name="message" rows="4" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="Tu mensaje"></textarea>
+                        <textarea id="message" name="message" rows="4" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu mensaje"></textarea>
                     </div>
                     <div class="flex items-center justify-center">
                         <button type="submit" class="bg-red-500 text-white py-3 px-6 rounded-full hover:bg-red-600 transition-transform transform hover:scale-105 duration-300">Enviar</button>
@@ -427,6 +430,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <?php
+        require 'insertSwal.php';
+    ?>
     <script>
         $(document).ready(function() {
             $('.slider').slick({

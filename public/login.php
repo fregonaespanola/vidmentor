@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -202,46 +206,10 @@
             <img src="assets/diseño 2.png" alt="Imagen" class="mt-auto responsive-img">
         </div>
     </div>
-    <?php require_once("footer.php"); ?>
-
-    <script>
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // Aquí iría la lógica para validar los campos de email y password
-            if (email === "" || password === "") {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Por favor, complete todos los campos.',
-                });
-                return;
-            }
-
-            // Simulación de un inicio de sesión exitoso o fallido (reemplazar con lógica real)
-            const loginSuccessful = true; // Cambiar según la lógica real de autenticación
-
-            if (loginSuccessful) {
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Bienvenido!',
-                    text: 'Inicio de sesión exitoso.',
-                }).then(() => {
-                    // Redirigir a otra página después de iniciar sesión correctamente
-                    window.location.href = 'dashboard.php';
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Correo electrónico o contraseña incorrectos.',
-                });
-            }
-        });
-    </script>
+    <?php
+        require_once("footer.php");
+        require("insertSwal.php");
+    ?>
 </body>
 
 </html>

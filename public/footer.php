@@ -18,7 +18,7 @@
             <div class="w-full md:w-1/3 text-center md:text-right">
                 <h3 class="text-xl font-semibold mb-4">Síguenos</h3>
                 <div class="flex justify-center md:justify-end space-x-4">
-                    <a href="https://www.facebook.con" class="text-gray-400 hover:text-red-500"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com" class="text-gray-400 hover:text-red-500"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.x.com" class="text-gray-400 hover:text-red-500"><i class="fab fa-twitter"></i></a>
                     <a href="https://www.instagram.com" class="text-gray-400 hover:text-red-500"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.linkedin.com" class="text-gray-400 hover:text-red-500"><i class="fab fa-linkedin-in"></i></a>
