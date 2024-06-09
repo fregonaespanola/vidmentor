@@ -23,32 +23,11 @@
                 if ($user && password_verify($password, $user['PWD'])) {
                     $_SESSION['user'] = $user;
                     if (isset($_COOKIE['remember-me']) && empty($_POST['remember-me'])) {
-                        $cookie_name = "remember-me";
-                        $cookie_value = "";
-                        $cookie_expire = time() - 3600;
-                        setcookie($cookie_name, $cookie_value, $cookie_expire, "/");
+                        unsetLoginCookies();
                     }
 
                     if ($checkRemember === 'on') {
-                        $generatedToken = bin2hex(openssl_random_pseudo_bytes(32));
-                        $expiration = date('Y-m-d H:i:s', strtotime('+30 days'));
-                        $tokenType = 'RECORDAR';
-
-                        $queryToken = "INSERT INTO TOKEN (ID_USUARIO, TOKEN, F_EXP, ID_TIPO) VALUES (:user_id, :token_value, :expiration_date, (SELECT ID FROM TIPO WHERE NOMBRE = :token_type))";
-
-                        $paramsToken = [
-                            ':user_id' => $user['ID'],
-                            ':token_value' => $generatedToken,
-                            ':expiration_date' => $expiration,
-                            ':token_type' => $tokenType
-                        ];
-
-                        executeQuery($queryToken, $paramsToken);
-
-                        $cookie_name = "remember-me";
-                        $cookie_value = $generatedToken;
-                        $cookie_expire = time() + 60 * 60 * 24 * 7; // 1 semana
-                        setcookie($cookie_name, $cookie_value, $cookie_expire, "/");
+                        setLoginCookies($user);
                     }
 
                     $previousPage = $_SESSION['previous_page'] ?? 'index.php';

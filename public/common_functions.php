@@ -210,19 +210,28 @@
         $params = [
             ':token' => $token,
             ':expiry' => $expiryDate,
-            ':tipo' => 1,
+            ':tipo' => 3,
             ':user' => $user['ID']
         ];
         executeQuery($query, $params);
 
-        setcookie('rememberme', $token, time() + (30 * 24 * 60 * 60), '/', '', true, true);
+        setcookie('remember-me', $token, time() + (7 * 24 * 60 * 60), '/', '', true, true);
+    }
+
+    function unsetLoginCookies(): void
+    {
+        if (isset($_COOKIE['remember-me'])) {
+            $cookie_name = 'remember-me';
+            $cookie_value = '';
+            $cookie_expire = time() - 3600;
+            setcookie($cookie_name, $cookie_value, $cookie_expire, '/');
+        }
     }
 
     function validateRememberMeToken(): bool
     {
-        if (isset($_COOKIE['rememberme'])) {
-            $token = $_COOKIE['rememberme'];
-
+        if (isset($_COOKIE['remember-me'])) {
+            $token = $_COOKIE['remember-me'];
             $query = 'SELECT ID_USUARIO, F_EXP FROM TOKEN WHERE TOKEN = :token AND ID_TIPO = 1';
             $params = [':token' => $token];
             $stmt = executeQuery($query, $params);
@@ -230,6 +239,7 @@
             if ($stmt && $stmt->rowCount() > 0) {
                 $tokenData = $stmt->fetch(PDO::FETCH_ASSOC);
                 $userId = $tokenData['ID_USUARIO'];
+
                 try{
                     $expiryDate = new DateTime($tokenData['F_EXP']);
                 } catch (Exception $e) {
@@ -239,7 +249,7 @@
                 if (new DateTime() > $expiryDate) {
                     $query = 'DELETE FROM TOKEN WHERE TOKEN = :token';
                     executeQuery($query, $params);
-                    setcookie('rememberme', '', time() - 3600, '/');
+                    unsetLoginCookies();
                     return false;
                 } else {
                     $query = 'SELECT * FROM USUARIO WHERE ID = :userId';

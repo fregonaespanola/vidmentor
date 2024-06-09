@@ -1,7 +1,7 @@
 <?php
     session_start();
     require('common_functions.php');
-    setcookie('rememberme', '', time() - 3600, '/');
+    unsetLoginCookies();
     unset($_SESSION);
     unset($_COOKIE);
     unset($_POST);
