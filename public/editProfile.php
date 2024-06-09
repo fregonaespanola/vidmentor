@@ -1,5 +1,5 @@
 <?php
-    require_once('check_session.php');
+    require('check_session.php');
     $urlCompleta = $_SERVER['REQUEST_URI'];
     $errors = $_SESSION['errors'] ?? [];
     require_once("load_user.php");
@@ -19,7 +19,8 @@
 
 <body class="bg-gray-vidmentor-primary text-white flex flex-col min-h-screen">
     <?php require_once("header-dashboard.php"); ?>
-
+    <?php var_dump($_SESSION['fdsfds']);?>
+    <?php var_dump($errors);?>
     <div class="flex flex-grow">
         <?php require_once("sidebar-dashboard.php"); ?>
         <div class="flex-grow p-6">
@@ -63,7 +64,7 @@
                             <label for="password" class="block font-semibold">Contraseña</label>
                             <input type="password" id="password" name="password" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary">
                             <?php if (isset($errors['password'])) { ?>
-                                <span class="text-red-500 text-sm"><?= $errors['password'] ?></span>
+                                <span class="text-red-500 text-sm"><?= $errors['password']?></span>
                             <?php } ?>
                         </div>
                         <div>
@@ -83,5 +84,5 @@
     </div>
 </body>
 <script src="js/editProfile.js"></script>
-
+<?php require('insertSwal.php');?>
 </html>

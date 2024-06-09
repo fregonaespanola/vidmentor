@@ -9,7 +9,7 @@
 
         $password = $_POST['password'] ?? '';
         $confirm_password = $_POST['confirm_password'] ?? '';
-
+        $confirm_correct_password=true;
         if ($password !== $confirm_password) {
             $errors['password'] = 'Las contraseñas no coinciden.';
             $errors['confirm_password'] = 'Las contraseñas no coinciden.';
@@ -59,9 +59,16 @@
                 ];
 
                 if (!empty($password)) {
-                    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-                    $query .= ", PWD = :pwd";
-                    $params[':pwd'] = $hashedPassword;
+                    $passwordError = validatePassword($password, $confirm_password);
+                    if ($passwordError !== null) {
+                        $errors['password'] .= $passwordError;
+                        $confirm_correct_password= false;
+                        $_SESSION['fdsfds'] = $confirm_correct_password;
+                    } else {
+                        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+                        $query .= ", PWD = :pwd";
+                        $params[':pwd'] = $hashedPassword;
+                    }
                 }
 
                 if ($avatarData !== null) {
