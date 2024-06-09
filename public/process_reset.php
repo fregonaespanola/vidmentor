@@ -32,7 +32,7 @@
 
             try{
                 if(new DateTime() > new DateTime($expiryDate)){
-                    redirect('forgot_password.php', [
+                    redirect('recover_password.php', [
                         'title'             => 'error',
                         'text'              => 'El token ha expirado. Por favor, solicita uno nuevo.',
                         'position'          => 'center',
