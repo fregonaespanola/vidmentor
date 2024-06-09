@@ -3,8 +3,11 @@
         <div class="flex flex-wrap justify-between">
             <div class="w-full md:w-1/3 text-center md:text-left mb-8 md:mb-0">
                 <h2 class="text-2xl font-bold mb-4">VidMentor</h2>
-                <p class="text-gray-400">Una aplicación web para gestionar tu contenido de manera profesional.</p>
-                <img src="assets/logo.png" alt="VidMentor Logo" class="mt-4 h-10 mx-auto md:mx-0">
+                <div class='flex items-center'>
+                    <img src='assets/logo.png' alt='VidMentor Logo'
+                         class='h-10 mx-auto sm:mx-0 flex-shrink-0 mb-4 sm:mb-0'>
+                    <p class='sm:ml-5 text-gray-400 text-md flex-grow text-wrap text-center sm:text-left'>Una aplicación web para gestionar tu contenido de manera profesional.</p>
+                </div>
             </div>
             <div class="w-full md:w-1/3 text-center mb-8 md:mb-0">
                 <h3 class="text-xl font-semibold mb-4">Enlaces</h3>

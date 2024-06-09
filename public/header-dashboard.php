@@ -14,7 +14,11 @@
 </div>
     <div class="flex items-center justify-end lg:w-1/3 relative">
         <button id="profile-button" class="flex items-center bg-red-vidmentor-secondary text-white px-4 py-2 rounded hover:bg-red-700 focus:outline-none">
-            <i class="fas fa-user-circle mr-2"></i> Perfil
+            <img src="<?= htmlspecialchars($_SESSION['user']['AVATAR'] != 'default.png' ? $_SESSION['user']['AVATAR'] : './images/default.png', ENT_QUOTES, 'UTF-8') ?>"
+                 alt='User Avatar' class='h-10 w-10 rounded-full mr-3'>
+            <span>
+                Perfil
+            </span>
         </button>
 
         <!-- Modal -->
@@ -28,7 +32,7 @@
                     </li>
                     <li class="flex items-center">
                         <i class="fas fa-sign-out-alt mr-2 text-blue-500"></i>
-                        <a href="cerrar_sesion.php" class="text-blue-500 hover:underline">Cerrar sesión</a>
+                        <a href="logout.php" class="text-blue-500 hover:underline">Cerrar sesión</a>
                     </li>
                 </ul>
                 <button id="close-modal" class="mt-4 bg-red-vidmentor-secondary w-full text-white px-4 py-2 rounded hover:bg-red-600">Cerrar</button>
@@ -39,7 +43,6 @@
 
 <script>
     document.getElementById('profile-button').onclick = function(event) {
-        event.preventDefault();
         document.getElementById('profile-modal').classList.toggle('hidden');
     }
 
@@ -47,11 +50,9 @@
         document.getElementById('profile-modal').classList.add('hidden');
     }
 
-    // Close the modal when clicking outside of it
     window.onclick = function(event) {
-        var modal = document.getElementById('profile-modal');
-        var button = document.getElementById('profile-button');
-        if (event.target !== modal && event.target !== button && !modal.contains(event.target)) {
+        let modal = document.getElementById('profile-modal');
+        if (event.target !== modal && !modal.contains(event.target) && event.target.id !== 'profile-button' && !document.getElementById('profile-button').contains(event.target)) {
             modal.classList.add('hidden');
         }
     }

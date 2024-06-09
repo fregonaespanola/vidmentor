@@ -1,52 +1,50 @@
 <?php
-session_start();
-require_once("common_functions.php");
+    require("check_session.php");
 
-$_SESSION['usuario_id'] = 2;
-$userId = $_SESSION['usuario_id'];
-$queryUser = "SELECT NICK, MAIL FROM USUARIO WHERE ID = :userId";
-$paramsUser = [':userId' => $userId];
-$stmtUser = executeQuery($queryUser, $paramsUser);
+    $user = $_SESSION['user'] ?? null;
+    $userId = $user['ID'] ?? null;
+    $queryUser = "SELECT NICK, MAIL FROM USUARIO WHERE ID = :userId";
+    $paramsUser = [':userId' => $userId];
+    $stmtUser = executeQuery($queryUser, $paramsUser);
 
-$userName = '';
-$userEmail = '';
-if ($stmtUser && $stmtUser->rowCount() > 0) {
-    $userData = $stmtUser->fetch(PDO::FETCH_ASSOC);
-    $userName = $userData['NICK'];
-    $userEmail = $userData['MAIL'];
-}
+    $userName = '';
+    $userEmail = '';
+    if ($stmtUser && $stmtUser->rowCount() > 0) {
+        $userData = $stmtUser->fetch(PDO::FETCH_ASSOC);
+        $userName = $userData['NICK'];
+        $userEmail = $userData['MAIL'];
+    }
 
-$queryNextVideo = "SELECT NOMBRE, FECHA FROM DETALLE WHERE FECHA > CURDATE() ORDER BY FECHA ASC LIMIT 1";
-$stmtNextVideo = executeQuery($queryNextVideo);
-$nextVideoTitle = '';
-if ($stmtNextVideo && $stmtNextVideo->rowCount() > 0) {
-    $nextVideoData = $stmtNextVideo->fetch(PDO::FETCH_ASSOC);
-    $nextVideoTitle = $nextVideoData['NOMBRE'];
-    $nextVideoDate = $nextVideoData['FECHA'];
-}
+    $queryNextVideo = "SELECT NOMBRE, FECHA FROM DETALLE WHERE FECHA > CURDATE() ORDER BY FECHA LIMIT 1";
+    $stmtNextVideo = executeQuery($queryNextVideo);
+    $nextVideoTitle = '';
+    if ($stmtNextVideo && $stmtNextVideo->rowCount() > 0) {
+        $nextVideoData = $stmtNextVideo->fetch(PDO::FETCH_ASSOC);
+        $nextVideoTitle = $nextVideoData['NOMBRE'];
+        $nextVideoDate = $nextVideoData['FECHA'];
+    }
 
-$queryVideoCount = "SELECT COUNT(*) AS total,
-                    SUM(CASE WHEN FECHA < CURDATE() THEN 1 ELSE 0 END) AS subidos,
-                    SUM(CASE WHEN FECHA > CURDATE() THEN 1 ELSE 0 END) AS porSubir,
-                    SUM(CASE WHEN FECHA IS NULL THEN 1 ELSE 0 END) AS pendientes
-                    FROM DETALLE";
-$stmtVideoCount = executeQuery($queryVideoCount);
-$totalVideos = 0;
-$videosSubidos = 0;
-$videosPorSubir = 0;
-$videosPendientes = 0;
-if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
-    $videoCountData = $stmtVideoCount->fetch(PDO::FETCH_ASSOC);
-    $totalVideos = $videoCountData['total'];
-    $videosSubidos = $videoCountData['subidos'];
-    $videosPorSubir = $videoCountData['porSubir'];
-    $videosPendientes = $videoCountData['pendientes'];
-}
+    $queryVideoCount = "SELECT COUNT(*) AS total,
+                        SUM(IF(FECHA < CURDATE(), 1, 0)) AS subidos,
+                        SUM(IF(FECHA > CURDATE(), 1, 0)) AS porSubir,
+                        SUM(IF(FECHA IS NULL, 1, 0)) AS pendientes
+                        FROM DETALLE";
+    $stmtVideoCount = executeQuery($queryVideoCount);
+    $totalVideos = 0;
+    $videosSubidos = 0;
+    $videosPorSubir = 0;
+    $videosPendientes = 0;
+    if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
+        $videoCountData = $stmtVideoCount->fetch(PDO::FETCH_ASSOC);
+        $totalVideos = $videoCountData['total'];
+        $videosSubidos = $videoCountData['subidos'];
+        $videosPorSubir = $videoCountData['porSubir'];
+        $videosPendientes = $videoCountData['pendientes'];
+    }
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>Dashboard - VidMentor</title>
@@ -226,8 +224,8 @@ if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
                 document.getElementById('loading-video-performance').style.display = 'none';
                 document.getElementById('video-performance').style.display = 'block';
 
-                var ctx = document.getElementById('videoPerformanceChart').getContext('2d');
-                var chart = new Chart(ctx, {
+                let ctx = document.getElementById('videoPerformanceChart').getContext('2d');
+                let chart = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: ['Video 1', 'Video 2', 'Video 3', 'Video 4', 'Video 5'],
@@ -271,6 +269,9 @@ if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
             }
         });
     </script>
+<?php
+    require_once("insertSwal.php");
+?>
 </body>
 
 </html>
