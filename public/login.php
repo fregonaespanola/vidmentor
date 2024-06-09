@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,7 +29,6 @@
             transition: background-color 0.3s, transform 0.3s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
 
         .google-button:hover {
             @apply bg-blue-700 transform scale-105;
@@ -202,7 +205,10 @@
             <img src="assets/diseño 2.png" alt="Imagen" class="mt-auto responsive-img">
         </div>
     </div>
-    <?php require_once("footer.php"); ?>
+    <?php
+        require_once("footer.php");
+        require("insertSwal.php");
+    ?>
 </body>
 
 </html>

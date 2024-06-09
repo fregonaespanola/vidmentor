@@ -30,7 +30,8 @@
                 'position' => 'center',
                 'toast' => true,
                 'showConfirmButton' => true,
-                'confirmButtonText' => 'OK']);
+                'confirmButtonText' => 'OK'
+            ], $_POST);
         }
 
         $check = checkExistingUserEmail($username, $email);
@@ -42,42 +43,52 @@
                 'position' => 'center',
                 'toast' => true,
                 'showConfirmButton' => true,
-                'confirmButtonText' => 'OK']);
+                'confirmButtonText' => 'OK'
+            ], $_POST);
         }
 
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
         $pdo = getDatabaseConnection();
-        $pdo->beginTransaction();
-
         try {
-            $query = 'INSERT INTO USUARIO (NICK, MAIL, PWD, F_REG) VALUES (:nick, :mail, :pwd, CURRENT_DATE)';
+            $pdo->beginTransaction();
+
+            $query = 'INSERT INTO USUARIO (NOMBRE, NICK, MAIL, PWD, F_REG) VALUES (:nombre, :nick, :mail, :pwd, CURRENT_DATE)';
             $params = [
+                ':nombre' => $nombre,
                 ':nick' => $username,
                 ':mail' => $email,
                 ':pwd'  => $hashed_password
             ];
-            $stmt = executeQuery($query, $params);
+            $stmt = $pdo->prepare($query);
+            $stmt->execute($params);
 
-            if($stmt) {
+            if ($stmt->rowCount() > 0) {
                 $userId = $pdo->lastInsertId();
 
                 $token = bin2hex(random_bytes(32));
                 $expiryDate = (new DateTime('+15 min'))->format('Y-m-d H:i:s');
 
                 $query = 'INSERT INTO TOKEN (TOKEN, F_CRE, F_EXP, ID_TIPO, ID_USUARIO) VALUES (:token, CURRENT_DATE, :expiry, :tipo, :user)';
+
                 $params = [
                     ':token' => $token,
                     ':expiry' => $expiryDate,
                     ':tipo' => 2,
                     ':user' => $userId
                 ];
-                $stmt = executeQuery($query, $params);
 
-                if($stmt) {
+                $stmt = $pdo->prepare($query);
+                $stmt->execute($params);
+
+                if ($stmt->rowCount() > 0) {
+                    if(!sendActivationEmail($email, $token)){
+                        throw new Exception('Error al enviar el correo de activación.');
+                    }
+
                     $pdo->commit();
 
-                    sendActivationEmail($email, $token);
+                    unset($_POST);
 
                     redirect('login.php', [
                         'title' => 'success',
@@ -85,22 +96,26 @@
                         'position' => 'center',
                         'toast' => true,
                         'timer' => 5000,
-                        'timerProgressBar' => true]);
+                        'timerProgressBar' => true
+                    ]);
                 } else {
+                    $pdo->rollBack();
                     throw new Exception('Error al generar el token de activación.');
                 }
             } else {
+                $pdo->rollBack();
                 throw new Exception('Error al registrar el usuario.');
             }
         } catch (Exception $e) {
             $pdo->rollBack();
             redirect('register.php', [
                 'title' => 'error',
-                'text' => 'Hubo un problema al registrar tu cuenta. Por favor, inténtalo de nuevo.',
+                'text' => 'Hubo un problema al registrar tu cuenta. Por favor, inténtalo de nuevo. Detalles del error: ' . $e->getMessage(),
                 'position' => 'center',
                 'toast' => true,
                 'timer' => 5000,
-                'timerProgressBar' => true]);
+                'timerProgressBar' => true
+            ], $_POST);
         }
     } else {
         redirect('register.php', [

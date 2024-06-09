@@ -1,6 +1,7 @@
 <?php
     session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -167,28 +168,44 @@
                     <a class="link-log color-red-vidmentor-secondary" href="login.php">Iniciar sesión</a>
                 </div>
                 <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
-                <form action="procesar_registro.php" method="post" class="mb-3 mt-3">
-                    <div class="mb-4">
-                        <label for="nombre" class="block text-sm font-semibold mb-2">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su nombre">
+                <form action='procesar_registro.php' method='post' class='mb-3 mt-3'>
+                    <div class='mb-4'>
+                        <label for='nombre' class='block text-sm font-semibold mb-2'>Nombre:</label>
+                        <input type='text' id='nombre' name='nombre'
+                               value="<?php echo isset($_SESSION['formData']['nombre']) ? htmlspecialchars($_SESSION['formData']['nombre'], ENT_QUOTES, 'UTF-8') : ''; ?>"
+                               class='w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105'
+                               placeholder='Ingrese su nombre'>
                     </div>
-                    <div class="mb-4">
-                        <label for="username" class="block text-sm font-semibold mb-2">Nombre de Usuario:</label>
-                        <input type="text" id="username" name="username" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su nombre de usuario">
+                    <div class='mb-4'>
+                        <label for='username' class='block text-sm font-semibold mb-2'>Nombre de Usuario:</label>
+                        <input type='text' id='username' name='username'
+                               value="<?php echo isset($_SESSION['formData']['username']) ? htmlspecialchars($_SESSION['formData']['username'], ENT_QUOTES, 'UTF-8') : ''; ?>"
+                               class='w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105'
+                               placeholder='Ingrese su nombre de usuario'>
                     </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-semibold mb-2">Correo Electrónico:</label>
-                        <input type="email" id="email" name="email" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su correo electrónico">
+                    <div class='mb-4'>
+                        <label for='email' class='block text-sm font-semibold mb-2'>Correo Electrónico:</label>
+                        <input type='email' id='email' name='email'
+                               value="<?php echo isset($_SESSION['formData']['email']) ? htmlspecialchars($_SESSION['formData']['email'], ENT_QUOTES, 'UTF-8') : ''; ?>"
+                               class='w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105'
+                               placeholder='Ingrese su correo electrónico'>
                     </div>
-                    <div class="mb-4">
-                        <label for="password" class="block text-sm font-semibold mb-2">Contraseña:</label>
-                        <input type="password" id="password" name="password" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Ingrese su contraseña">
+                    <div class='mb-4'>
+                        <label for='password' class='block text-sm font-semibold mb-2'>Contraseña:</label>
+                        <input type='password' id='password' name='password'
+                               value="<?php echo isset($_SESSION['formData']['password']) ? htmlspecialchars($_SESSION['formData']['password'], ENT_QUOTES, 'UTF-8') : ''; ?>"
+                               class='w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105'
+                               placeholder='Ingrese su contraseña'>
                     </div>
-                    <div class="mb-6">
-                        <label for="confirm_password" class="block text-sm font-semibold mb-2">Confirmar Contraseña:</label>
-                        <input type="password" id="confirm_password" name="confirm_password" class="w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105" placeholder="Confirme su contraseña">
+                    <div class='mb-6'>
+                        <label for='confirm_password' class='block text-sm font-semibold mb-2'>Confirmar
+                                                                                               Contraseña:</label>
+                        <input type='password' id='confirm_password' name='confirm_password'
+                               value="<?php echo isset($_SESSION['formData']['confirm_password']) ? htmlspecialchars($_SESSION['formData']['confirm_password'], ENT_QUOTES, 'UTF-8') : ''; ?>"
+                               class='w-full p-3 rounded bg-gray-vidmentor-secondary border border-bottom-red-vidmentor-secondary text-white focus:border-red-500 focus:outline-none transition-transform duration-300 focus:scale-105'
+                               placeholder='Confirme su contraseña'>
                     </div>
-                    <button type="submit" class="btn-register w-full py-3 rounded">Registrarse</button>
+                    <button type='submit' class='btn-register w-full py-3 rounded'>Registrarse</button>
                 </form>
                 <div class="line border-b border-gray-600 mb-4"></div>
                 <a href="oauthGoogle.php" class="w-full">

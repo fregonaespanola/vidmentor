@@ -20,7 +20,14 @@
 
             try{
                 if(new DateTime() > new DateTime($expiryDate)){
-                    redirect('register.php', 'error', 'El token ha expirado. Por favor, solicita uno nuevo.');
+                    redirect('register.php', [
+                        'title' => 'error',
+                        'text' => 'El token ha expirado. Por favor, solicita uno nuevo.',
+                        'position' => 'center',
+                        'toast' => true,
+                        'showConfirmButton' => true,
+                        'confirmButtonText' => 'ENTENDIDO'
+                    ]);
                 }
                 else{
                     $query = 'UPDATE USUARIO SET ACTIVADA = 1 WHERE ID = :id';
@@ -28,17 +35,61 @@
                     $stmt = executeQuery($query, $params);
 
                     if($stmt){
-                        redirect('login.php', 'success', 'Tu cuenta ha sido activada exitosamente.');
+                        $query = 'DELETE FROM TOKEN WHERE TOKEN = :token';
+                        $params = [':token' => $token];
+                        $stmt = executeQuery($query, $params);
+
+                        if ($stmt) {
+                            redirect('login.php', [
+                                'title' => 'success',
+                                'text' => 'Tu cuenta ha sido activada exitosamente. Por favor, inicia sesión.',
+                                'position' => 'center',
+                                'toast' => true,
+                                'timer' => 5000,
+                                'timerProgressBar' => true
+                            ]);
+                        }
+                        else{
+                            redirect('register.php', [
+                                'title' => 'error',
+                                'text' => 'Hubo un problema al activar tu cuenta. Por favor, inténtalo de nuevo.',
+                                'position' => 'center',
+                                'toast' => true,
+                                'timer' => 5000,
+                                'timerProgressBar' => true
+                            ]);
+                        }
                     }
                     else{
-                        redirect('register.php', 'error', 'Hubo un problema al activar tu cuenta. Por favor, inténtalo de nuevo.');
+                        redirect('register.php', [
+                            'title' => 'error',
+                            'text' => 'Hubo un problema al activar tu cuenta. Por favor, inténtalo de nuevo.',
+                            'position' => 'center',
+                            'toast' => true,
+                            'timer' => 5000,
+                            'timerProgressBar' => true
+                        ]);
                     }
                 }
             }catch(Exception $e){
             }
         } else {
-            redirect('register.php', 'error', 'Token inválido. Por favor, intenta registrarte de nuevo. Tienes 15 minutos para activar tu cuenta.');
+            redirect('register.php', [
+                'title' => 'error',
+                'text' => 'Token inválido. Por favor, intenta registrarte de nuevo. Tienes 15 minutos para activar tu cuenta.',
+                'position' => 'center',
+                'toast' => true,
+                'showConfirmButton' => true,
+                'confirmButtonText' => 'ENTENDIDO'
+            ]);
         }
     } else {
-        redirect('register.php', 'error', 'No se ha proporcionado un token válido. Por favor, intenta registrarte de nuevo.');
+        redirect('register.php', [
+            'title' => 'error',
+            'text' => 'No se ha proporcionado un token válido. Por favor, intenta registrarte de nuevo.',
+            'position' => 'center',
+            'toast' => true,
+            'showConfirmButton' => true,
+            'confirmButtonText' => 'ENTENDIDO'
+        ]);
     }
