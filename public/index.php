@@ -1,10 +1,9 @@
 <?php
-    session_start();
-    require '../config.php';
-    require 'common_functions.php';
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>VidMentor</title>
@@ -19,6 +18,9 @@
         .custom-overlay {
             background: linear-gradient(45deg, rgba(33, 33, 33, 0.7), rgba(33, 33, 33, 0.3));
         }
+
+
+
 
         @media (max-width: 640px) {
 
@@ -669,19 +671,19 @@
                         <label for="name" class="block text-white text-lg font-semibold mb-2 flex items-center">
                             <i class="fas fa-user mr-2 color-red-vidmentor-secondary"></i> Nombre:
                         </label>
-                        <input type="text" id="name" name="name" value="<?= $_SESSION['contactFormData']['name'] ?? '' ?>" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu nombre">
+                        <input type="text" id="name" name="name" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu nombre">
                     </div>
                     <div class="mb-6">
                         <label for="email" class="block text-white text-lg font-semibold mb-2 flex items-center">
                             <i class="fas fa-envelope mr-2 color-red-vidmentor-secondary"></i> Correo electrónico:
                         </label>
-                        <input type="email" id="email" name="email" value="<?= $_SESSION['contactFormData']['email'] ?? '' ?>" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu correo electrónico">
+                        <input type="email" id="email" name="email" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu correo electrónico">
                     </div>
                     <div class="mb-6">
                         <label for="message" class="block text-white text-lg font-semibold mb-2 flex items-center">
                             <i class="fas fa-comment-dots mr-2 color-red-vidmentor-secondary"></i> Mensaje:
                         </label>
-                        <textarea id="message" name="message" rows="4" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu mensaje"><?= $_SESSION['contactFormData']['message'] ?? '' ?></textarea>
+                        <textarea id="message" name="message" rows="4" class="shadow appearance-none border border-gray-600 rounded-lg w-full py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-black" placeholder="Tu mensaje"></textarea>
                     </div>
                     <div class="flex items-center justify-center">
                         <button type="submit" class="bg-red-500 text-white py-3 px-6 rounded-full hover:bg-red-600 transition-transform transform hover:scale-105 duration-300">Enviar</button>
@@ -691,42 +693,42 @@
         </div>
     </section>
 
-    <?php
-        require_once("footer.php");
-        require 'insertSwal.php';
-        unset($_SESSION['contactFormData']);
-        unset($_SESSION['formData']);
-    ?>
+    <?php require_once("footer.php"); ?>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <?php
+    require 'insertSwal.php';
+    ?>
     <script>
-         $(document).ready(function(){
-        $('.slider').slick({
-            infinite: true,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            dots: true,
-            arrows: true,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
+        $(document).ready(function() {
+            $('.slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
                     }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
+                ]
+            });
         });
-    });
     </script>
 </body>
 
