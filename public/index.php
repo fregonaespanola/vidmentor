@@ -526,7 +526,7 @@
 
     <!-- Main content section -->
     <!-- Main content section -->
-    <main class="flex-grow main-background bg-cover bg-center min-h-screen flex items-center justify-center">
+    <main class="flex-grow main-background bg-cover bg-center min-h-screen flex align-items-start justify-center">
         <div class="content-wrapper text-left md:text-center">
             <h1 class="text-white text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-lg relative">
                 <span class="block">A un click</span>
@@ -538,7 +538,6 @@
             <a href="#about" class="mt-8 inline-block bg-red-500 text-white text-lg px-6 py-3 rounded-full shadow-lg transition-transform transform hover:-translate-y-1 duration-300">Aprende más</a>
         </div>
     </main>
-
 
     <!-- About section -->
     <section id="about" class="py-20 bg-gray-vidmentor-secondary from-gray-800 via-gray-900 to-gray-800 text-white">
