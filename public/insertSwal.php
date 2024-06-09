@@ -14,8 +14,6 @@
         insertSwal($status, $message, $icon, $toast, $position, $showConfirmButton, $confirmButtonText, $timer, $timerProgressBar);
 
         unset($_SESSION['swal']);
-    }else{
-        echo '<script>console.log("No hay mensajes que mostrar.")</script>';
     }
 
     function insertSwal($title, $text, $icon, $toast, $position, $showConfirmButton, $confirmButtonText, $timer, $timerProgressBar): void

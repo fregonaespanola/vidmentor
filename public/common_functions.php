@@ -2,7 +2,6 @@
 
     use JetBrains\PhpStorm\NoReturn;
 
-    session_start();
     require '../vendor/autoload.php';
     require '../config.php';
 
@@ -131,7 +130,12 @@
     #[NoReturn]
     function redirect($url, array $options = [], array $formData = []): void
     {
-        $_SESSION['formData'] = $formData;
+        if(session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+        if(!empty($formData)){
+            $_SESSION['formData'] = $formData;
+        }
 
         $defaults = [
             'title' => '',
@@ -185,3 +189,71 @@
             return false;
         }
     }
+
+    function setLoginCookies($user): void
+    {
+        try{
+            $token = bin2hex(random_bytes(32));
+            $expiryDate = (new DateTime('+30 days'))->format('Y-m-d H:i:s');
+        }catch(Exception $e){
+            redirect('login.php', [
+                'title' => 'error',
+                'text' => 'Error generando token.',
+                'position' => 'center',
+                'toast' => true,
+                'showConfirmButton' => true,
+                'confirmButtonText' => 'OK'
+            ], $_POST);
+        }
+
+        $query = 'INSERT INTO TOKEN (TOKEN, F_CRE, F_EXP, ID_TIPO, ID_USUARIO) VALUES (:token, CURRENT_DATE, :expiry, :tipo, :user)';
+        $params = [
+            ':token' => $token,
+            ':expiry' => $expiryDate,
+            ':tipo' => 1,
+            ':user' => $user['ID']
+        ];
+        executeQuery($query, $params);
+
+        setcookie('rememberme', $token, time() + (30 * 24 * 60 * 60), '/', '', true, true);
+    }
+
+    function validateRememberMeToken(): bool
+    {
+        if (isset($_COOKIE['rememberme'])) {
+            $token = $_COOKIE['rememberme'];
+
+            $query = 'SELECT ID_USUARIO, F_EXP FROM TOKEN WHERE TOKEN = :token AND ID_TIPO = 1';
+            $params = [':token' => $token];
+            $stmt = executeQuery($query, $params);
+
+            if ($stmt && $stmt->rowCount() > 0) {
+                $tokenData = $stmt->fetch(PDO::FETCH_ASSOC);
+                $userId = $tokenData['ID_USUARIO'];
+                try{
+                    $expiryDate = new DateTime($tokenData['F_EXP']);
+                } catch (Exception $e) {
+                    return false;
+                }
+
+                if (new DateTime() > $expiryDate) {
+                    $query = 'DELETE FROM TOKEN WHERE TOKEN = :token';
+                    executeQuery($query, $params);
+                    setcookie('rememberme', '', time() - 3600, '/');
+                    return false;
+                } else {
+                    $query = 'SELECT * FROM USUARIO WHERE ID = :userId';
+                    $params = [':userId' => $userId];
+                    $stmt = executeQuery($query, $params);
+
+                    if ($stmt && $stmt->rowCount() > 0) {
+                        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $_SESSION['user'] = $user;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+

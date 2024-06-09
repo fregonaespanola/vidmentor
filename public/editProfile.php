@@ -1,15 +1,14 @@
 <?php
-session_start();
-$urlCompleta = $_SERVER['REQUEST_URI'];
-
-$errors = $_SESSION['errors'] ?? [];
-$successMessage = $_SESSION['successMessage'] ?? '';
-unset($_SESSION['successMessage']);
-require_once("load_user.php");
+    require_once('check_session.php');
+    $urlCompleta = $_SERVER['REQUEST_URI'];
+    $errors = $_SESSION['errors'] ?? [];
+    $successMessage = $_SESSION['successMessage'] ?? '';
+    unset($_SESSION['successMessage']);
+    require_once("load_user.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>Editar Perfil - Vidmentor</title>
@@ -32,8 +31,8 @@ require_once("load_user.php");
                     <input type="hidden" name="formType" value="updateProfile">
                     <div class="text-center mb-4">
                         <label for="fileUpload" class="cursor-pointer">
-                            <?php if (!empty($userData['AVATAR']) && $userData['AVATAR'] != "default.jpg") { ?>
-                                <img src="<?= htmlspecialchars($userData['AVATAR']) ?>" alt="Imagen de perfil" class="w-32 h-32 rounded-full mx-auto" id="imagePreview">
+                            <?php if (!empty($_SESSION['user']['AVATAR']) && $_SESSION['user']['AVATAR'] != "default.jpg") { ?>
+                                <img src="<?= htmlspecialchars($_SESSION['user']['AVATAR']) ?>" alt="Imagen de perfil" class="w-32 h-32 rounded-full mx-auto" id="imagePreview">
                             <?php } else { ?>
                                 <img src="./images/default.png" alt="Imagen de perfil" class="w-32 h-32 rounded-full mx-auto" id="imagePreview">
                             <?php } ?>
@@ -43,21 +42,21 @@ require_once("load_user.php");
                     <div class="space-y-4">
                         <div>
                             <label for="nick" class="block font-semibold">Nombre de usuario</label>
-                            <input type="text" id="nick" name="nick" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary" value="<?= htmlspecialchars($userData['NICK'] ?? '') ?>">
+                            <input type="text" id="nick" name="nick" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary" value="<?= htmlspecialchars($_SESSION['user']['NICK'] ?? '') ?>">
                             <?php if (isset($errors['nick'])) { ?>
                                 <span class="text-red-500 text-sm"><?= $errors['nick'] ?></span>
                             <?php } ?>
                         </div>
                         <div>
                             <label for="mail" class="block font-semibold">Email</label>
-                            <input type="email" id="mail" name="mail" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary" value="<?= htmlspecialchars($userData['MAIL'] ?? '') ?>">
+                            <input type="email" id="mail" name="mail" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary" value="<?= htmlspecialchars($_SESSION['user']['MAIL'] ?? '') ?>">
                             <?php if (isset($errors['mail'])) { ?>
                                 <span class="text-red-500 text-sm"><?= $errors['mail'] ?></span>
                             <?php } ?>
                         </div>
                         <div>
                             <label for="fecha_nacimiento" class="block font-semibold">Fecha de Nacimiento</label>
-                            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary" value="<?= htmlspecialchars($userData['FECHA_NACIMIENTO'] ?? '') ?>">
+                            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="w-full p-2 rounded bg-gray-vidmentor-primary border border-forms-vidmentor-gray-primary" value="<?= htmlspecialchars($_SESSION['user']['F_NAC'] ?? '') ?>">
                             <?php if (isset($errors['fecha_nacimiento'])) { ?>
                                 <span class="text-red-500 text-sm"><?= $errors['fecha_nacimiento'] ?></span>
                             <?php } ?>

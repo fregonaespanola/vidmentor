@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="css/style2.css">
     <link rel="stylesheet" href="css/styles_header.css">
     <style>
+        .swal-display-contents-center {
+            justify-content: center!important;
+        }
+
         .google-button {
             background-color: #ffffff;
             color: #4285F4;
@@ -151,7 +155,6 @@
             }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body class="background bg-gray-vidmentor-secondary text-white">
@@ -163,8 +166,8 @@
                     <h2 class="text-2xl font-semibold text-center mb-4">Iniciar sesión</h2>
                     <a class="link-log hover:text-red-500" href="register.php">Registrarse</a>
                 </div>
-                <span class='text-red-500 text-lg font-bold text-center'><?= $_SESSION['errors']['login'] ?? '' ?></span>
                 <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
+                <span class='text-red-500 text-lg font-bold text-center'><?= $_SESSION['errors']['login'] ?? '' ?></span>
                 <form action="procesar_login.php" method="post" class="mb-3 mt-3">
                     <input type='hidden' name='formType' value='login'>
                     <div class="mb-4">
@@ -190,7 +193,7 @@
                 <div class="line border-b border-bottom-red-vidmentor-secondary mb-4"></div>
                 <a href="oauthGoogle.php">
                     <button class="w-full py-3 mt-3 text-center rounded google-button bg-blue-vidmentor-secondary transition-transform transform hover:scale-105 duration-300 flex ">
-                        <img src="assets/google logo.png" alt="Google Logo" class="google-logo ml-4"> Registrarse con Google
+                        <img src="assets/google logo.png" alt="Google Logo" class="google-logo ml-4"> Iniciar sesión con Google
                     </button>
                 </a>
             </div>

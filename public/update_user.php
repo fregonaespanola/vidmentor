@@ -1,6 +1,5 @@
 <?php
-    session_start();
-    require_once('common_functions.php');
+    require('check_session.php');
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors = validateFields([
