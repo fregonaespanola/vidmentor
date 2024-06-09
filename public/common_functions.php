@@ -58,10 +58,74 @@
         $errors = [];
         foreach ($requiredFields as $field => $displayName) {
             if (empty($_POST[$field])) {
-                $errors[$field] = "El campo $displayName es obligatorio.";
+                $errors[$field] = "El campo $displayName es obligatorio.<br>";
             }
         }
         return $errors;
+    }
+
+    function validateName($name): ?string
+    {
+        $errors = [];
+        if(strlen($name) < 2) {
+            $errors[] = 'El nombre debe tener al menos 2 caracteres.<br>';
+        }
+        if(strlen($name) > 100) {
+            $errors[] = 'El nombre no puede tener más de 100 caracteres.<br>';
+        }
+        return !empty($errors) ? implode(' ', $errors) : null;
+    }
+
+    function validateUsername($username): ?string
+    {
+        $errors = [];
+        if(strlen($username) < 2) {
+            $errors[] = 'El nombre de usuario debe tener al menos 2 caracteres.<br>';
+        }
+        if(strlen($username) > 50) {
+            $errors[] = 'El nombre de usuario no puede tener más de 50 caracteres.<br>';
+        }
+        return !empty($errors) ? implode(' ', $errors) : null;
+    }
+
+    function validateEmail($email): ?string
+    {
+        $errors = [];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'El correo electrónico no tiene un formato válido.<br>username@server.dominio';
+        }
+        return !empty($errors) ? implode(' ', $errors) : null;
+    }
+
+    function validatePassword($password, $confirm_password): ?string
+    {
+        $errors = [];
+
+        if (strlen($password) < 8) {
+            $errors[] = 'La contraseña debe tener al menos 8 caracteres.<br>';
+        }
+
+        if (!preg_match('/[A-Z]/', $password)) {
+            $errors[] = 'La contraseña debe tener al menos una letra mayúscula.<br>';
+        }
+
+        if (!preg_match('/[a-z]/', $password)) {
+            $errors[] = 'La contraseña debe tener al menos una letra minúscula.<br>';
+        }
+
+        if (!preg_match('/[0-9]/', $password)) {
+            $errors[] = 'La contraseña debe tener al menos un número.<br>';
+        }
+
+        if (!preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $password)) {
+            $errors[] = 'La contraseña debe tener al menos un caracter especial.<br>';
+        }
+
+        if ($password !== $confirm_password) {
+            $errors[] = 'Las contraseñas no coinciden.<br>';
+        }
+
+        return !empty($errors) ? implode(' ', $errors) : null;
     }
 
     #[NoReturn]
@@ -93,11 +157,6 @@
 
         header("Location: $url");
         die();
-    }
-
-    function password_verify_custom($password, $hashedPassword): bool
-    {
-        return password_verify($password, $hashedPassword);
     }
 
     function sendActivationEmail($email, $token): bool

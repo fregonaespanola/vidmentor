@@ -17,13 +17,22 @@
             'password'         => 'Contraseña',
             'confirm_password' => 'Confirmar Contraseña'
         ];
-        $errors = validateFields($requiredFields);
 
-        if($password !== $confirm_password){
-            $errors['password'] = 'Las contraseñas no coinciden.';
+        $errors = validateFields($requiredFields);
+        $errors['nombre'] = validateName($nombre) ?? $errors['nombre'] ?? null;
+        $errors['username'] = validateUsername($username) ?? $errors['username'] ?? null;
+        $errors['email'] = validateEmail($email) ?? $errors['email'] ?? null;
+        $errors['password'] = validatePassword($password, $confirm_password) ?? $errors['password'] ?? null;
+        $errors['confirm_password'] = $errors['password'] ?? $errors['confirm_password'] ?? null;
+
+        if(!empty($passwordErrors)){
+            $errors['password'] = implode('<br>', $passwordErrors);
         }
 
+        $errors = array_filter($errors);
+
         if(!empty($errors)){
+            $_SESSION['errors'] = $errors;
             redirect('register.php', [
                 'title' => 'error',
                 'text' => 'Por favor, corrige los errores en el formulario.',
