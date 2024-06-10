@@ -1,15 +1,15 @@
 $(window).on('load', function() {
-    var ckeditors = CKEDITOR.instances;
-    for (var i in ckeditors) {
+    let ckeditors = CKEDITOR.instances;
+    for (let i in ckeditors) {
         ckeditors[i].destroy();
     }
 });
 
 $(document).ready(function() {
-    var activeEditor = null;
+    let activeEditor = null;
 
     $('.ckeditor').click(function() {
-        var textarea = $(this);
+        let textarea = $(this);
         if (activeEditor && textarea.attr('id') !== activeEditor) {
             CKEDITOR.instances[activeEditor].destroy();
         }
@@ -17,6 +17,12 @@ $(document).ready(function() {
         CKEDITOR.replace(activeEditor, {
             toolbar: 'Basic',
             height: 150,
+        });
+
+        // Asegúrate de que CKEditor actualice el contenido del textarea al cambiar
+        CKEDITOR.instances[activeEditor].on('change', function() {
+            let editorContent = CKEDITOR.instances[activeEditor].getData();
+            textarea.val(editorContent);
         });
     });
 
@@ -29,12 +35,8 @@ $(document).ready(function() {
         }
     });
 
-    $('textarea').on('input', function() {
-        var textarea = $(this);
-        textarea.html(textarea.text());
-    });
-
-    var searchQuery = $('script[src$="form_script.js"]').attr('data-title');
+    // Funciones adicionales (por ejemplo, para búsquedas de YouTube)
+    let searchQuery = $('script[src$="form_script.js"]').attr('data-title');
 
     $.get(
         'https://www.googleapis.com/youtube/v3/search', {
@@ -54,18 +56,18 @@ $(document).ready(function() {
     );
 
     function showResults(items) {
-        var thumbnailsDiv = $('#thumbnails');
+        let thumbnailsDiv = $('#thumbnails');
         thumbnailsDiv.empty();
 
         items.forEach(function(item) {
             if (item.id.kind === 'youtube#video') {
-                var videoId = item.id.videoId;
-                var title = item.snippet.title;
-                var thumbnailUrl = item.snippet.thumbnails.default.url;
+                let videoId = item.id.videoId;
+                let title = item.snippet.title;
+                let thumbnailUrl = item.snippet.thumbnails.default.url;
 
-                var thumbnailContainer = $('<div>').addClass('thumbnail-container flex flex-col items-center');
-                var thumbnailImage = $('<img>').attr('src', thumbnailUrl).addClass('thumbnail-image mb-2');
-                var radioButton = $('<input>').attr({
+                let thumbnailContainer = $('<div>').addClass('thumbnail-container flex flex-col items-center');
+                let thumbnailImage = $('<img>').attr('src', thumbnailUrl).addClass('thumbnail-image mb-2');
+                let radioButton = $('<input>').attr({
                     type: 'radio',
                     name: 'video',
                     value: videoId
@@ -83,12 +85,12 @@ $(document).ready(function() {
     }
 
     function replaceThumbnailIfExists() {
-        var firstThumbnailContainer = $('#thumbnails .thumbnail-container').first();
-        var defaultThumbnailUrl = $('#defaultThumbnail').data('url');
-        var firstRadioButton = firstThumbnailContainer.find('input[type="radio"]');
+        let firstThumbnailContainer = $('#thumbnails .thumbnail-container').first();
+        let defaultThumbnailUrl = $('#defaultThumbnail').data('url');
+        let firstRadioButton = firstThumbnailContainer.find('input[type="radio"]');
 
-        if (defaultThumbnailUrl != null && defaultThumbnailUrl != '') {
-            var firstThumbnailImage = $('.thumbnail-image').first();
+        if (defaultThumbnailUrl != null && defaultThumbnailUrl !== '') {
+            let firstThumbnailImage = $('.thumbnail-image').first();
 
             firstThumbnailImage.attr('src', defaultThumbnailUrl);
             $('#thumbnail_url').val(defaultThumbnailUrl);

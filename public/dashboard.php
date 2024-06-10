@@ -15,37 +15,37 @@
         $userEmail = $userData['MAIL'];
     }
 
-// Obtener el siguiente video por subir
-$queryNextVideo = "SELECT NOMBRE, FECHA FROM DETALLE WHERE FECHA > CURDATE() AND ID_USUARIO = :userId ORDER BY FECHA LIMIT 1";
-$paramsNextVideo = [':userId' => $userId];
-$stmtNextVideo = executeQuery($queryNextVideo, $paramsNextVideo);
+    // Obtener el siguiente video por subir
+    $queryNextVideo = "SELECT NOMBRE, FECHA FROM DETALLE WHERE FECHA > CURDATE() AND ID_USUARIO = :userId ORDER BY FECHA LIMIT 1";
+    $paramsNextVideo = [':userId' => $userId];
+    $stmtNextVideo = executeQuery($queryNextVideo, $paramsNextVideo);
 
-$nextVideoTitle = 'NO HAY VIDEOS PENDIENTES DE SUBIDA';
-$nextVideoDate = 'No existe vídeo aún';
-if ($stmtNextVideo && $stmtNextVideo->rowCount() > 0) {
-    $nextVideoData = $stmtNextVideo->fetch(PDO::FETCH_ASSOC);
-    $nextVideoTitle = $nextVideoData['NOMBRE'];
-    $nextVideoDate = $nextVideoData['FECHA'];
-}
+    $nextVideoTitle = 'NO HAY VIDEOS PENDIENTES DE SUBIDA';
+    $nextVideoDate = 'No existe vídeo aún';
+    if ($stmtNextVideo && $stmtNextVideo->rowCount() > 0) {
+        $nextVideoData = $stmtNextVideo->fetch(PDO::FETCH_ASSOC);
+        $nextVideoTitle = $nextVideoData['NOMBRE'];
+        $nextVideoDate = $nextVideoData['FECHA'];
+    }
 
-// Contar videos subidos y por subir
-$queryVideoCount = "SELECT COUNT(*) AS total,
-                    SUM(IF(FECHA < CURDATE(), 1, 0)) AS subidos,
-                    SUM(IF(FECHA > CURDATE(), 1, 0)) AS porSubir
-                    FROM DETALLE WHERE ID_USUARIO = :userId";
-$paramsVideoCount = [':userId' => $userId];
-$stmtVideoCount = executeQuery($queryVideoCount, $paramsVideoCount);
+    // Contar videos subidos y por subir
+    $queryVideoCount = "SELECT COUNT(*) AS total,
+                        SUM(IF(FECHA < CURDATE(), 1, 0)) AS subidos,
+                        SUM(IF(FECHA > CURDATE(), 1, 0)) AS porSubir
+                        FROM DETALLE WHERE ID_USUARIO = :userId";
+    $paramsVideoCount = [':userId' => $userId];
+    $stmtVideoCount = executeQuery($queryVideoCount, $paramsVideoCount);
 
-$totalVideos = 0;
-$videosSubidos = 0;
-$videosPorSubir = 0;
-if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
-    $videoCountData = $stmtVideoCount->fetch(PDO::FETCH_ASSOC);
-    $totalVideos = $videoCountData['total'] ?? 0;
-    $videosSubidos = $videoCountData['subidos'] ?? 0;
-    $videosPorSubir = $videoCountData['porSubir'] ?? 0;
-}
-$videosPendientes = $totalVideos - $videosSubidos - $videosPorSubir;
+    $totalVideos = 0;
+    $videosSubidos = 0;
+    $videosPorSubir = 0;
+    if ($stmtVideoCount && $stmtVideoCount->rowCount() > 0) {
+        $videoCountData = $stmtVideoCount->fetch(PDO::FETCH_ASSOC);
+        $totalVideos = $videoCountData['total'] ?? 0;
+        $videosSubidos = $videoCountData['subidos'] ?? 0;
+        $videosPorSubir = $videoCountData['porSubir'] ?? 0;
+    }
+    $videosPendientes = $totalVideos - $videosSubidos - $videosPorSubir;
 ?>
 
 
@@ -90,6 +90,10 @@ $videosPendientes = $totalVideos - $videosSubidos - $videosPorSubir;
                 transform: rotate(360deg);
             }
         }
+
+        .text-shadow {
+            text-shadow: 3px 6px 4px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 
@@ -112,15 +116,15 @@ $videosPendientes = $totalVideos - $videosSubidos - $videosPorSubir;
                             <div class="relative">
                                 <img src="assets/fondo2.webp" alt="Banner" class="w-full h-40 object-cover rounded-t-lg">
                                 <div class="absolute top-4 left-4 bg-orange-500 text-white rounded-full p-2">
-                                    <i class="fas fa-user-circle text-4xl"></i>
+                                    <img src="<?= $user['AVATAR'] ?? '<i class="fas fa-user-circle text-4xl"></i>' ?>" alt="Avatar" class="w-12 h-12 rounded-full">
                                 </div>
                                 <div class="absolute top-16 left-4">
-                                    <h3 class="text-2xl font-bold text-white"><?php echo $userName ?></h3>
+                                    <h3 class="text-2xl font-bold text-white mt-2 text-shadow"><?= $userName ?></h3>
                                 </div>
                             </div>
                             <div class="mt-4 text-center">
                                 <h1 class="text-3xl font-semibold mb-4 card bg-gray-vidmentor-secondary-title">Bienvenido a VidMentor</h1>
-                                <p class="text-sm text-white"><i class="fas fa-envelope mr-2"></i><?php echo $userEmail ?></p>
+                                <p class="text-sm text-white"><i class="fas fa-envelope mr-2"></i><?= $userEmail ?></p>
                                 <p class="mt-4 text-white">Gestiona tu contenido y estrategias de redes sociales con VidMentor.</p>
                             </div>
                         </div>

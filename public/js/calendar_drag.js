@@ -33,7 +33,7 @@ function drop(event) {
 
     $.ajax({
         type: 'POST',
-        url: 'ideas_guardadas.php',
+        url: 'calendar.php',
         data: { ideaId: data, date: date },
         success: function(response) {
             localStorage.setItem('showAlert', 'true');

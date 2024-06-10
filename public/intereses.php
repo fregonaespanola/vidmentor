@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+    require('check_session.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,7 +38,6 @@ session_start();
                 <h1 class="text-5xl font-bold text-center text-white mb-10">Selecciona tus intereses</h1>
                 <div id="questions">
                     <div id="question1" class="text-center">
-                        <input id="usuario_id" class="hidden" value="<?php echo $_SESSION['usuario_id']?>">
                         <h2 class="text-3xl mb-8 text-white">¿Qué tipo de contenido tienes pensado subir a tu canal?</h2>
                         <div class="grid grid-cols-2 gap-6 mb-8">
                             <button class="btn px-6 py-4 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none" onclick="nextQuestion('Videojuegos')">Videojuegos</button>
@@ -52,7 +50,7 @@ session_start();
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="usuario_id" value="<?php echo $_SESSION['usuario_id']; ?>">
+            <input type="hidden" id="usuario_id" value="<?= $_SESSION['user']['ID']; ?>">
         </main>
     </div>
 

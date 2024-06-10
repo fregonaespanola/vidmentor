@@ -1,23 +1,21 @@
 <?php
-session_start();
-require_once('common_functions.php');
-$usuario_id = $_SESSION['user']['ID'];
+    require('check_session.php');
+    $usuario_id = $_SESSION['user']['ID'];
 
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
+    if(isset($_GET['id'])) {
+        $id = $_GET['id'];
 
-    $query = "SELECT ID FROM DETALLE WHERE ID = :id AND ID_USUARIO = :usuario_id";
-    $params = [':id' => $id, ':usuario_id' => $usuario_id];
-    $stmt = executeQuery($query, $params);
-    if ($stmt->rowCount() == 0) {
+        $query = "SELECT ID FROM DETALLE WHERE ID = :id AND ID_USUARIO = :usuario_id";
+        $params = [':id' => $id, ':usuario_id' => $usuario_id];
+        $stmt = executeQuery($query, $params);
+        if ($stmt->rowCount() == 0) {
+            header("Location: calendar.php");
+            exit();
+        }
+    }else{
         header("Location: calendar.php");
         exit();
     }
-}else{
-    header("Location: calendar.php");
-    exit();
-}
-
 ?>
 
 <!DOCTYPE html>

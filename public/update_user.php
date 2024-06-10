@@ -9,10 +9,16 @@
 
         $password = $_POST['password'] ?? '';
         $confirm_password = $_POST['confirm_password'] ?? '';
-        $confirm_correct_password=true;
-        if ($password !== $confirm_password) {
-            $errors['password'] = 'Las contraseñas no coinciden.';
-            $errors['confirm_password'] = 'Las contraseñas no coinciden.';
+
+        if(empty($password) && empty($confirm_password)){
+            $password = null;
+            $confirm_password = null;
+        }else{
+            $passwordError = validatePassword($password, $confirm_password);
+            if ($passwordError !== null) {
+                $errors['password'] = $passwordError;
+                $errors['confirm_password'] = $passwordError;
+            }
         }
 
         if (empty($errors)) {
@@ -50,7 +56,6 @@
             }
 
             if (empty($errors)) {
-                
                 $query = "UPDATE USUARIO SET NICK = :nick, MAIL = :mail, F_NAC = :fecha_nacimiento";
                 $params = [
                     ':nick' => $nick,
@@ -59,16 +64,9 @@
                 ];
 
                 if (!empty($password)) {
-                    $passwordError = validatePassword($password, $confirm_password);
-                    if ($passwordError !== null) {
-                        $errors['password'] .= $passwordError;
-                        $confirm_correct_password= false;
-                        $_SESSION['fdsfds'] = $confirm_correct_password;
-                    } else {
-                        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-                        $query .= ", PWD = :pwd";
-                        $params[':pwd'] = $hashedPassword;
-                    }
+                    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+                    $query .= ", PWD = :pwd";
+                    $params[':pwd'] = $hashedPassword;
                 }
 
                 if ($avatarData !== null) {

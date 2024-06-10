@@ -2,18 +2,20 @@
 require 'common_functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $descripcion = $_POST['descripcion'];
-    $gancho = $_POST['gancho'];
-    $intro = $_POST['intro'];
-    $engage1 = $_POST['engage1'];
-    $setup = $_POST['setup'];
-    $engage2 = $_POST['engage2'];
-    $engage3 = $_POST['engage3'];
-    $climax = $_POST['climax'];
-    $bajada = $_POST['bajada'];
-    $desenlace = $_POST['desenlace'];
-    $thumbnail_url = $_POST['miniatura'];
-    $fecha = $_POST['fecha'];
+    $descripcion = $_POST['descripcion'] ?? '';
+    $gancho = $_POST['gancho'] ?? '';
+    $intro = $_POST['intro'] ?? '';
+    $engage1 = $_POST['engage1'] ?? '';
+    $setup = $_POST['setup'] ?? '';
+    $engage2 = $_POST['engage2'] ?? '';
+    $engage3 = $_POST['engage3'] ?? '';
+    $climax = $_POST['climax'] ?? '';
+    $bajada = $_POST['bajada'] ?? '';
+    $desenlace = $_POST['desenlace'] ?? '';
+    $thumbnail_url = $_POST['thumbnail_path'] ?? 'assets/thumbnails/1';
+    $fecha = $_POST['fecha'] == '' ? null : $_POST['fecha'];
+
+    var_dump($fecha);
 
     if(isset($_GET['id'])) {
         $id = $_GET['id'];
@@ -50,7 +52,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         if (executeQuery($query, $params)) {
-            redirect("calendar.php", ["success", "Los datos se han actualizado correctamente."]);
+            redirect("calendar.php", [
+                'title' => "success",
+                'text' => "Los datos se han actualizado correctamente.",
+                'position' => 'top-end',
+                'toast' => true,
+                'showConfirmButton' => false,
+                'timer' => 2000,
+                'timerProgressBar' => true
+            ]);
         } else {
             echo "Error al actualizar los datos.";
         }
@@ -58,4 +68,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "No se proporcionó un ID válido.";
     }
 }
-?>

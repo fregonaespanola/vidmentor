@@ -1,58 +1,57 @@
 <?php
-session_start();
-require_once 'common_functions.php';
+    require_once 'common_functions.php';
 
-$igstories_checked = "";
-$reels_clips_checked = "";
-$share_checked = "";
-$check_comments_checked = "";
-$check_ctr_checked = "";
-$change_thb_2_checked = "";
-$change_title_2_checked = "";
-$change_thb_3_checked = "";
-$change_title_3_checked = "";
-$change_thb_4_checked = "";
-$change_title_4_checked = "";
+    $igstories_checked = "";
+    $reels_clips_checked = "";
+    $share_checked = "";
+    $check_comments_checked = "";
+    $check_ctr_checked = "";
+    $change_thb_2_checked = "";
+    $change_title_2_checked = "";
+    $change_thb_3_checked = "";
+    $change_title_3_checked = "";
+    $change_thb_4_checked = "";
+    $change_title_4_checked = "";
 
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
+    if(isset($_GET['id'])) {
+        $id = $_GET['id'];
 
-    try {
-        $pdo = getDatabaseConnection();
+        try {
+            $pdo = getDatabaseConnection();
 
-        $stmt = $pdo->prepare("SELECT * FROM DETALLE WHERE ID = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
+            $stmt = $pdo->prepare("SELECT * FROM DETALLE WHERE ID = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
 
-        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          $igstories = $row['IG_STORIES'];
-          $reels_clips = $row['REEL_CLIPS'];
-          $share = $row['SHARE_SOCIAL_MEDIA'];
-          $check_comments = $row['CHECK_COMMENTS'];
-          $check_ctr = $row['CHECK_CTR'];
-          $change_thb_2 = $row['CHANGE_THUMBNAIL_2'];
-          $change_title_2 = $row['CHANGE_TITLE_2'];
-          $change_thb_3 = $row['CHANGE_THUMBNAIL_3'];
-          $change_title_3 = $row['CHANGE_TITLE_3'];
-          $change_thb_4 = $row['CHANGE_THUMBNAIL_4'];
-          $change_title_4 = $row['CHANGE_TITLE_4'];
+            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+              $igstories = $row['IG_STORIES'];
+              $reels_clips = $row['REEL_CLIPS'];
+              $share = $row['SHARE_SOCIAL_MEDIA'];
+              $check_comments = $row['CHECK_COMMENTS'];
+              $check_ctr = $row['CHECK_CTR'];
+              $change_thb_2 = $row['CHANGE_THUMBNAIL_2'];
+              $change_title_2 = $row['CHANGE_TITLE_2'];
+              $change_thb_3 = $row['CHANGE_THUMBNAIL_3'];
+              $change_title_3 = $row['CHANGE_TITLE_3'];
+              $change_thb_4 = $row['CHANGE_THUMBNAIL_4'];
+              $change_title_4 = $row['CHANGE_TITLE_4'];
 
-          $igstories_checked = $igstories == 1 ? "checked" : "";
-          $reels_clips_checked = $reels_clips == 1 ? "checked" : "";
-          $share_checked = $share == 1 ? "checked" : "";
-          $check_comments_checked = $check_comments == 1 ? "checked" : "";
-          $check_ctr_checked = $check_ctr == 1 ? "checked" : "";
-          $change_thb_2_checked = $change_thb_2 == 1 ? "checked" : "";
-          $change_title_2_checked = $change_title_2 == 1 ? "checked" : "";
-          $change_thb_3_checked = $change_thb_3 == 1 ? "checked" : "";
-          $change_title_3_checked = $change_title_3 == 1 ? "checked" : "";
-          $change_thb_4_checked = $change_thb_4 == 1 ? "checked" : "";
-          $change_title_4_checked = $change_title_4 == 1 ? "checked" : "";
-      }
-    } catch (PDOException $e) {
-        echo "Error al obtener los detalles del formulario: " . $e->getMessage();
+              $igstories_checked = $igstories == 1 ? "checked" : "";
+              $reels_clips_checked = $reels_clips == 1 ? "checked" : "";
+              $share_checked = $share == 1 ? "checked" : "";
+              $check_comments_checked = $check_comments == 1 ? "checked" : "";
+              $check_ctr_checked = $check_ctr == 1 ? "checked" : "";
+              $change_thb_2_checked = $change_thb_2 == 1 ? "checked" : "";
+              $change_title_2_checked = $change_title_2 == 1 ? "checked" : "";
+              $change_thb_3_checked = $change_thb_3 == 1 ? "checked" : "";
+              $change_title_3_checked = $change_title_3 == 1 ? "checked" : "";
+              $change_thb_4_checked = $change_thb_4 == 1 ? "checked" : "";
+              $change_title_4_checked = $change_title_4 == 1 ? "checked" : "";
+          }
+        } catch (PDOException $e) {
+            echo "Error al obtener los detalles del formulario: " . $e->getMessage();
+        }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="es">

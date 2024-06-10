@@ -19,8 +19,6 @@
 
 <body class="bg-gray-vidmentor-primary text-white flex flex-col min-h-screen">
     <?php require_once("header-dashboard.php"); ?>
-    <?php var_dump($_SESSION['fdsfds']);?>
-    <?php var_dump($errors);?>
     <div class="flex flex-grow">
         <?php require_once("sidebar-dashboard.php"); ?>
         <div class="flex-grow p-6">
@@ -84,5 +82,8 @@
     </div>
 </body>
 <script src="js/editProfile.js"></script>
-<?php require('insertSwal.php');?>
+<?php
+    require('insertSwal.php');
+    unset($_SESSION['errors']);
+?>
 </html>

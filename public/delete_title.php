@@ -1,7 +1,5 @@
 <?php
-session_start();
-
-require_once("common_functions.php");
+require('check_session.php');
 
 if(isset($_POST['id'])) {
     $id = $_POST['id'];

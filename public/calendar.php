@@ -1,11 +1,5 @@
 <?php
-    if(session_status() == PHP_SESSION_NONE){
-        session_start();
-    }
-
-    if(!isset($_SESSION['user'])){
-        $error = 'Necesitas autenticarte para acceder a esta página.';
-    }
+    require('check_session.php');
 ?>
 
 <!DOCTYPE html>
@@ -22,33 +16,21 @@
 <body class="bg-gray-vidmentor-primary flex flex-col min-h-screen">
 
 <?php
-    if(!isset($error)){
-        require_once('header-dashboard.php');
-        ?>
-
-        <div class="flex flex-grow">
-            <?php require_once('sidebar-dashboard.php'); ?>
-            <div class="ideas">
-                <div class='container mx-auto px-4'>
-                    <h2 class='text-4xl font-bold text-white mb-6 mt-4 text-center'>Ideas Guardadas</h2>
-                    <?php require_once('ideas_guardadas.php'); ?>
-                    <?php require_once('calendar_raw.php'); ?>
-                </div>
+    require_once('header-dashboard.php');
+?>
+    <div class="flex flex-grow">
+        <?php require_once('sidebar-dashboard.php'); ?>
+        <div class="ideas">
+            <div class='container mx-auto px-4'>
+                <h2 class='text-4xl font-bold text-white mb-6 mt-4 text-center'>Ideas Guardadas</h2>
+                <?php require_once('ideas_guardadas.php'); ?>
+                <?php require_once('calendar_raw.php'); ?>
             </div>
         </div>
-
-        <?php
-    }
-    else{
-        ?>
-        <div class="container mx-auto px-4 py-8">
-            <h2 class="text-3xl font-bold text-red-500 mb-4 text-center">Error</h2>
-            <p class="text-lg text-white text-center mb-4"><?php echo $error; ?></p>
-            <p class="text-lg text-white text-center"><a href="login.php" class="underline">Iniciar sesión</a></p>
-        </div>
-        <?php
-    }
-?>
+    </div>
+    <?php
+        require('insertSwal.php');
+    ?>
 
 <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
