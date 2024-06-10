@@ -1,5 +1,5 @@
 <?php
-    require_once 'common_functions.php';
+    require_once('common_functions.php');
 
     $igstories_checked = "";
     $reels_clips_checked = "";
@@ -58,7 +58,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulario de Tareas</title>
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -158,5 +158,8 @@
   <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="js/form_checkbox.js"></script>
+<?php
+    require_once('insertSwal.php');
+?>
 </body>
 </html>

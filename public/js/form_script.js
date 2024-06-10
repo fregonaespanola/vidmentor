@@ -42,7 +42,7 @@ $(document).ready(function() {
         'https://www.googleapis.com/youtube/v3/search', {
             part: 'snippet',
             q: searchQuery,
-            key: 'AIzaSyD8bPxnG_Rr0v5bIok4iu8xAnjtOGR_ZOM',
+            key: 'AIzaSyD8bPxnG_Rr0v5bIok4iu8xAnjtOGR_ZOM', //AIzaSyCQS3HJQlrBmya-PjT6qulDjIo7xOiP4kE
             maxResults: 3,
             type: 'video',
             videoDuration: 'long',
@@ -66,7 +66,7 @@ $(document).ready(function() {
                 let thumbnailUrl = item.snippet.thumbnails.default.url;
 
                 let thumbnailContainer = $('<div>').addClass('thumbnail-container flex flex-col items-center');
-                let thumbnailImage = $('<img>').attr('src', thumbnailUrl).addClass('thumbnail-image mb-2');
+                let thumbnailImage = $('<img>').attr('src', thumbnailUrl).addClass('thumbnail-image mb-2').attr('alt', title);
                 let radioButton = $('<input>').attr({
                     type: 'radio',
                     name: 'video',

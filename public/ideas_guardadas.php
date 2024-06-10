@@ -17,14 +17,36 @@
                 $stmt = executeQuery($query, $params);
 
                 if ($stmt) {
-                    echo "La fecha de la idea se ha actualizado correctamente.";
+                    redirect("calendar.php", [
+                        'title' => "success",
+                        'text' => "La fecha de la idea se ha actualizado correctamente.",
+                        'position' => 'top-end',
+                        'toast' => true,
+                        'showConfirmButton' => false,
+                        'timer' => 3000,
+                        'timerProgressBar' => true
+                    ]);
                 } else {
-                    echo "Error al actualizar la fecha de la idea.";
+                    redirect("calendar.php", [
+                        'title' => "error",
+                        'text' => "Error al actualizar la fecha de la idea.",
+                        'position' => 'top-end',
+                        'toast' => true,
+                        'showConfirmButton' => false,
+                        'timer' => 3000,
+                        'timerProgressBar' => true
+                    ]);
                 }
-                exit;
             } catch (PDOException $e) {
-                echo "Error al actualizar la fecha de la idea: " . $e->getMessage();
-                exit;
+                redirect("ideas.php", [
+                    'title' => "error",
+                    'text' => "Error al actualizar la fecha de la idea. Contacta con la administración.",
+                    'position' => 'top-end',
+                    'toast' => true,
+                    'showConfirmButton' => false,
+                    'timer' => 3000,
+                    'timerProgressBar' => true
+                ]);
             }
         }
 
@@ -33,8 +55,10 @@
             $params = [':usuario_id' => $usuario_id];
             $stmt = executeQuery($query, $params);
 
-
             echo "<div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>";
+            if ($stmt->rowCount() == 0) {
+                echo "<h2 class='text-white text-center w-full'>No tienes ideas guardadas :(</h2>";
+            }
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='bg-gray-vidmentor-secondary rounded-lg shadow-md p-4 flex flex-col justify-between h-full' draggable='true' ondragstart='drag(event)' id='" . $row['ID'] . "'>";
                 echo "<h3 class='text-white font-medium mb-4 flex-grow'>" . $row['NOMBRE'] . "</h3>";
@@ -47,8 +71,24 @@
             echo "</div>";
 
         } catch (PDOException $e) {
-            echo "Error al obtener los títulos de las ideas: " . $e->getMessage();
+            redirect('ideas.php', [
+                'title' => 'error',
+                'text' => 'Error al obtener los títulos de las ideas. Contacta con la administración.',
+                'position' => 'top-end',
+                'toast' => true,
+                'showConfirmButton' => false,
+                'timer' => 3000,
+                'timerProgressBar' => true
+            ]);
         }
     } else {
-        echo "El usuario no está autenticado.";
+        redirect('login.php', [
+            'title' => 'error',
+            'text' => 'Por favor, logueate para ver tus ideas guardadas.',
+            'position' => 'top-end',
+            'toast' => true,
+            'showConfirmButton' => false,
+            'timer' => 3000,
+            'timerProgressBar' => true
+        ]);
     }

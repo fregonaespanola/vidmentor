@@ -35,11 +35,35 @@
 
                 $stmt->execute();
 
-                redirect("calendar.php", ["success", "Datos actualizados correctamente"]);
+                redirect("calendar.php", [
+                    'title' => "success",
+                    'text' => "Los datos se han actualizado correctamente.",
+                    'position' => 'top-end',
+                    'toast' => true,
+                    'showConfirmButton' => false,
+                    'timer' => 3000,
+                    'timerProgressBar' => true
+                    ]);
             } catch (PDOException $e) {
-                echo "Error al actualizar los datos en la base de datos: " . $e->getMessage();
+                redirect("calendar.php", [
+                    'title' => "error",
+                    'text' => "Error al actualizar los datos. Contacta con la administración.",
+                    'position' => 'top-end',
+                    'toast' => true,
+                    'showConfirmButton' => false,
+                    'timer' => 3000,
+                    'timerProgressBar' => true
+                    ]);
             }
         } else {
-            echo "No se proporcionó un ID válido.";
+            redirect("calendar.php", [
+                'title' => "error",
+                'text' => "No se proporcionó un ID válido.",
+                'position' => 'top-end',
+                'toast' => true,
+                'showConfirmButton' => false,
+                'timer' => 3000,
+                'timerProgressBar' => true
+                ]);
         }
     }

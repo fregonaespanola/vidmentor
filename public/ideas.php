@@ -1,26 +1,39 @@
 <?php
-session_start();
-require_once('common_functions.php');
+    require('check_session.php');
 
-$pdo = getDatabaseConnection();
+    $pdo = getDatabaseConnection();
 
-try {
-    $usuario_id = $_SESSION['user']['ID'];
-    $query = "SELECT INTERES FROM USUARIO WHERE ID = :id";
-    $params = [':id' => $usuario_id];
-    $stmt = executeQuery($query, $params);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    try {
+        $usuario_id = $_SESSION['user']['ID'];
+        $query = "SELECT INTERES FROM USUARIO WHERE ID = :id";
+        $params = [':id' => $usuario_id];
+        $stmt = executeQuery($query, $params);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (empty($result['INTERES'])) {
-        header("Location: intereses.php");
-        exit();
-    } else {
-        $interes = $result['INTERES'];
+        if (empty($result['INTERES'])) {
+            redirect("intereses.php", [
+                'title' => "error",
+                'text' => "Debes seleccionar tus intereses antes de generar ideas.",
+                'position' => 'top-end',
+                'toast' => true,
+                'showConfirmButton' => false,
+                'timer' => 3000,
+                'timerProgressBar' => true
+            ]);
+        } else {
+            $interes = $result['INTERES'];
+        }
+    } catch (PDOException $e) {
+        redirect('ideas.php', [
+            'title' => 'error',
+            'text' => 'Error al obtener los intereses del usuario. Contacta con la administración.',
+            'position' => 'top-end',
+            'toast' => true,
+            'showConfirmButton' => false,
+            'timer' => 3000,
+            'timerProgressBar' => true
+        ]);
     }
-} catch (PDOException $e) {
-    echo "Error al conectarse a la base de datos: " . $e->getMessage();
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -50,13 +63,16 @@ try {
     </div>
 
     <script>
-        var userInterest = "<?php echo htmlspecialchars($interes); ?>";
+        let userInterest = "<?php echo htmlspecialchars($interes); ?>";
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/script.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <?php
+        require('insertSwal.php');
+    ?>
 </body>
-
 </html>

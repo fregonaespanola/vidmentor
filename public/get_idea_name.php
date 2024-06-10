@@ -19,5 +19,13 @@
 
         echo implode('|', $results);
     } catch (PDOException $e) {
-        echo 'Error al obtener los nombres de las ideas';
+        redirect("calendar.php", [
+            'title' => "error",
+            'text' => "Error al obtener los nombres de las ideas. Contacta con la administración.",
+            'position' => 'top-end',
+            'toast' => true,
+            'showConfirmButton' => false,
+            'timer' => 3000,
+            'timerProgressBar' => true
+        ]);
     }

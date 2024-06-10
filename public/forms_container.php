@@ -9,12 +9,26 @@
         $params = [':id' => $id, ':usuario_id' => $usuario_id];
         $stmt = executeQuery($query, $params);
         if ($stmt->rowCount() == 0) {
-            header("Location: calendar.php");
-            exit();
+            redirect("calendar.php", [
+                'title' => "error",
+                'text' => "No se han encontrado datos para el ID proporcionado.",
+                'position' => 'top-end',
+                'toast' => true,
+                'showConfirmButton' => false,
+                'timer' => 3000,
+                'timerProgressBar' => true
+            ]);
         }
     }else{
-        header("Location: calendar.php");
-        exit();
+        redirect("calendar.php", [
+            'title' => "error",
+            'text' => "No se proporcionó un ID válido.",
+            'position' => 'top-end',
+            'toast' => true,
+            'showConfirmButton' => false,
+            'timer' => 3000,
+            'timerProgressBar' => true
+        ]);
     }
 ?>
 

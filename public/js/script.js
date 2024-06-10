@@ -9,7 +9,7 @@ function search(query) {
             'https://www.googleapis.com/youtube/v3/search', {
                 part: 'snippet',
                 q: query,
-                key: 'AIzaSyD8bPxnG_Rr0v5bIok4iu8xAnjtOGR_ZOM',
+                key: 'AIzaSyD8bPxnG_Rr0v5bIok4iu8xAnjtOGR_ZOM', //AIzaSyCQS3HJQlrBmya-PjT6qulDjIo7xOiP4kE
                 maxResults: 10,
                 type: 'video',
                 videoDuration: 'long',
@@ -27,8 +27,7 @@ async function translateTitle(titleElement, title) {
     try {
         const response = await fetch(`https://api.mymemory.translated.net/get?q=${title}&langpair=en|es`);
         const data = await response.json();
-        const translatedTitle = data.responseData.translatedText;
-        titleElement.textContent = translatedTitle;
+        titleElement.textContent = data.responseData.translatedText;
     } catch (error) {
         console.error('Error translating title:', error);
     }
@@ -101,9 +100,30 @@ async function addTitleToDatabase(title, button) {
                     button.textContent = 'Añadir';
                     button.classList.remove('bg-red-vidmentor-secondary-2');
                 }, 1000);
+
+                Swal.fire({
+                    title: 'Título añadido',
+                    text: 'El título se ha añadido correctamente a la base de datos.',
+                    icon: 'success',
+                    position: 'top-end',
+                    toast: true,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
             },
             error: function (xhr, status, error) {
                 console.error('Error al añadir el título a la base de datos:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ha ocurrido un error al añadir el título a la base de datos. Contacta con la administración.',
+                    icon: 'error',
+                    timer: 3000,
+                    toast: true,
+                    position: 'top-end',
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
             }
         });
 

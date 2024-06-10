@@ -12,10 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $climax = $_POST['climax'] ?? '';
     $bajada = $_POST['bajada'] ?? '';
     $desenlace = $_POST['desenlace'] ?? '';
-    $thumbnail_url = $_POST['thumbnail_path'] ?? 'assets/thumbnails/1';
+    $thumbnail_url = $_POST['miniatura'];
     $fecha = $_POST['fecha'] == '' ? null : $_POST['fecha'];
-
-    var_dump($fecha);
 
     if(isset($_GET['id'])) {
         $id = $_GET['id'];
@@ -62,9 +60,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'timerProgressBar' => true
             ]);
         } else {
-            echo "Error al actualizar los datos.";
+            redirect('calendar.php', [
+                'title' => 'error',
+                'text' => 'Error al actualizar los datos. Contacta con la administración.',
+                'position' => 'top-end',
+                'toast' => true,
+                'showConfirmButton' => false,
+                'timer' => 2000,
+                'timerProgressBar' => true
+            ]);
         }
     } else {
-        echo "No se proporcionó un ID válido.";
+        redirect('calendar.php', [
+            'title' => 'error',
+            'text' => 'No se proporcionó un ID válido.',
+            'position' => 'top-end',
+            'toast' => true,
+            'showConfirmButton' => false,
+            'timer' => 2000,
+            'timerProgressBar' => true
+        ]);
     }
 }
